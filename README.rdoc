@@ -1,3 +1,15 @@
 = yogoshu
 
 A simple multilingual glossary in Ruby on Rails.
+
+== Installing
+
+== Requirements
+
+== Getting Started
+
+== Configuration Options
+
+== Copyright
+
+Copyright (c) 2011 Chris Salzberg. See MIT-LICENSE for details.
