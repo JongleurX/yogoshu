@@ -1,1 +1,3 @@
 = yogoshu
+
+A simple multilingual glossary in Ruby on Rails.
