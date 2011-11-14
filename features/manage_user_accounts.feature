@@ -16,7 +16,7 @@ Feature: Manage user accounts
     And I should see a notice indicating that the new user has been created
 
   Scenario: User already exists
-    When I add a user that already existss
+    When I add a user that already exists
     Then I should be told that the user already exists
     And no new user should be added
 

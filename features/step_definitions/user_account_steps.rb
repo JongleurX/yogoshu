@@ -29,3 +29,27 @@ end
 Then /^I should see a notice indicating that the new user has been created$/ do
   pending
 end
+
+When /^I add a user that already exists$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then /^I should be told that the user already exists$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then /^no new user should be added$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+When /^I delete a user$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then /^I should be prompted for the user name$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then /^the user account should be deleted$/ do
+  pending # express the regexp above with the code you wish you had
+end
