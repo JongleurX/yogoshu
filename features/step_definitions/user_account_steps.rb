@@ -4,6 +4,14 @@ Given /^the following users:$/ do |table|
   end
 end
 
+Given /^I am logged in$/ do
+  @user = Factory(:user)
+  visit login_path
+  fill_in('User name', :with => @user.name)
+  fill_in('Password', :with => @user.password)
+  click_button('Login')
+end
+
 Given /^I am logged in as "([^"]*)"$/ do |name|
   @user = User.find_by_name(name)
   visit login_path

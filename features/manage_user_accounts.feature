@@ -10,7 +10,7 @@ Feature: Manage user accounts
       | susan | secret   | admin |
 
   Scenario: List users
-    Given I am logged in as "jens"
+    Given I am logged in
     When I go to the list of users
     Then I should see "jens"
     And I should see "susan"
