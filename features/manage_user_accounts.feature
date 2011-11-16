@@ -1,26 +1,44 @@
 Feature: Manage user accounts
-  As the glossary manager
+  As a glossary user
   I want to manage user accounts
-  So that other users can help add entries to the glossary
+  So that I can help add entries to the glossary
 
   Background:
-    Given a logged in administrator user
+    Given the following users:
+      | name  | password | role  |
+      | jens  | secret   | user  |
+      | susan | secret   | admin |
 
-  Scenario: Create new user account
-    When I try to add a new user
-    Then I should be prompted for the new user name and password
+  Scenario: List users
+    Given I am logged in as "jens"
+    When I go to the list of users
+    Then I should see "jens"
+    And I should see "susan"
 
   Scenario: Successful user create
-    When I add a user that does not yet exist
-    Then I should see the page for the newly created user
-    And I should see a notice indicating that the new user has been created
+    Given I am logged in as "susan"
+    And I am on the homepage
+    When I follow "Add a new user"
+    And I fill in the name "frank" and a password
+    And I click submit
+    Then I should see frank's profile page
+    And I should be notified that a new user "frank" has been created
+    And there should be 3 users
 
   Scenario: User already exists
-    When I add a user that already exists
-    Then I should be told that the user already exists
-    And no new user should be added
+    Given I am logged in as "susan"
+    And I am on the homepage
+    When I follow "Add a new user"
+    And I fill in the name "jens" and a password
+    And I click submit
+    Then I should see jens' profile page
+    And I should see a notice that the user "jens" already exists
+    And there should be only 2 users
 
-  Scenario: Delete user account
-    When I delete a user
-    Then I should be prompted for the user name
-    And the user account should be deleted
+  Scenario: Successful delete user account
+    Given I am logged in as "susan"
+    And I am on jens' profile page
+    When I click "delete user"
+    Then I should be asked to confirm the delete
+    And jens' account should be deleted
+    And there should be only 1 user

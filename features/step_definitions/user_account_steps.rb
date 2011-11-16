@@ -1,13 +1,26 @@
-Given /^a logged in administrator user$/ do
-  @admin_user = User.create!(:name => "admin", :password => "abcde", :status => :admin)
+Given /^the following users:$/ do |table|
+  table.hashes.each do |hash|
+    Factory(:user, hash)
+  end
+end
+
+Given /^I am logged in as "([^"]*)"$/ do |name|
+  @user = User.find_by_name(name)
   visit login_path
-  fill_in('User name', :with => @admin_user.name)
-  fill_in('Password', :with => @admin_user.password)
+  fill_in('User name', :with => @user.name)
+  fill_in('Password', :with => @user.password)
   click_button('Login')
 end
 
-When /^I try to add a new user$/ do
-  visit homepage_path
+When /^I go to the list of users$/ do
+  visit users_path
+end
+
+Then /^I should see "([^"]*)"$/ do |text|
+  response.should have_content(text)
+end
+
+When /^I click to add a new user$/ do
   click_link "Add user"
 end
 
