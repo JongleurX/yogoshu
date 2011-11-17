@@ -12,6 +12,22 @@ Given /^I am logged in$/ do
   click_button('Login')
 end
 
+When /^I go to any page$/ do
+  pending
+end
+
+Then /^I should see a navigation bar$/ do
+  pending
+end
+
+Then /^the navigation bar should have a link to my profile$/ do
+  pending
+end
+
+Then /^the navigation bar should have a link to the most recent glossary entries I have contributed$/ do
+  pending
+end
+
 Given /^I am logged in as "([^"]*)"$/ do |name|
   @user = User.find_by_name(name)
   visit login_path
@@ -21,56 +37,69 @@ Given /^I am logged in as "([^"]*)"$/ do |name|
 end
 
 When /^I go to the list of users$/ do
-  visit users_path
+  visit homepage_path
+  click_link('Users')
 end
 
 Then /^I should see "([^"]*)"$/ do |text|
-  response.should have_content(text)
+  page.should have_content(text)
 end
 
-When /^I click to add a new user$/ do
+Then /^I should see a link to (.+)'s? profile$/ do |name|
+  @user = User.find_by_name(name)
+  page.should have_link(@user.name, :href => user_path(@user))
+end
+
+When /^I add a new user "([^"]*)"(?: with password "|)([^"]*)(?:"|)$/ do |name,password|
+  visit homepage_path
   click_link "Add user"
+  fill_in('User name', :with => name)
+  fill_in('Password', :with => password || "secret")
+  click_button('Submit')
 end
 
-Then /^I should be prompted for the new user name and password$/ do
-  response.should have_field('User name')
-  response.should have_field('Password')
+Then /^I should see (.+)'s? profile page$/ do |name|
+  @user = User.find_by_name(name)
+  @user.should_not be_nil
+  uri = URI.parse(current_url)
+  uri.path.should == user_path(@user)
 end
 
-When /^I add a user that does not yet exist$/ do
-  fill_in('User name', :with => "alice")
-  fill_in('Password', :with => "abcdef")
-  click_button('Add')
+Then /^I should see an? (error|notice) message: "([^"]*)"$/ do |msg_type,message|
+  page.should have_css(".#{msg_type}", :text => message)
 end
 
-Then /^I should see the page for the newly created user$/ do
-  pending
+Then /^user "([^"]*)" with password "([^"]*)" should exist$/ do |name,password|
+  @user = User.find_by_name(name)
+  @user.should_not be_nil
+  @user.authenticated?(password).should == true
 end
 
-Then /^I should see a notice indicating that the new user has been created$/ do
-  pending
+Then /^there should be (?:only |)(\d+) users$/ do |count|
+  User.count.should == count.to_i
 end
 
-When /^I add a user that already exists$/ do
+Then /^I should see the new user page$/ do
+  page.should have_css('h1',:content => "Add a new user")
+end
+
+Given /^I am on (.+)'s? profile page$/ do |name|
+  @user = User.find_by_name(name)
+  visit user_path(@user)
+end
+
+When /^I click "([^"]*)"$/ do |arg1|
   pending # express the regexp above with the code you wish you had
 end
 
-Then /^I should be told that the user already exists$/ do
+Then /^I should be asked to confirm the delete$/ do
   pending # express the regexp above with the code you wish you had
 end
 
-Then /^no new user should be added$/ do
+Then /^(.+)'s? account should be deleted$/ do
   pending # express the regexp above with the code you wish you had
 end
 
-When /^I delete a user$/ do
-  pending # express the regexp above with the code you wish you had
-end
-
-Then /^I should be prompted for the user name$/ do
-  pending # express the regexp above with the code you wish you had
-end
-
-Then /^the user account should be deleted$/ do
+Then /^there should be only (\d+) user$/ do |arg1|
   pending # express the regexp above with the code you wish you had
 end

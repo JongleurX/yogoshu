@@ -1,0 +1,6 @@
+%h1 User profile
+
+- if flash[:message]
+  .notice
+    = flash[:message]
+= @user.name
