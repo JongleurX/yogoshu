@@ -7,6 +7,7 @@ Feature: Manage my account
     Given the following users:
       | name | role        |
       | jens | contributor |
+    And that I am logged in as "jens"
 
   Scenario: List my submissions
 
