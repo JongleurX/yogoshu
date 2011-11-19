@@ -80,7 +80,7 @@ Then /^there should be (?:only |)(\d+) users$/ do |count|
 end
 
 Then /^I should see the new user page$/ do
-  page.should have_css('h1',:content => "Add a new user")
+  page.should have_css('legend',:content => "Add a new user")
 end
 
 Given /^I am on (.+)'s? profile page$/ do |name|

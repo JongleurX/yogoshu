@@ -7,6 +7,8 @@ gem 'rails', '3.1.0'
 
 gem 'sqlite3'
 gem 'haml'
+gem 'twitter-bootstrap-rails'
+gem 'twitter_bootstrap_form_for'
 
 # Gems used only for assets and not required
 # in production environments by default.

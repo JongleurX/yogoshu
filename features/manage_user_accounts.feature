@@ -25,7 +25,7 @@ Feature: Manage user accounts
   Scenario: User already exists
     When I add a new user "jens"
     Then I should see the new user page
-    And I should see an error message: "Name has already been taken." 
+    And I should see an error message: "Name has already been taken" 
     And there should be only 2 users
 
   Scenario: Successful delete user account
