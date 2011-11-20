@@ -7,7 +7,7 @@ Feature: Manage user accounts
     Given the following users:
       | name  | password | role         |
       | jens  | secret   | contributor  |
-      | susan | secret   | admin        |
+      | susan | secret   | manager      |
     And that I am logged in as "susan"
 
   Scenario: List users
@@ -22,12 +22,14 @@ Feature: Manage user accounts
     And user "frank" with password "secret" should exist
     And there should be 3 users
 
+  @wip
   Scenario: User already exists
     When I add a new user "jens"
     Then I should see the new user page
     And I should see an error message: "Name has already been taken" 
     And there should be only 2 users
 
+  @wip
   Scenario: Successful delete user account
     Given I am on jens' profile page
     When I click "delete user"

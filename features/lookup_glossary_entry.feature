@@ -5,12 +5,23 @@ Feature: Lookup glossary entry
 
   Background:
     Given the following users:
-      | name | role        |
-      | jens | contributor |
+      | name   | role        |
+      | yunike | user        |
+      | jens   | contributor |
+      | susan  | manager     |
+    And a glossary in Japanese and English indexed in Japanese
     And the following glossary entries:
-      | :en   | :ja    | user | note                       | approved? |
-      | apple | りんご | jens | Is there a kanji for this? | yes       |
+      | English | Japanese | user | note                       | approved? | approved_by |
+      | apple   | りんご   | jens | Is there a kanji for this? | yes       | susan       |
+      | orange  | オレンジ | jens |                            | no        |             |
+      | banana  | バナナ   | jens | Help translate this!       | no        |             |
 
-  Scenario: Search term found
+  Scenario: Glossary user finds approved entry searching in Japanese
 
-  Scenario: Search term not found
+  Scenario: Glossary user finds approved entry searching in English
+
+  Scenario: Glossary user fails to find unapproved entry
+
+  Scenario: Glossary user fails to find non-existent entry
+
+  Scenario: Glossary contributor searches for untranslated entries
