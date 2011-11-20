@@ -1,7 +1,7 @@
 Feature: Approve glossary entries
   As a glossary manager
   I want to approve glossary entries
-  So that I can share them with all glossary useres
+  So that I can share them with all glossary users
 
   Background:
     Given the following users:
