@@ -17,6 +17,14 @@ class User < ActiveRecord::Base
     user = User.find_by_name(name)
   end
 
+  def self.current_user=(user)
+    Thread.current[:yogoshu_current_user] = user
+  end
+
+  def self.current_user
+    Thread.current[:yogoshu_current_user]
+  end
+
   # encrypts given password using salt
   def self.encrypt(pass, salt)
     Digest::SHA1.hexdigest("--#{salt}--#{pass}--")

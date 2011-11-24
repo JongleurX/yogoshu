@@ -1,10 +1,10 @@
 Then /^I should see a navigation bar$/ do
-  page.should have_selector("nav")
+  page.should have_selector(".nav")
 end
 
 Then /^the navigation bar should have a link to my profile$/ do
-  within 'nav' do
-    page.should have_selector('a', :href => user_path(@current_user), :content => "Profile")
+  within '.nav' do
+    page.should have_selector('a', :href => user_path(@user), :text => "Profile")
   end
 end
 

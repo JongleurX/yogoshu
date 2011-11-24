@@ -1,5 +1,5 @@
 = twitter_bootstrap_form_for @user, :url => login_path do |user|
-  = user.text_field :name
-  = user.password_field :password
+  = user.text_field :name, 'User name'
+  = user.password_field :password, 'Password'
   = user.actions do
     = user.submit 'Login'

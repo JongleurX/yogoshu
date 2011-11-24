@@ -48,4 +48,7 @@ describe SessionsController do
 
   end
 
+  describe "logout" do
+  end
+
 end
