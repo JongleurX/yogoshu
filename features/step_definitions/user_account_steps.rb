@@ -12,22 +12,6 @@ Given /^(?:that |)I am logged in$/ do
   click_button('Login')
 end
 
-When /^I go to any page$/ do
-  pending
-end
-
-Then /^I should see a navigation bar$/ do
-  pending
-end
-
-Then /^the navigation bar should have a link to my profile$/ do
-  pending
-end
-
-Then /^the navigation bar should have a link to the most recent glossary entries I have contributed$/ do
-  pending
-end
-
 Given /^(?:that |)I am logged in as "([^"]*)"$/ do |name|
   @user = User.find_by_name(name)
   visit login_path
@@ -39,6 +23,10 @@ end
 When /^I go to the list of users$/ do
   visit homepage_path
   click_link('Users')
+end
+
+When /^I go to the homepage$/ do
+  visit homepage_path
 end
 
 Then /^I should see "([^"]*)"$/ do |text|
