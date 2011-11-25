@@ -49,6 +49,29 @@ describe SessionsController do
   end
 
   describe "logout" do
+    before do
+      post :create, :user => { :name => @user.name, :password => @user.password }
+      #visit login_path
+      #save_and_open_page
+      #fill_in('User name', :with => @user.name)
+      #fill_in('Password', :with => @user.password)
+      #click_button('Login')
+    end
+
+    pending "should unset the session cookie" do
+      visit logout_path
+      session[:user].should be_nil
+    end
+
+    pending "should unassign @current_user" do
+      visit logout_path
+      assigns(:current_user).should be_nil
+    end
+
+    it "should redirect to the homepage" do
+      response.should redirect_to(homepage_path)
+    end
+
   end
 
 end

@@ -4,7 +4,9 @@ class User < ActiveRecord::Base
   attr_accessor :password
 
   # sexy validation
-  validates :name, :uniqueness => { :message => "has already been taken." }
+  validates :name, :uniqueness => { :message => "has already been taken." }, :presence => true
+  validates :password, :confirmation => true, :length => { :minimum => 1 }, :if => :password_required?
+  validates :password_confirmation, :presence => true, :if => :password_required?
 
   # encrypt password
   before_save :encrypt_password
@@ -44,5 +46,10 @@ class User < ActiveRecord::Base
     end
     self.encrypted_password = User.encrypt(password, salt)
   end
+
+  #   no encrypted password yet OR password attribute is set
+  def password_required?
+    encrypted_password.blank? || !password.blank?
+  end  
 
 end

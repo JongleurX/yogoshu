@@ -12,6 +12,7 @@ Yogoshu::Application.routes.draw do
 
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
+  match 'logout', :to => 'sessions#destroy', :as => 'logout'
 
   get 'homepage' => 'homepage#index'
 
@@ -55,7 +56,7 @@ Yogoshu::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'homepage#index'
 
   # See how all your routes lay out with "rake routes"
 

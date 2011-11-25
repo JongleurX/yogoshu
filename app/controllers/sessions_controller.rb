@@ -14,4 +14,9 @@ class SessionsController < ApplicationController
     redirect_to homepage_path
   end
 
+  def destroy
+    reset_session
+    redirect_to homepage_path
+  end
+
 end

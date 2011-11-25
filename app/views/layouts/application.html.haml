@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-    %title My App
+    %title Yogoshu
     = stylesheet_link_tag :application
     = javascript_include_tag :application
     = csrf_meta_tags
@@ -11,11 +11,21 @@
         .topbar-inner
           .container
             %h3
-              = link_to Yogoshu, '#'
+              = link_to Yogoshu, homepage_path
             %ul.nav
-              %li= link_to "Home", homepage_path
-              - if logged_in?
+              %li= link_to "About", '#'
+              %li= link_to "Contact", '#'
+            - if logged_in?
+              %ul.nav.secondary-nav
                 %li= link_to "Profile", user_path(@current_user)
-    - flash.each do |name, msg|
-      = content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String)
-    = yield
+                %li= link_to "Logout", logout_path
+            - else
+              = form_tag login_path, :method => :post, :class => "pull-right" do
+                = text_field :user, :name, { :class => "input-small", :placeholder => "Username" }
+                = password_field :user, :password, { :class => "input-small", :placeholder => "Password" }
+                = button_tag 'Login', :class => "btn"
+    .container
+      .content
+        - flash.each do |name, msg|
+          = content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String)
+        = yield

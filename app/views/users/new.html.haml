@@ -3,6 +3,7 @@
   = user.inputs 'Add a new user' do
     = user.text_field :name, 'User name'
     = user.password_field :password, 'Password'
+    = user.password_field :password_confirmation, 'Confirm password'
 
   = user.actions do
     = user.submit 'Submit'

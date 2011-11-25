@@ -1,2 +1,6 @@
-= link_to "Add user", new_user_path
-= link_to "Users", users_path
+- if logged_in?
+  = link_to "Add user", new_user_path
+  = link_to "Users", users_path
+- else
+  .row
+    .span14

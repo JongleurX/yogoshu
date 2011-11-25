@@ -43,6 +43,7 @@ When /^I add a new user "([^"]*)"(?: with password "|)([^"]*)(?:"|)$/ do |name,p
   click_link "Add user"
   fill_in('User name', :with => name)
   fill_in('Password', :with => password || "secret")
+  fill_in('Confirm password', :with => password || "secret")
   click_button('Submit')
 end
 
