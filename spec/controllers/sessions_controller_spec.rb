@@ -23,7 +23,10 @@ describe SessionsController do
       response.should redirect_to(homepage_path)
     end
 
-    it "should notify the user that they have successfully logged in"
+    it "should welcome the user back" do
+      flash[:success].should include "Welcome back #{@user.name}!"
+    end
+
   end
 
   describe "unsuccessful login" do
@@ -44,32 +47,41 @@ describe SessionsController do
       response.should render_template('new')
     end
 
-    it "should return an error message"
+    it "should return an error message" do
+      flash[:error].should == "Username or password incorrect. Please try again."
+    end
 
   end
 
   describe "logout" do
     before do
-      post :create, :user => { :name => @user.name, :password => @user.password }
+      # not sure why capybara is not working here
       #visit login_path
       #save_and_open_page
       #fill_in('User name', :with => @user.name)
       #fill_in('Password', :with => @user.password)
       #click_button('Login')
+      #visit logout_path
+
+      # this is a temporary fix, but the above code would be better
+      post :create, :user => { :name => @user.name, :password => @user.password }
+      post :destroy
     end
 
-    pending "should unset the session cookie" do
-      visit logout_path
+    it "should unset the session cookie" do
       session[:user].should be_nil
     end
 
-    pending "should unassign @current_user" do
-      visit logout_path
-      assigns(:current_user).should be_nil
+    it "should not set @current_user" do
+      @current_user.should be_nil
     end
 
     it "should redirect to the homepage" do
       response.should redirect_to(homepage_path)
+    end
+
+    it "should alert the user that they are logged out" do
+      flash[:success].should include("logged out")
     end
 
   end

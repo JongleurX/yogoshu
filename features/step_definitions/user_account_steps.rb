@@ -77,6 +77,10 @@ Given /^I am on (.+)'s? profile page$/ do |name|
   visit user_path(@user)
 end
 
+Given /^I am on the login page$/ do
+  visit login_path
+end
+
 When /^I click "([^"]*)"$/ do |arg1|
   pending # express the regexp above with the code you wish you had
 end

@@ -1,5 +1,11 @@
-= twitter_bootstrap_form_for @user, :url => login_path do |user|
-  = user.text_field :name, 'User name'
-  = user.password_field :password, 'Password'
-  = user.actions do
-    = user.submit 'Login'
+.page-header
+  %h1
+    Login
+.row
+  .span16
+    = twitter_bootstrap_form_for @user, :url => login_path do |user|
+      = user.text_field :name, 'User name'
+      = user.password_field :password, 'Password'
+      = user.actions do
+        = user.submit 'Login'
+        = button_tag 'Cancel', :type => 'reset', :class => 'btn'

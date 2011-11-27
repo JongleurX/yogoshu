@@ -8,7 +8,9 @@ class SessionsController < ApplicationController
     @current_user = User.authenticate(params[:user][:name], params[:user][:password])
     if @current_user
       session[:user] = @current_user.name
+      flash[:success] = "You've successfully logged in. Welcome back #{@current_user.name}!"
     else
+      flash.now[:error] = "Username or password incorrect. Please try again."
       render 'new' and return
     end
     redirect_to homepage_path
@@ -16,6 +18,7 @@ class SessionsController < ApplicationController
 
   def destroy
     reset_session
+    flash[:success] = "You've successfully logged out."
     redirect_to homepage_path
   end
 
