@@ -11,7 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111116084042) do
+ActiveRecord::Schema.define(:version => 20111127071357) do
+
+  create_table "entries", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "note"
+    t.boolean  "approved"
+    t.string   "source_language", :limit => 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "entry_translations", :force => true do |t|
+    t.integer  "entry_id"
+    t.string   "locale"
+    t.string   "term"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "entry_translations", ["entry_id"], :name => "index_entry_translations_on_entry_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"

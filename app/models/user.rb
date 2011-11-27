@@ -3,6 +3,9 @@ class User < ActiveRecord::Base
   # unencrypted password
   attr_accessor :password
 
+  # associations
+  has_many :entries
+
   # sexy validation
   validates :name, :uniqueness => { :message => "has already been taken." }, :presence => true
   validates :password, :confirmation => true, :length => { :minimum => 1 }, :if => :password_required?

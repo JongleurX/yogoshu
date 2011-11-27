@@ -1,6 +1,18 @@
-- if logged_in?
-  = link_to "Add user", new_user_path
-  = link_to "Users", users_path
-- else
-  .row
-    .span14
+.row
+  .span8.offset4
+    .search-box
+      %h1 Search glossary
+      = form_tag homepage_path, :method => :post do
+        = text_field :entry, :term, :class => "xlarge"
+      .clearfix
+        -#%label Languages
+        -#.input
+        -#  %ul.inputs-list
+        -#%li
+        -#  = check_box(:language, :en)
+        -#%li
+        -#  = check_box(:language, :ja)
+
+      - if logged_in?
+        = link_to "Add user", new_user_path
+        = link_to "Users", users_path
