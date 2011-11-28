@@ -10,23 +10,25 @@ describe User do
 
       before { subject.password = subject.password_confirmation = 'abcdefg' }
 
-      it("should be invalid without name") do
+      it "should be invalid without name" do
         subject.should_not be_valid
       end
 
-      it("should be valid with a name given") do
+      it "should be valid with a name given" do
         subject.name = 'bob'
         subject.should be_valid
       end
 
       before { Factory(:user, :name => "alice") }
 
-      it("should be invalid with name already taken") do
+      it "should be invalid with name already taken" do
         subject.name = 'alice'
         subject.should_not be_valid
         subject.name = 'bob'
         subject.should be_valid
       end
+
+      it "should be invalid without a role"
 
     end
 
