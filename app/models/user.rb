@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   validates :name, :uniqueness => { :message => "has already been taken." }, :presence => true
   validates :password, :confirmation => true, :length => { :minimum => 4 }, :if => :password_required?
   validates :password_confirmation, :presence => true, :if => :password_required?
-  validates :role, :presence => true, :inclusion => { :in => (0..(ROLES.length-1)), :message => "Not a valid role." }
+  validates :role, :presence => true, :inclusion => { :in => (0..(ROLES.length-1)) }
 
   # encrypt password
   before_save :encrypt_password
