@@ -16,7 +16,7 @@ class UsersController < ApplicationController
       @current_user = @user
       session[:user] = @user.name
 
-      flash[:message] = "User #{@user.name} has been created."
+      flash[:success] = "User #{@user.name} has been created."
       redirect_to @current_user
     else
       render "new"
