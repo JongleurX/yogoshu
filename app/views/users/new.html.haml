@@ -4,6 +4,10 @@
     = user.text_field :name, 'User name'
     = user.password_field :password, 'Password'
     = user.password_field :password_confirmation, 'Confirm password'
+    .user_role_input.clearfix
+      = label_tag 'user[role]', 'Role'
+      .input
+        = select_tag 'user[role]', options_for_select([['Manager', 1], ['Contributor', 2]]), :class => 'normalSelect'
 
   = user.actions do
     = user.submit 'Submit'
