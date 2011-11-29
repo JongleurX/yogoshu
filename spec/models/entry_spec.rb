@@ -10,7 +10,7 @@ describe Entry do
   describe "validation with factory" do
     
     before do
-      @entry = Factory(:glossary_entry_en)
+      @entry = Factory(:entry_en)
     end
 
     subject { @entry }

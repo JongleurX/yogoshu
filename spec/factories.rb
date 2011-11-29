@@ -11,10 +11,10 @@ Factory.define :alice, :class => User do |u|
   u.name 'alice'
   u.password 'wonderland'
   u.password_confirmation 'wonderland'
-  u.role "contributor"
+  u.role 1 # ROLES[1] = "contributor"
 end
 
-Factory.define :glossary_entry_en, :class => Entry do |f|
+Factory.define :entry_en, :class => Entry do |f|
   f.source_language 'en'
   Globalize.with_locale(:en) do
     f.sequence(:term) { |n| "entry#{n}" }

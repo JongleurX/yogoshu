@@ -2,24 +2,25 @@ require 'spec_helper'
 
 describe User do
 
-  describe "validation" do
+  describe "validation with factory" do
 
-    subject { User.new }
+    before do
+      @user = Factory(:user)
+      Factory(:user, :name => "alice")
+    end
 
-    describe "should have name" do 
+    subject { @user }
 
-      before { subject.password = subject.password_confirmation = 'abcdefg' }
+    describe "user attributes" do
 
-      it "should be invalid without name" do
-        subject.should_not be_valid
+      it "should be valid created by factory" do
+        should be_valid
       end
 
-      it "should be valid with a name given" do
-        subject.name = 'bob'
-        subject.should be_valid
+      it "should be invalid without a name" do
+        subject.name = nil
+        should_not be_valid
       end
-
-      before { Factory(:user, :name => "alice") }
 
       it "should be invalid with name already taken" do
         subject.name = 'alice'
@@ -28,39 +29,53 @@ describe User do
         subject.should be_valid
       end
 
-      it "should be invalid without a role"
+      it "should be invalid without a role" do
+        subject.role = nil
+        should be_invalid
+      end
+
+      it "should be invalid with an invalid role" do
+        subject.role = 999 
+        should be_invalid
+        subject.role = User::ROLES.length
+        should be_invalid
+      end
 
     end
 
-    describe "should have password" do 
+    describe "password" do
 
-      before { subject.name = 'bob' }
+      before do
+        # build does not save the record, which is important for testing passwords
+        @user = Factory.build(:user, :password => nil, :password_confirmation => nil)
+      end
 
-      it("should be invalid without password") do
+      it "should be invalid without a password" do
         subject.should_not be_valid
       end
 
-      it("should be invalid without password confirmation matched") do
+      it "should be valid with a matching password and confirmation password" do
+        subject.password = 'abcdefg'
+        subject.password_confirmation = 'abcdefg'
+        subject.should be_valid
+      end
+
+      it "should be invalid without password confirmation matched" do
         subject.password = 'abcdefg'
         subject.password_confirmation = 'abcdef'
         subject.should_not be_valid
       end
 
-      it("should be invalid with an empty password") do
-        subject.password = subject.password_confirmation = ''
+      it "should be invalid with a short password" do
+        subject.password = subject.password_confirmation = 'abc'
         subject.should_not be_valid
       end
 
-      it("should be invalid with nil password confirmation") do
+      it "should be invalid with nil password confirmation" do
         subject.password = 'abcdefg'
         subject.should_not be_valid
       end
-
-      it("should be valid with a proper password") do
-        subject.password = subject.password_confirmation = 'abcdefg'
-        subject.should be_valid
-      end
-
+      
     end
 
   end
