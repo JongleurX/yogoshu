@@ -8,7 +8,7 @@ Feature: Manage user accounts
       | name  | password | role         |
       | jens  | secret   | contributor  |
       | susan | secret   | manager      |
-    And that I am logged in as "susan"
+    And I am logged in as "susan"
 
   Scenario: List users
     When I go to the list of users
@@ -16,10 +16,10 @@ Feature: Manage user accounts
     And I should see a link to susan's profile
 
   Scenario: Successful user create
-    When I add a new user "frank" with password "secret"
+    When I add a new user "frank" with password "secret" and role "contributor"
     Then I should see frank's profile page
     And I should see a notice message: "User frank has been created."
-    And user "frank" with password "secret" should exist
+    And user "frank" with password "secret" and role "contributor" should exist
     And there should be 3 users
 
   @wip

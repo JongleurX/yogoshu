@@ -9,10 +9,10 @@ class User < ActiveRecord::Base
   has_many :entries
 
   # sexy validation
-  validates :name, :uniqueness => { :message => "has already been taken." }, :presence => true
-  validates :password, :confirmation => true, :length => { :minimum => 4 }, :if => :password_required?
+  validates :name, :uniqueness => { :message => "has already been taken." }, :presence => true, :format => /^[A-Za-z\d_]+$/
+  validates :password, :confirmation => true, :length => { :within => (4..40) }, :if => :password_required?
   validates :password_confirmation, :presence => true, :if => :password_required?
-  validates :role, :presence => true, :inclusion => { :in => (0..(ROLES.length-1)) }
+  validates :role, :presence => true, :inclusion => ROLES
 
   # encrypt password
   before_save :encrypt_password

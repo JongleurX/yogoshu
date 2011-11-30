@@ -11,7 +11,7 @@ Factory.define :alice, :class => User do |u|
   u.name 'alice'
   u.password 'wonderland'
   u.password_confirmation 'wonderland'
-  u.role 1 # ROLES[1] = "contributor"
+  u.role "contributor"
 end
 
 Factory.define :entry_en, :class => Entry do |f|

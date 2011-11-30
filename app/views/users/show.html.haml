@@ -1,6 +1,18 @@
-%h1 User profile
+- title @user.name
+.page-header
+  %h1 User profile
 
-- if flash[:message]
-  .notice
-    = flash[:message]
-= @user.name
+%table.bordered-table
+  %tbody
+    %tr
+      %th User name
+      %td= @user.name
+    %tr
+      %th Role
+      %td= @user.role.capitalize
+    %tr
+      %th Glossary entries added
+      %td= @user.entries.length
+    %tr
+      %th Registered on
+      %td= @user.created_at.strftime('%B %d, %Y @ %l:%M %p')

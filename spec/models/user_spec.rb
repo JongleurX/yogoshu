@@ -29,15 +29,18 @@ describe User do
         subject.should be_valid
       end
 
+      it "should be invalid with an invalid name string" do
+        subject.name = "-x**000"
+        subject.should_not be_valid
+      end
+
       it "should be invalid without a role" do
         subject.role = nil
         should be_invalid
       end
 
       it "should be invalid with an invalid role" do
-        subject.role = 999 
-        should be_invalid
-        subject.role = User::ROLES.length
+        subject.role = "abc"
         should be_invalid
       end
 
@@ -68,6 +71,11 @@ describe User do
 
       it "should be invalid with a short password" do
         subject.password = subject.password_confirmation = 'abc'
+        subject.should_not be_valid
+      end
+
+      it "should be invalid with a long password" do
+        subject.password = subject.password_confirmation = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
         subject.should_not be_valid
       end
 

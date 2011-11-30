@@ -4,12 +4,16 @@ class ApplicationController < ActionController::Base
   before_filter :initialize_user
 
   # make these available as ActionView helper methods.
-  helper_method :logged_in?, :admin?
+  helper_method :logged_in?, :manager?
 
   protected
 
   def logged_in?
     current_user.is_a?(User)
+  end
+
+  def manager?
+    current_user.role == "manager"
   end
 
   # setup user info on each page

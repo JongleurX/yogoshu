@@ -1,7 +1,23 @@
-%h1
-  Users
+- title (page_title = manager? ? "Manage Users" : "Users")
+.page-header
+  %h1
+    = page_title
+  - if manager?
+    .clearfix{ :style => "padding:10px 0" }
+      Manager functions:
+      = link_to 'Add user', new_user_path
 
-%ul
-  - @users.each do |user|
-    %li
-      = link_to user.name, user_path(user) 
+%table.bordered-table.zebra-striped
+  %thead
+    %tr
+      %th Username
+      %th Role
+      %th Glossary entries added
+      %th Registered on
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= link_to user.name, user_path(user) 
+        %td= user.role.capitalize
+        %td= user.entries.length
+        %td= user.created_at.strftime('%B %d, %Y @ %l:%M %p')

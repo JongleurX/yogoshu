@@ -8,16 +8,18 @@ Feature: Login to account
     Given the following users:
       | name   | password |
       | jens   | secret   |
-    And that I am on the login page
+    And I am on the login page
 
   Scenario: Valid name and correct password
     When I fill in the name "jens"
     And I fill in the password "secret"
-    Then I should see the homepage
-    And I should be logged in
+    And I click "Login"
+    Then I should be logged in as "jens"
+    And I should see the homepage
     
   Scenario: Valid name but incorrect password
     When I fill in the name "jens"
     And I fill in the password "abc"
-    Then I should see the login page
-    And I should not be logged in
+    And I click "Login"
+    Then I should not be logged in
+    And I should see the login page

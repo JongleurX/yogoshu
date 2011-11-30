@@ -1,3 +1,4 @@
+- title "Home"
 .row
   .span8.offset4
     .search-box
@@ -12,7 +13,3 @@
         -#  = check_box(:language, :en)
         -#%li
         -#  = check_box(:language, :ja)
-
-      - if logged_in?
-        = link_to "Add user", new_user_path
-        = link_to "Users", users_path

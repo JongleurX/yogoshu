@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(:version => 20111128121949) do
     t.string   "salt",               :limit => 40
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "role"
+    t.string   "role"
   end
 
 end

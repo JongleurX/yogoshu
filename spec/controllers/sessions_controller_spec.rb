@@ -24,7 +24,7 @@ describe SessionsController do
     end
 
     it "should welcome the user back" do
-      flash[:success].should include "Welcome back #{@user.name}!"
+      flash[:message].should include "Welcome back #{@user.name}!"
     end
 
   end
@@ -55,15 +55,6 @@ describe SessionsController do
 
   describe "logout" do
     before do
-      # not sure why capybara is not working here
-      #visit login_path
-      #save_and_open_page
-      #fill_in('User name', :with => @user.name)
-      #fill_in('Password', :with => @user.password)
-      #click_button('Login')
-      #visit logout_path
-
-      # this is a temporary fix, but the above code would be better
       post :create, :user => { :name => @user.name, :password => @user.password }
       post :destroy
     end
@@ -81,7 +72,7 @@ describe SessionsController do
     end
 
     it "should alert the user that they are logged out" do
-      flash[:success].should include("logged out")
+      flash[:message].should include("logged out")
     end
 
   end

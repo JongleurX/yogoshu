@@ -4,7 +4,7 @@ Given /^the following users:$/ do |table|
   end
 end
 
-Given /^(?:that |)I am logged in$/ do
+Given /^I am logged in$/ do
   @user = Factory(:user)
   visit login_path
   fill_in('User name', :with => @user.name)
@@ -12,7 +12,7 @@ Given /^(?:that |)I am logged in$/ do
   click_button('Login')
 end
 
-Given /^(?:that |)I am logged in as "([^"]*)"$/ do |name|
+Given /^I am logged in as "([^"]*)"$/ do |name|
   @user = User.find_by_name(name)
   visit login_path
   fill_in('User name', :with => @user.name)
@@ -81,8 +81,33 @@ Given /^I am on the login page$/ do
   visit login_path
 end
 
-When /^I click "([^"]*)"$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+When /^I fill in the name "([^"]*)"$/ do |name|
+  fill_in(:name, :with => name)
+end
+
+When /^I fill in the password "([^"]*)"$/ do |password|
+  fill_in(:password, :with => password)
+end
+
+Then /^I should be logged in as "([^"]*)"$/ do |name|
+  @user = User.find_by_name(name)
+  page.should have_link('Profile', :href => user_path(@user))
+end
+
+Then /^I should not be logged in$/ do
+  page.should_not have_link('Profile')
+end
+
+Then /^I should see the homepage$/ do
+  page.should have_xpath("//title", :text => "Yogoshu: Home")
+end
+
+Then /^I should see the login page$/ do
+  page.should have_xpath("//title", :text => "Yogoshu: Login")
+end
+
+When /^I click "([^"]*)"$/ do |link|
+  click_on (link)
 end
 
 Then /^I should be asked to confirm the delete$/ do

@@ -1,6 +1,11 @@
+- title (page_title = "Create user")
+.page-header
+  %h1
+    = page_title
+
 = twitter_bootstrap_form_for @user do |user|
 
-  = user.inputs 'Add a new user' do
+  = user.inputs 'New user info' do
     = user.text_field :name, 'User name'
     = user.password_field :password, 'Password'
     = user.password_field :password_confirmation, 'Confirm password'
