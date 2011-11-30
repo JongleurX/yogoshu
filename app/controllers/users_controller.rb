@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
 
+  before_filter :login_required, :except => [:index, :show]
   before_filter :find_user, :except => [:index, :new, :create]
 
   def index
@@ -14,13 +15,19 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     if @user.save
       flash[:success] = "User #{@user.name} has been created."
-      redirect_to @current_user
+      redirect_to @user
     else
       render "new"
     end
   end
 
   def show
+  end
+
+  def update
+  end
+
+  def destroy
   end
 
   private

@@ -13,15 +13,20 @@ class ApplicationController < ActionController::Base
   end
 
   def manager?
-    current_user.role == "manager"
+    current_user && current_user.role == "manager"
+  end
+
+  def login_required
+    redirect_to_login unless logged_in?
+  end
+
+  def redirect_to_login
+    redirect_to login_path
   end
 
   # setup user info on each page
   def initialize_user
     User.current_user = @current_user = User.find_by_name(session[:user]) if session[:user]
-    if !logged_in?
-      @user = User.new
-    end
   end
 
   def current_user

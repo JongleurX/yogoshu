@@ -14,7 +14,7 @@ Yogoshu::Application.routes.draw do
   post 'login' => 'sessions#create'
   match 'logout', :to => 'sessions#destroy', :as => 'logout'
 
-  get 'homepage' => 'homepage#index'
+  get 'homepage' => 'homepage#index', :path => ''
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
