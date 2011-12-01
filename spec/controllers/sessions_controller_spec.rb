@@ -11,6 +11,10 @@ describe SessionsController do
       post :create, :user => { 'these' => 'params' }
     end
 
+    it "should assign @current_user" do
+      assigns(:current_user).should be(@user)
+    end
+
     it "should set the session cookie" do
       session[:user].should == @user.name
     end
@@ -30,6 +34,10 @@ describe SessionsController do
       User.should_receive(:authenticate).and_return { nil }
       User.stub(:new) { mock_model(User) }
       post :create, :user => { 'these' => 'params' }
+    end
+
+    it "should not assign @current_user" do
+      assigns(:current_user).should be_nil
     end
 
     it "should not set the session cookie" do

@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if @user = User.authenticate(params[:user][:name], params[:user][:password])
+    if @user = @current_user = User.authenticate(params[:user][:name], params[:user][:password])
       session[:user] = @user.name
       flash[:message] = "You've successfully logged in. Welcome back #{@user.name}!"
     else
