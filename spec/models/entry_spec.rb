@@ -28,6 +28,8 @@ describe Entry do
       subject.user = nil
       should_not be_valid
     end
+
+    it "should be unique in source language"
     
   end
 
