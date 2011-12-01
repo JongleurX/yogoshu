@@ -9,7 +9,6 @@
     - @base_languages.each do |lang|
       = entry.text_field "term_in_#{lang}", "#{I18n.t(lang).capitalize}", :class => "xlarge"
     = entry.text_area :note, "Notes", :class => "xxlarge", :rows => 5
-    = entry.hidden_field :source_language
   
   = entry.actions do
     = entry.submit 'Add entry'

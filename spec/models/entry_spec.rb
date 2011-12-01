@@ -24,13 +24,6 @@ describe Entry do
       should_not be_valid
     end
 
-    it "should be valid without terms in other languages"
-
-    it "should be invalid without a source language" do
-      subject.source_language = nil
-      should_not be_valid
-    end
-
     it "should be invalid without a user" do
       subject.user = nil
       should_not be_valid

@@ -31,6 +31,8 @@ module Yogoshu
       case method
       when eval(@@METHOD_IN_LANG_GETTER_RE)
         respond_to?($1, priv)
+      when eval(@@METHOD_IN_LANG_SETTER_RE)
+        respond_to?($1, priv)
       else
         super
       end

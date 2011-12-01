@@ -40,6 +40,8 @@ describe EntriesController do
 
     before do
       controller.stub(:logged_in?) { true }
+      user = mock_user
+      controller.stub(:current_user) { user }
     end
 
     describe "GET new" do
@@ -67,14 +69,48 @@ describe EntriesController do
         before do
           entry = mock_entry
           entry.should_receive(:save).and_return { true }
-          Entry.stub(:new).with( 'these' => 'params' ) { entry }
+          Entry.stub(:new).with( { 'these' => 'params', 'user_id' => @mock_user.id } ) { entry }
         end
 
-        it "assigns newly created entry as @entry"
+        it "assigns newly created entry as @entry" do
+          post :create, :entry => {'these' => 'params'}
+          assigns(:entry).should be(@mock_entry)
+        end
 
-        it "redirects to the homepage"
+        it "redirects to the entry" do
+          post :create, :entry => {'these' => 'params'}
+          response.should redirect_to entry_path(@mock_entry)
+        end
 
-        it "displays a success message"
+        it "displays a success message" do
+          post :create, :entry => {'these' => 'params'}
+          flash[:success].should == "New glossary entry has been created." 
+        end
+
+      end
+
+      context "with invalid params" do
+        before do
+          entry = mock_entry
+          entry.should_receive(:save).and_return { false }
+          Entry.stub(:new).with( 'these' => 'params', 'user_id' => @mock_user.id ) { entry }
+        end
+
+        it "assigns newly created entry as @entry" do
+          post :create, :entry => {'these' => 'params'}
+          assigns(:entry).should be(@mock_entry)
+        end
+
+        it "re-renders the new entry page" do
+          post :create, :entry => {'these' => 'params'}
+          response.should render_template('new')
+        end
+
+        it "displays an error message" do
+          post :create, :entry => {'these' => 'params'}
+          flash[:error].should == 'There were errors in the information entered.'
+        end
+          
 
       end
 
