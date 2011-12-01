@@ -1,0 +1,16 @@
+- title (page_title = "Add new entry")
+.page-header
+  %h1
+    = page_title
+
+= twitter_bootstrap_form_for @entry do |entry|
+
+  = entry.inputs do
+    - @base_languages.each do |lang|
+      = entry.text_field "term_in_#{lang}", "#{I18n.t(lang).capitalize}", :class => "xlarge"
+    = entry.text_area :note, "Notes", :class => "xxlarge", :rows => 5
+    = entry.hidden_field :source_language
+  
+  = entry.actions do
+    = entry.submit 'Add entry'
+    = button_tag 'Cancel', :type => 'reset', :class => 'btn'

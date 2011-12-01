@@ -17,10 +17,10 @@ describe EntriesController do
   context "with anonymous user" do
 
     before do
-      controller.stub(:current_user) { nil }
+      controller.stub(:logged_in?) { false }
     end
 
-    it "should redirect all requests to login page" do
+    it "should redirect new, create and destroy requests to login page" do
       requests = 
         [
           proc {  get :new },
@@ -39,8 +39,26 @@ describe EntriesController do
   context "with logged-in user" do
 
     before do
-      user = mock_model(User)
-      controller.stub(:current_user) { user }
+      controller.stub(:logged_in?) { true }
+    end
+
+    describe "GET new" do
+
+      before do
+        entry = mock_entry
+        Entry.should_receive(:new).and_return { entry }
+      end
+      
+      it "assigns newly created entry as @entry" do
+        get :new
+        assigns(:entry).should be(@mock_entry)
+      end
+
+      it "renders the new view" do
+        get :new
+        response.should render_template('new')
+      end
+
     end
 
     describe "POST create" do

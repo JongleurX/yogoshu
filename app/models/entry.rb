@@ -1,4 +1,6 @@
 class Entry < ActiveRecord::Base
+  include Yogoshu::Locale
+
   translates :term
 
   # associations

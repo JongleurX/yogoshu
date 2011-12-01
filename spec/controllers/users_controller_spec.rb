@@ -37,6 +37,7 @@ describe UsersController do
         get :show, :id => "susan"
         assigns(:user).should be(@mock_user)
       end
+
     end
 
   end
@@ -110,6 +111,21 @@ describe UsersController do
     end
 
     describe "GET new" do
+
+      before do
+        user = mock_user
+        User.should_receive(:new).and_return { user }
+      end
+
+      it "assigns newly created user as @user" do
+        get :new
+        assigns(:user).should be(@mock_user)
+      end
+
+      it "renders the new view" do
+        get :new
+        response.should render_template('new')
+      end
 
     end
 

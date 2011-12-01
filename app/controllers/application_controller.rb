@@ -1,7 +1,10 @@
 class ApplicationController < ActionController::Base
+  include Yogoshu::Locale
+
   protect_from_forgery
 
   before_filter :initialize_user
+  before_filter :set_locale
 
   # make these available as ActionView helper methods.
   helper_method :logged_in?, :manager?
@@ -27,6 +30,18 @@ class ApplicationController < ActionController::Base
   # setup user info on each page
   def initialize_user
     User.current_user = @current_user = User.find_by_name(session[:user]) if session[:user]
+  end
+
+  def set_locale
+    I18n.locale = params[:locale]
+    @base_languages = Yogoshu::Locale.base_languages
+    @default_source_language = Yogoshu::Locale.default_source_language
+
+    if !@base_languages.include?(I18n.locale)
+      I18n.locale = @base_languages[0]
+    end
+
+    return (true)
   end
 
   def current_user
