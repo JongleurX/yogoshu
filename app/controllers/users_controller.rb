@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 
   before_filter :login_required, :except => [:index, :show]
   before_filter :find_user, :except => [:index, :new, :create]
+  before_filter :access_restricted, :only => [:create]
 
   def index
     @users = User.find(:all)
@@ -17,6 +18,7 @@ class UsersController < ApplicationController
       flash[:success] = "User #{@user.name} has been created."
       redirect_to @user
     else
+      flash.now[:error] = "There were errors in the information entered."
       render "new"
     end
   end
@@ -28,6 +30,10 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    if @user.destroy
+      flash[:success] = "User #{@user.name} has been destroyed."
+    end
+    redirect_to users_path
   end
 
   private

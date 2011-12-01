@@ -17,11 +17,11 @@ class ApplicationController < ActionController::Base
   end
 
   def login_required
-    redirect_to_login unless logged_in?
+    redirect_to login_path unless logged_in?
   end
 
-  def redirect_to_login
-    redirect_to login_path
+  def access_restricted
+    redirect_to homepage_path unless manager?
   end
 
   # setup user info on each page
