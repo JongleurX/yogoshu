@@ -44,10 +44,21 @@ describe UsersController do
   context "with logged-in user" do
 
     before do
-      user = mock_model(User)
-      controller.stub(:current_user) { user }
+      controller.stub(:logged_in?) { true }
+      controller.stub(:manager?) { false }
     end
 
+    context "POST create" do
+
+      it "redirects requests to the homepage" do
+        post :create, :user => {'these' => 'params'}
+        response.should redirect_to(homepage_path)
+      end
+
+      it "displays an error message"
+
+    end
+      
     describe "DELETE destroy" do
 
       context "with valid params" do
@@ -91,33 +102,15 @@ describe UsersController do
 
   end
 
-  context "with logged-in contributor" do
-
-    before do
-      user = mock_model(User).as_null_object
-      user.stub(:role) { "contributor" }
-      controller.stub(:current_user) { user }
-    end
-
-    context "POST create" do
-
-      it "redirects requests to the homepage" do
-        post :create, :user => {'these' => 'params'}
-        response.should redirect_to(homepage_path)
-      end
-
-      it "displays an error message"
-
-    end
-      
-  end
-
   context "with logged-in manager" do
 
     before do
-      user = mock_model(User).as_null_object
-      user.stub(:role) { "manager" }
-      controller.stub(:current_user) { user }
+      controller.stub(:logged_in?) { true }
+      controller.stub(:manager?) { true }
+    end
+
+    describe "GET new" do
+
     end
 
     describe "POST create" do
@@ -126,7 +119,7 @@ describe UsersController do
         before do
           user = mock_user(:name => "alice")
           user.should_receive(:save).and_return { true }
-          User.stub(:new).with( 'these' => 'params' ) { @mock_user }
+          User.stub(:new).with( 'these' => 'params' ) { user }
         end
 
         it "assigns newly created user as @user" do
@@ -150,7 +143,7 @@ describe UsersController do
         before do
           user = mock_user(:name => "alice")
           user.should_receive(:save).and_return { false }
-          User.stub(:new).with( 'these' => 'params' ) { @mock_user }
+          User.stub(:new).with( 'these' => 'params' ) { user }
         end
 
         it "assigns newly created user as @user" do
