@@ -3,13 +3,13 @@ class User < ActiveRecord::Base
   # unencrypted password
   attr_accessor :password
 
-  ROLES = %w[manager contributor]
+  ROLES = %w[contributor manager]
 
   # associations
   has_many :entries
 
   # sexy validation
-  validates :name, :uniqueness => { :message => "has already been taken." }, :presence => true, :format => /^[A-Za-z\d_]+$/
+  validates :name, :uniqueness => { :message => "has already been taken." }, :presence => true, :format => /^[A-Za-z\d_]+$/, :length => { :within => (3..20) }
   validates :password, :confirmation => true, :length => { :within => (4..40) }, :if => :password_required?
   validates :password_confirmation, :presence => true, :if => :password_required?
   validates :role, :presence => true, :inclusion => ROLES

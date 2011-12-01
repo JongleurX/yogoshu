@@ -29,8 +29,15 @@ describe User do
         subject.should be_valid
       end
 
-      it "should be invalid with an invalid name string" do
+      it "should be invalid with a badly formatted name string" do
         subject.name = "-x**000"
+        subject.should_not be_valid
+      end
+
+      it "should be invalid with a name that is too long or too short" do
+        subject.name = "a"
+        subject.should_not be_valid
+        subject.name = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         subject.should_not be_valid
       end
 
@@ -69,12 +76,9 @@ describe User do
         subject.should_not be_valid
       end
 
-      it "should be invalid with a short password" do
+      it "should be invalid with a password that is too short or too long" do
         subject.password = subject.password_confirmation = 'abc'
         subject.should_not be_valid
-      end
-
-      it "should be invalid with a long password" do
         subject.password = subject.password_confirmation = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
         subject.should_not be_valid
       end

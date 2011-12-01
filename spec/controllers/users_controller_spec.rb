@@ -49,17 +49,19 @@ describe UsersController do
       controller.stub(:manager?) { false }
     end
 
-    context "POST create" do
+    it "should redirect create, update & destroy requests to login page" do
+      requests = 
+        [
+          proc {  post :create, :user => {'these' => 'params'} },
+          proc {  get :new },
+      ]
 
-      it "redirects requests to the homepage" do
-        post :create, :user => {'these' => 'params'}
+      requests.each do |r|
+        r.call
         response.should redirect_to(homepage_path)
       end
-
-      it "displays an error message"
-
     end
-      
+
     describe "DELETE destroy" do
 
       context "with valid params" do
