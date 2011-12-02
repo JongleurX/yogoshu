@@ -3,7 +3,7 @@
   %h1
     = page_title
   - if manager?
-    .clearfix{ :style => "padding:10px 0" }
+    .clearfix{ :style => "padding:10px 2px" }
       Manager functions:
       = link_to 'Create user', new_user_path
 
@@ -14,6 +14,8 @@
       %th Role
       %th Glossary entries added
       %th Registered on
+      - if manager?
+        %th Actions
   %tbody
     - @users.each do |user|
       %tr
@@ -21,3 +23,7 @@
         %td= user.role.capitalize
         %td= user.entries.length
         %td= user.created_at.strftime('%B %d, %Y @ %l:%M %p')
+        - if manager?
+          %td
+            = link_to "delete", user, :confirm => "Are you sure you want to delete user \"#{user.name}\"?", :method => :delete, :class => "btn" unless user.manager?
+            = link_to "edit", "#", :class => "btn" unless user.manager?

@@ -47,6 +47,10 @@ class User < ActiveRecord::Base
     encrypted_password == User.encrypt(pass, salt)
   end
  
+  def manager?
+    role == "manager"
+  end
+
   protected
 
   def encrypt_password
