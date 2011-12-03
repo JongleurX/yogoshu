@@ -2,9 +2,10 @@ module Yogoshu
   module Locale
 
     def self.set_base_languages(*locales)
+      locales.each do |locale|
+        raise ArgumentError, "Base languages must be Symbols" unless locale.class == Symbol
+      end
       @@base_languages = locales
-      @@METHOD_IN_LANG_GETTER_RE = "/(\\w+)_in_(" + locales.join("|") + ")$/"
-      @@METHOD_IN_LANG_SETTER_RE = "/(\\w+)_in_(" + locales.join("|") + ")=$/"
     end
 
     def self.base_languages
@@ -28,25 +29,29 @@ module Yogoshu
     end
 
     def respond_to?(method, priv=false)
+      eval <<-END_RUBY
       case method
-      when eval(@@METHOD_IN_LANG_GETTER_RE)
+      when /(\\w+)_in_(#{base_languages.join("|")})$/
         respond_to?($1, priv)
-      when eval(@@METHOD_IN_LANG_SETTER_RE)
+      when /(\\w+)_in_(#{base_languages.join("|")})=$/
         respond_to?($1, priv)
       else
         super
       end
+      END_RUBY
     end
 
     def method_missing(sym, *args)
+      eval <<-END_RUBY
       case sym.to_s
-      when eval(@@METHOD_IN_LANG_GETTER_RE)
+      when /(\\w+)_in_(#{base_languages.join("|")})$/
         read_attribute $1, $2
-      when eval(@@METHOD_IN_LANG_SETTER_RE)
+      when /(\\w+)_in_(#{base_languages.join("|")})=$/
         write_attribute $1, args[0], $2 
       else
         super
       end
+      END_RUBY
     end
   end
 end

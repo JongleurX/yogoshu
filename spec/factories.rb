@@ -15,7 +15,7 @@ Factory.define :alice, :class => User do |u|
 end
 
 Factory.define :entry_en, :class => Entry do |f|
-  f.source_language 'en'
+  f.source_language :en
   Globalize.with_locale(:en) do
     f.sequence(:term) { |n| "entry#{n}" }
   end

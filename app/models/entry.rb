@@ -8,8 +8,13 @@ class Entry < ActiveRecord::Base
 
   # validations
   validates :user_id, :presence => true
-  validates :source_language, :presence => true
+  validates :source_language, :presence => true, :inclusion => Yogoshu::Locale.base_languages
   validates :term, :presence => true, :if => :in_source_language?
+  Yogoshu::Locale.base_languages.each do |lang|
+    eval <<-END_RUBY
+    validates :term_in_#{lang}, :presence => true, :if => Proc.new { |entry| entry.source_language == :#{lang} }
+    END_RUBY
+  end
 
   before_validation :set_default_source_language
 
