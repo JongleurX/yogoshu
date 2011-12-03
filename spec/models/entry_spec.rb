@@ -11,13 +11,16 @@ describe Entry do
     
     before do
       @entry = Factory(:entry_en)
+      # to make this valid
+      @entry.term_in_en = "apple"
     end
 
     subject { @entry }
 
     # strange error, something to do with the custom uniqueness validator
     pending "should be valid created by factory" do
-      should be_valid
+      @test_entry = Factory(:entry_en)
+      @test_entry.should be_valid
     end
 
     it "should not be valid without a source language term" do
