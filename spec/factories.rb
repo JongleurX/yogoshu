@@ -14,10 +14,12 @@ Factory.define :alice, :class => User do |u|
   u.role "contributor"
 end
 
-Factory.define :entry_en, :class => Entry do |f|
-  f.source_language :en
-  Globalize.with_locale(:en) do
-    f.sequence(:term) { |n| "entry#{n}" }
+[:en, :ja].each do |lang|
+  eval <<-RUBY_END
+  Factory.define :entry_#{lang}, :class => Entry do |f|
+    f.source_language '#{lang}'
+    f.sequence(:term_in_#{lang}) { |n| "term\#{n}" }
+    f.association :user, :factory => :user
   end
-  f.association :user, :factory => :alice
+  RUBY_END
 end
