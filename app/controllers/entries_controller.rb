@@ -46,6 +46,9 @@ class EntriesController < ApplicationController
     else
       @entries = Entry.all
     end
+    if !(logged_in?)
+      @entries.delete_if { |e| !(e.approved?) }
+    end
   end
 
   private
