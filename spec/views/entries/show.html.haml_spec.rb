@@ -17,6 +17,7 @@ describe "entries/show.html.haml" do
 
       before do
         Yogoshu::Locale.set_base_languages(:en, :ja)
+        assign(:base_languages, %w[en ja])
         @entry = Factory(:entry_en, :term_in_en => "apple", :term_in_ja => "りんご", :note => "Here's a simple word in Japanese and English. I found it on this site: http://abc.com .")
       end
 
