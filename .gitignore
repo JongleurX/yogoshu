@@ -4,7 +4,5 @@ log/*.log
 tmp/**/*
 config/database.yml
 vendor
-public/assets
-public/assets/**/*
 .sass-cache/
 .rspec
