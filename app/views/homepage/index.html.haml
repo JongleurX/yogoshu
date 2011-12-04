@@ -3,5 +3,5 @@
   .span8.offset4
     .search-box
       %h1 Search glossary
-      = form_tag homepage_path, :method => :post do
-        = text_field :entry, :term, :class => "xlarge"
+      = form_tag entries_path, :method => :get do
+        = text_field_tag :search, nil, :class => "xlarge", :placeholder => "Enter search terms..."

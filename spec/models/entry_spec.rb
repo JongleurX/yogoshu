@@ -9,18 +9,25 @@ describe Entry do
 
   describe "validation with factory" do
     
-    before do
-      @entry = Factory(:entry_en)
-      # to make this valid
-      @entry.term_in_en = "apple"
+    # factory is not validating so for now using this workaround
+    before(:each) do
+      @entry = Entry.new(:source_language => 'en', :user => Factory(:user)) 
+      @entry.term_in_en = "term"
+    end
+
+    after(:each) do
+      @entry.destroy
+    end
+
+    pending "should be valid created by factory" do
+      @entry_factory = Factory(:entry_en)
+      @entry_factory.should be_valid
     end
 
     subject { @entry }
 
-    # strange error, something to do with the custom uniqueness validator
-    pending "should be valid created by factory" do
-      @test_entry = Factory(:entry_en)
-      @test_entry.should be_valid
+    it "should be valid" do
+      should be_valid
     end
 
     it "should not be valid without a source language term" do

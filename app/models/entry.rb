@@ -12,7 +12,7 @@ class Entry < ActiveRecord::Base
 
   Yogoshu::Locale.base_languages.each do |lang|
     eval <<-END_RUBY
-    validates :term_in_#{lang}, :presence => true, :translation_uniqueness => { :lang => :#{lang}, :message => "is already in the glossary"}, :if => Proc.new { |entry| entry.source_language == '#{lang}' }
+    validates :term_in_#{lang}, :presence => true, :translation_uniqueness => { :lang => :#{lang}, :message => "is already in the glossary"}, :if => Proc.new { |entry| entry.source_language == '#{lang}'}, :on => :create
     END_RUBY
   end
 

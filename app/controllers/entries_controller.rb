@@ -14,10 +14,20 @@ class EntriesController < ApplicationController
     @entry = Entry.new(params[:entry].merge(:user_id => current_user.id))
     if @entry.save
       flash[:success] = "New glossary entry has been created."
-      redirect_to entry_path(@entry)
+      redirect_to @entry
     else
       flash.now[:error] = "There were errors in the information entered."
       render "new"
+    end
+  end
+
+  def update
+    if @entry.update_attributes!(params[:entry])
+      flash[:success] = "Entry \"#{@entry.term}\" has been updated."
+      redirect_to entries_path
+    else
+      flash[:error] = "Entry could not be updated."
+      redirect_to entries_path
     end
   end
 
@@ -26,10 +36,16 @@ class EntriesController < ApplicationController
     if @entry.destroy
       flash[:success] = "Entry \"#{term}\" has been deleted."
     end
-    redirect_to homepage_path
+    redirect_to entries_path
   end
 
   def index
+    if params[:search]
+      @entries_translations = Entry.translation_class.where("term LIKE ?", "%#{params[:search]}%")
+      @entries = (@entries_translations.map { |t| Entry.find(t.entry_id) }).uniq
+    else
+      @entries = Entry.all
+    end
   end
 
   private

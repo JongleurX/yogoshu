@@ -1,0 +1,52 @@
+- title (page_title = "Search glossary")
+.page-header
+  %h1
+    = page_title
+  .clearfix{ :style => "padding: 10px 2px" }
+    Search terms:
+    %strong=params[:search] || "None"
+
+- if @entries.empty?
+  No entries found.
+- else
+  %table.bordered-table
+    %thead
+      %tr
+        - @base_languages.each do |lang|
+          %th=I18n.t(lang.to_s).capitalize
+        %th
+          Added by
+        %th
+          Added on
+        - if logged_in?
+          %th Status
+        - if manager?
+          %th Actions
+    %tbody
+      - @entries.each do |entry|
+        %tr
+          - @base_languages.each do |lang|
+            %td
+              - Globalize.with_locale(lang) do
+                - if (lang.to_s == entry.source_language)
+                  = link_to entry.term, entry
+                - else
+                  = entry.term
+          %td
+            = link_to entry.user.name, entry.user
+          %td
+            = entry.created_at.strftime('%m/%d/%Y')
+          - if logged_in?
+            %td
+              - if entry.approved?
+                %span.label.success approved
+              - else
+                %span.label.warning unapproved
+          - if manager?
+            %td
+              = link_to "destroy", entry, :confirm => "Are you sure you want to destroy this entry?", :method => :delete, :class => "btn"
+              = link_to "edit", "#", :class => "btn"
+              - if entry.approved?
+                = link_to "unapprove", entry_path(entry, :entry => { :approved => false}), :method => :put, :class => "btn"
+              - else
+                = link_to "approve", entry_path(entry, :entry => { :approved => true}), :method => :put, :class => "btn"

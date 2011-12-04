@@ -20,7 +20,7 @@ Yogoshu::Application.routes.draw do
   #   resources :products
 
   resources :users
-  resources :entries, :only => [:new, :create, :destroy, :show, :index]
+  resources :entries, :only => [:new, :create, :destroy, :show, :index, :update]
 
   # Sample resource route with options:
   #   resources :products do

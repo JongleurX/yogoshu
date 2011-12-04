@@ -16,6 +16,7 @@
               = link_to Yogoshu, homepage_path
             - if logged_in?
               %ul.nav
+                %li= link_to "Search", homepage_path
                 %li= link_to "Add Entry", new_entry_path
                 - if manager?
                   %li= link_to "Manage Users", users_path

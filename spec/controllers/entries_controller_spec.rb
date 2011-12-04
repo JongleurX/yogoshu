@@ -140,7 +140,7 @@ describe EntriesController do
       it "redirects to the homepage" do
         Entry.stub(:find_by_id!) { mock_entry }
         delete :destroy, :id => "37", :locale => 'en'
-        response.should redirect_to(homepage_path)
+        response.should redirect_to(entries_path)
       end
 
     end

@@ -7,7 +7,10 @@
 
   = entry.inputs do
     - @base_languages.each do |lang|
-      = entry.text_field "term_in_#{lang}", "#{I18n.t(lang).capitalize}", :class => "xlarge"
+      = entry.text_field "term_in_#{lang}", "#{I18n.t(lang).capitalize}", :class => "xlarge" do
+        - if (lang == Yogoshu::Locale.default_source_language)
+          %span.help-block
+            #{I18n.t(lang).capitalize} is the source language for this glossary so terms in this language can't be blank and must be unique.
     = entry.text_area :note, "Notes", :class => "xxlarge", :rows => 5
   
   = entry.actions do
