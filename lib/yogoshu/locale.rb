@@ -35,6 +35,10 @@ module Yogoshu
         respond_to?($1, priv)
       when /(\\w+)_in_(#{base_languages.join("|")})=$/
         respond_to?($1, priv)
+      when /(\\w+)_in_source_language$/
+        respond_to?($1, priv)
+      when /(\\w+)_in_source_language=$/
+        respond_to?($1, priv)
       else
         super
       end
@@ -48,6 +52,10 @@ module Yogoshu
         read_attribute $1, $2
       when /(\\w+)_in_(#{base_languages.join("|")})=$/
         write_attribute $1, args[0], $2 
+      when /(\\w+)_in_source_language$/
+        read_attribute $1, source_language unless source_language.nil?
+      when /(\\w+)_in_source_language=$/
+        write_attribute $1, args[0], source_language unless source_language.nil?
       else
         super
       end
