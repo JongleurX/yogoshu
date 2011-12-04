@@ -63,8 +63,8 @@ describe "entries/show.html.haml" do
 
         it "should have manager actions" do
           render
-          rendered.should have_link "Delete"
-          rendered.should have_link "Approve"
+          rendered.should have_link "Delete", :href => entry_path(@entry)
+          rendered.should have_link "Approve", :href => entry_path(@entry, :entry => { :approved => true})
         end
 
       end
