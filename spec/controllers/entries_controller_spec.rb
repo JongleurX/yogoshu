@@ -34,6 +34,20 @@ describe EntriesController do
       end
     end
 
+    describe "GET show" do
+
+      before do
+        entry = mock_entry
+        Entry.should_receive(:find_by_id!).with("37").and_return { entry }
+      end
+
+      it "assigns the requested entry as @entry" do
+        get :show, :id => "37"
+        assigns(:entry).should be(@mock_entry)
+      end
+
+    end
+
   end
 
   context "with logged-in user" do
@@ -110,8 +124,23 @@ describe EntriesController do
           post :create, :entry => {'these' => 'params'}
           flash[:error].should == 'There were errors in the information entered.'
         end
-          
 
+      end
+
+    end
+
+    describe "DELETE destroy" do
+
+      it "destroys the requested entry" do
+        Entry.should_receive(:find_by_id!).with("37") { mock_entry }
+        mock_entry.should_receive(:destroy)
+        delete :destroy, :id => "37", :locale => 'en'
+      end
+
+      it "redirects to the homepage" do
+        Entry.stub(:find_by_id!) { mock_entry }
+        delete :destroy, :id => "37", :locale => 'en'
+        response.should redirect_to(homepage_path)
       end
 
     end

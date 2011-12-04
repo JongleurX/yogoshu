@@ -1,0 +1,33 @@
+- title (page_title = @entry.term_in_source_language)
+.page-header
+  %h1
+    = page_title
+    - if logged_in?
+      - if @entry.approved?
+        %span.label.success approved
+      - else
+        %span.label.warning unapproved
+  - if manager?
+    .clearfix{ :style => "padding: 10px 2px" }
+      Manager functions:
+      = link_to 'Delete', @entry, :confirm => "Are you sure you want to destroy this entry?", :method => :delete
+      |
+      = link_to 'Approve', '#'
+  
+%small
+  Added by 
+  = link_to @entry.user.name, @entry.user
+  = "on #{@entry.created_at.strftime('%B %d, %Y @ %l:%M %p')}."
+
+%table.bordered-table{ :style => "margin-top: 20px; table-layout: fixed" }
+  %thead
+    %tr
+      - @base_languages.each do |lang|
+        %th{ :style => "text-align: center; background-color: #F9F9F9"}=I18n.t(lang.to_s).capitalize
+  %tbody
+    %tr
+      - @base_languages.each do |lang|
+        - Globalize.with_locale(lang) do
+          %td{ :style => "text-align: center; font-size: 160%"}=@entry.term
+%h4 Translator notes:
+= auto_link(@entry.note)

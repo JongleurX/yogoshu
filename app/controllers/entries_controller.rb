@@ -1,6 +1,7 @@
 class EntriesController < ApplicationController
 
-  before_filter :login_required, :except => [:search, :show]
+  before_filter :login_required, :except => [:show, :index]
+  before_filter :find_entry, :except => [:index, :new, :create]
 
   def show
   end
@@ -21,6 +22,20 @@ class EntriesController < ApplicationController
   end
 
   def destroy
+    term = @entry.term_in_source_language
+    if @entry.destroy
+      flash[:success] = "Entry \"#{term}\" has been deleted."
+    end
+    redirect_to homepage_path
+  end
+
+  def index
+  end
+
+  private
+
+  def find_entry
+    @entry = Entry.find_by_id!(params[:id])
   end
 
 end
