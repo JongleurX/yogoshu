@@ -9,16 +9,13 @@
 - if @entries.empty?
   No entries found.
 - else
-  %table.bordered-table
+  %table.bordered-table{ :style => (logged_in? ? "" : "table-layout:fixed") }
     %thead
       %tr
         - @base_languages.each do |lang|
           %th=I18n.t(lang.to_s).capitalize
-        %th
-          Added by
-        %th
-          Added on
         - if logged_in?
+          %th Added by
           %th Status
         - if manager?
           %th Actions
@@ -32,11 +29,8 @@
                   = link_to entry.term, entry
                 - else
                   = entry.term
-          %td
-            = link_to entry.user.name, entry.user
-          %td
-            = entry.created_at.strftime('%m/%d/%Y')
           - if logged_in?
+            %td= link_to entry.user.name, entry.user
             %td
               - if entry.approved?
                 %span.label.success approved
