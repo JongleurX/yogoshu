@@ -33,4 +33,4 @@
         - Globalize.with_locale(lang) do
           %td{ :style => "text-align: center; font-size: 160%"}=@entry.term
 %h4 Translator notes:
-= auto_link(@entry.note)
+= auto_link(simple_format(@entry.note))
