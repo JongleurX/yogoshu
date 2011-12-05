@@ -26,9 +26,9 @@
             %td
               - Globalize.with_locale(lang) do
                 - if (lang.to_s == entry.source_language)
-                  = link_to entry.term, entry
+                  = link_to highlight(entry.term, params[:search]), entry
                 - else
-                  = entry.term
+                  = highlight(entry.term, params[:search])
           - if logged_in?
             %td= link_to entry.user.name, entry.user
             %td
