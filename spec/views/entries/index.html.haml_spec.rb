@@ -17,6 +17,12 @@ describe "entries/index.html.haml" do
         assign(:entries, []) 
       end
       
+      it "should have search box" do
+        render
+        rendered.should have_selector("form[method='get']")
+        rendered.should have_selector("input[type='text'][name='search']")
+      end
+
       it "renders an empty entry list" do
         render
         rendered.should =~ /No entries/
