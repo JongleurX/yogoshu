@@ -54,7 +54,11 @@ class EntriesController < ApplicationController
   private
 
   def find_entry
-    @entry = Entry.find_by_id!(params[:id])
+    entries = Entry.all.select { |e| e.term_in_source_language == params[:id] } 
+    if entries.empty?
+      raise ActiveRecord::RecordNotFound, "Couldn't find Entry with term_in_source_language = #{params[:id]}"
+    end
+    @entry = entries.first
   end
 
 end

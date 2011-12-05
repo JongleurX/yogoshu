@@ -18,6 +18,10 @@ class Entry < ActiveRecord::Base
 
   before_validation :set_default_source_language
 
+  def to_param
+    term_in_source_language
+  end
+
   def in_source_language?
     (self.source_language == Globalize.locale.to_s) or (self.source_language == nil)
   end
