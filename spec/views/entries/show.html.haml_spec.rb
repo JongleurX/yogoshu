@@ -18,7 +18,7 @@ describe "entries/show.html.haml" do
       before do
         Yogoshu::Locale.set_base_languages(:en, :ja)
         assign(:base_languages, %w[en ja])
-        @entry = Factory(:entry_en, :term_in_en => "apple", :term_in_ja => "りんご", :note => "Here's a simple word in Japanese and English. I found it on this site: http://abc.com .")
+        @entry = Factory(:entry_en, :term_in_en => "apple", :term_in_ja => "りんご", :note => "Here's a simple word in Japanese and English. I found it on this site: http://abc.com .\nHere's some more text.")
       end
 
       context "logged-in user" do
@@ -46,6 +46,8 @@ describe "entries/show.html.haml" do
           render
           rendered.should have_link("http://abc.com", :href => "http://abc.com")
         end
+
+        it "should translate linebreaks in note into <br> tags"
 
         it "should not have manager actions" do
           render
