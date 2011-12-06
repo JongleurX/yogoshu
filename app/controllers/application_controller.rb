@@ -34,8 +34,8 @@ class ApplicationController < ActionController::Base
 
   def set_locale
     I18n.locale = params[:locale]
-    @base_languages = Yogoshu::Locale.base_languages
-    @default_source_language = Yogoshu::Locale.default_source_language
+    @base_languages = base_languages
+    @default_source_language = default_source_language
 
     if !@base_languages.include?(I18n.locale)
       I18n.locale = @base_languages[0]

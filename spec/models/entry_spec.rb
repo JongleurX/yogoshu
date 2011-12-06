@@ -11,7 +11,8 @@ describe Entry do
     
     # factory is not validating so for now using this workaround
     before(:each) do
-      @entry = Entry.new(:source_language => 'en', :user => Factory(:user)) 
+      Yogoshu::Locale.set_default_source_language(:en)
+      @entry = Entry.new(:user => Factory(:user)) 
       @entry.term_in_en = "term"
     end
 

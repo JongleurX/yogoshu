@@ -23,13 +23,13 @@ class Entry < ActiveRecord::Base
   end
 
   def in_source_language?
-    (self.source_language == Globalize.locale.to_s) or (self.source_language == nil)
+    (source_language == Globalize.locale.to_s) or (source_language == nil)
   end
 
   protected
 
   def set_default_source_language
-    self.source_language ||= Yogoshu::Locale.default_source_language.to_s
+    self.source_language ||= default_source_language.to_s
   end
 
 end
