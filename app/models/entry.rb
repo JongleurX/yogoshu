@@ -1,6 +1,8 @@
 class Entry < ActiveRecord::Base
   include Yogoshu::Locale
 
+  default_scope where(:source_language => Yogoshu::Locale.glossary_language.to_s)
+
   translates :term
 
   # associations
@@ -16,8 +18,6 @@ class Entry < ActiveRecord::Base
     END_RUBY
   end
 
-  before_validation :set_default_source_language
-
   def to_param
     term_in_source_language
   end
@@ -31,11 +31,11 @@ class Entry < ActiveRecord::Base
       eval <<-END_RUBY
       case method
         when /^(find_by_[_a-zA-Z]\\w*)_in_(#{Yogoshu::Locale.base_languages.join("|")})$/
-         self.translation_class.respond_to?($1, priv)
-        when /^(find_by_[_a-zA-Z]\\w*)_in_source_language$/
-         self.translation_class.respond_to?($1, priv)
+          self.translation_class.respond_to?($1, priv)
+        when /^(find_by_[_a-zA-Z]\\w*)_in_(source_language|glossary_language)$/
+          self.translation_class.respond_to?($1, priv)
         else
-         super
+          super
       end
       END_RUBY
     end
@@ -53,12 +53,6 @@ class Entry < ActiveRecord::Base
       END_RUBY
     end
 
-  end
-
-  protected
-
-  def set_default_source_language
-    self.source_language ||= default_source_language.to_s
   end
 
 end

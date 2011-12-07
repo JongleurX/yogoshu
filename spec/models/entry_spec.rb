@@ -7,15 +7,15 @@ describe Entry do
     I18n.locale = 'en'
     Globalize.locale = 'en'
     Yogoshu::Locale.set_base_languages(:ja, :en)
+    Yogoshu::Locale.set_glossary_language(:ja)
   end
 
   describe "validation with factory" do
     
     # factory is not validating so for now using this workaround
     before(:each) do
-      Yogoshu::Locale.set_default_source_language(:en)
       @entry = Entry.new(:user => Factory(:user)) 
-      @entry.term_in_en = "term"
+      @entry.term_in_ja = "term"
     end
 
     after(:each) do
@@ -23,7 +23,7 @@ describe Entry do
     end
 
     pending "should be valid created by factory" do
-      @entry_factory = Factory(:entry_en)
+      @entry_factory = Factory(:entry_ja)
       @entry_factory.should be_valid
     end
 
@@ -34,7 +34,9 @@ describe Entry do
     end
 
     it "should not be valid without a source language term" do
-      subject.term = nil
+      Globalize.with_locale(:ja) do
+        subject.term = nil
+      end
       should_not be_valid
     end
 
@@ -44,8 +46,8 @@ describe Entry do
     end
 
     it "should be invalid if not unique in source language" do
-      Factory(:entry_en, :term_in_en => "apple")
-      subject.term_in_en = "apple"
+      Factory(:entry_ja, :term_in_ja => "りんご")
+      subject.term_in_ja = "りんご"
       should_not be_valid
     end
     
@@ -59,6 +61,7 @@ describe Entry do
         Entry.respond_to?(:find_by_term_in_en).should == true
         Entry.respond_to?(:find_by_term_in_ja).should == true
         Entry.respond_to?(:find_by_term_in_source_language).should == true
+        Entry.respond_to?(:find_by_term_in_glossary_language).should == true
       end
 
       it "returns false for dynamic finders with other postfix values" do
@@ -67,6 +70,8 @@ describe Entry do
 
       it "returns false for dynamic finders on non-translated fields" do
         Entry.respond_to?(:find_by_note_in_en).should == false
+        Entry.respond_to?(:find_by_note_in_source_language).should == false
+        Entry.respond_to?(:find_by_note_in_glossary_language).should == false
       end
 
     end
@@ -102,6 +107,12 @@ describe Entry do
         Entry.find_by_term_in_source_language("りんご").should be(@entry3)
       end
       
+      pending "returns entry with matching terms in glossary language" do
+        Entry.find_by_term_in_glossary_language("term1").should be(nil)
+        Entry.find_by_term_in_glossary_language("バナナ").should be(@entry2)
+        Entry.find_by_term_in_glossary_language("りんご").should be(@entry3)
+      end
+
     end
 
   end
