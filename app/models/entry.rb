@@ -26,6 +26,35 @@ class Entry < ActiveRecord::Base
     (source_language == Globalize.locale.to_s) or (source_language == nil)
   end
 
+  class << self
+    def respond_to?(method, priv=false)
+      eval <<-END_RUBY
+      case method
+        when /^(find_by_[_a-zA-Z]\\w*)_in_(#{Yogoshu::Locale.base_languages.join("|")})$/
+         self.translation_class.respond_to?($1, priv)
+        when /^(find_by_[_a-zA-Z]\\w*)_in_source_language$/
+         self.translation_class.respond_to?($1, priv)
+        else
+         super
+      end
+      END_RUBY
+    end
+
+    def method_missing(sym, *args)
+      eval <<-END_RUBY
+      case sym.to_s
+        when /^(find_by_[_a-zA-Z]\\w*)_in_(#{Yogoshu::Locale.base_languages.join("|")})$/
+          nil
+        when /^(find_by_[_a-zA-Z]\\w*)_in_source_language$/
+          nil
+        else
+         super
+      end
+      END_RUBY
+    end
+
+  end
+
   protected
 
   def set_default_source_language

@@ -37,6 +37,13 @@ describe Yogoshu::Locale do
       @entry.respond_to?(:term_in_de).should == false
     end
 
+    it "returns false for non-translated attribute with postfix in base_languages" do
+      @entry = Entry.new
+      @entry.respond_to?(:note_in_en).should == false
+      @entry.respond_to?(:note_in_ja).should == false
+      @entry.respond_to?(:note_in_source_language).should == false
+    end
+
   end
 
   describe "#method_missing" do
@@ -48,6 +55,13 @@ describe Yogoshu::Locale do
       expect { @entry.term_in_ja }.not_to raise_error
       expect { @entry.term_in_en }.not_to raise_error
       expect { @entry.term_in_de }.to raise_error(NoMethodError)
+    end
+
+    it "raises a NoMethodError for postfix on non-translated attribute" do
+      @entry = Entry.new
+      expect { @entry.note_in_ja }.to raise_error(NoMethodError)
+      expect { @entry.note_in_en }.to raise_error(NoMethodError)
+      expect { @entry.note_in_source_language }.to raise_error(NoMethodError)
     end
 
   end
