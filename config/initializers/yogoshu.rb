@@ -1,7 +1,7 @@
-require 'yogoshu/locale'
+require 'yogoshu/acts_as_glossary'
 
 # sets base languages to be used throughout the application
-Yogoshu::Locale.set_base_languages(:ja, :en)
+Yogoshu::Locales.set_base_languages(:ja, :en)
 
 # sets the default source language for all entries in the glossary
-Yogoshu::Locale.set_glossary_language :ja
+Yogoshu::Locales.set_glossary_language :ja

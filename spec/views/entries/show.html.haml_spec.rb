@@ -16,7 +16,7 @@ describe "entries/show.html.haml" do
     describe "show entry in bilingual glossary" do
 
       before do
-        Yogoshu::Locale.set_base_languages(:en, :ja)
+        Yogoshu::Locales.set_base_languages(:en, :ja)
         assign(:base_languages, %w[en ja])
         @entry = Factory(:entry_en, :term_in_en => "apple", :term_in_ja => "りんご", :note => "Here's a simple word in Japanese and English. I found it on this site: http://abc.com . some text\nHere's some more text.")
       end

@@ -6,8 +6,8 @@ describe Entry do
   before do
     I18n.locale = 'en'
     Globalize.locale = 'en'
-    Yogoshu::Locale.set_base_languages(:ja, :en)
-    Yogoshu::Locale.set_glossary_language(:ja)
+    Yogoshu::Locales.set_base_languages(:ja, :en)
+    Yogoshu::Locales.set_glossary_language(:ja)
   end
 
   describe "validation with factory" do

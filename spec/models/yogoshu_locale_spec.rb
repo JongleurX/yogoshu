@@ -1,30 +1,30 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
 
-describe Yogoshu::Locale do
+describe Yogoshu::Locales do
 
   after do
     I18n.locale = nil
     Globalize.locale = nil
-    Yogoshu::Locale::set_base_languages(:ja, :en)
+    Yogoshu::Locales.set_base_languages(:ja, :en)
   end
 
   describe "#set_base_languages" do
 
     it "raises an error for arguments that are not Symbols" do
-      expect { Yogoshu::Locale.set_base_languages(:en, "abc") }.to raise_error(ArgumentError)
+      expect { Yogoshu::Locales.set_base_languages(:en, "abc") }.to raise_error(ArgumentError)
     end
 
     it " assigns base_languages" do
-      Yogoshu::Locale.set_base_languages(:de, :ja)
-      Yogoshu::Locale.base_languages.should == [:de, :ja]
+      Yogoshu::Locales.set_base_languages(:de, :ja)
+      Yogoshu::Locales.base_languages.should == [:de, :ja]
     end
 
   end
 
   describe "#respond_to?" do
 
-    before { Yogoshu::Locale.set_base_languages(:ja, :en) }
+    before { Yogoshu::Locales.set_base_languages(:ja, :en) }
 
     it "returns true for translated attribute with postfix in base_languages" do
       @entry = Entry.new
@@ -48,7 +48,7 @@ describe Yogoshu::Locale do
 
   describe "#method_missing" do
 
-    before { Yogoshu::Locale.set_base_languages(:ja, :en) }
+    before { Yogoshu::Locales.set_base_languages(:ja, :en) }
 
     it "raises a NoMethodError unless postfix is a locale in base_languages" do
       @entry = Entry.new
@@ -70,10 +70,8 @@ describe Yogoshu::Locale do
 
     context "2-languages(:ja, :en)" do
 
-      include Yogoshu::Locale
-
       before do
-        Yogoshu::Locale::set_base_languages(:ja, :en)
+        Yogoshu::Locales.set_base_languages(:ja, :en)
       end
 
       context "given an entry with term 'RIKEN' in :en and '理化学研究所' in :ja" do

@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
-  include Yogoshu::Locale
+  extend Yogoshu::Locales
+  include Yogoshu::Locales
 
   protect_from_forgery
 

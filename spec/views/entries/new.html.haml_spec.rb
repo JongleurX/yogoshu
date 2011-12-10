@@ -15,7 +15,7 @@ describe "entries/new.html.haml" do
         before do
           @entry = stub_model(Entry).as_new_record
           assign(:base_languages, %w[en ja])
-          Yogoshu::Locale.set_base_languages(:en, :ja)
+          Yogoshu::Locales.set_base_languages(:en, :ja)
         end
 
         it "renders form" do
@@ -36,7 +36,7 @@ describe "entries/new.html.haml" do
           before do
             @entry = stub_model(Entry).as_new_record
             assign(:base_languages, %w[en ja de])
-            Yogoshu::Locale.set_base_languages(:en, :ja, :de)
+            Yogoshu::Locales.set_base_languages(:en, :ja, :de)
           end
 
           it "renders input fields" do

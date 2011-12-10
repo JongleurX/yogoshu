@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "entries/index.html.haml" do
 
   before do
-    Yogoshu::Locale.set_base_languages(:en, :ja)
+    Yogoshu::Locales.set_base_languages(:en, :ja)
     assign(:base_languages, %w[en ja]) 
   end
 
