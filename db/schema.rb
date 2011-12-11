@@ -11,12 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111128121949) do
+ActiveRecord::Schema.define(:version => 20111211021810) do
 
   create_table "entries", :force => true do |t|
     t.integer  "user_id"
     t.boolean  "approved"
-    t.string   "source_language", :limit => 2
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "note"

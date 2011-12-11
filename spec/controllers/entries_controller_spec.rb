@@ -38,11 +38,11 @@ describe EntriesController do
 
       before do
         entry = mock_entry
-        Entry.should_receive(:find_by_id!).with("37").and_return { entry }
+        Entry.should_receive(:find_by_term_in_glossary_language).with("apple").and_return { entry }
       end
 
-      pending "assigns the requested entry as @entry" do
-        get :show, :id => "37"
+      it "assigns the requested entry as @entry" do
+        get :show, :id => "apple"
         assigns(:entry).should be(@mock_entry)
       end
 
@@ -131,15 +131,15 @@ describe EntriesController do
 
     describe "DELETE destroy" do
 
-      pending "destroys the requested entry" do
-        Entry.should_receive(:find_by_id!).with("37") { mock_entry }
+      it "destroys the requested entry" do
+        Entry.should_receive(:find_by_term_in_glossary_language).with("apple") { mock_entry }
         mock_entry.should_receive(:destroy)
-        delete :destroy, :id => "37", :locale => 'en'
+        delete :destroy, :id => "apple", :locale => 'en'
       end
 
-      pending "redirects to the homepage" do
-        Entry.stub(:find_by_id!) { mock_entry }
-        delete :destroy, :id => "37", :locale => 'en'
+      it "redirects to the homepage" do
+        Entry.stub(:find_by_term_in_glossary_language) { mock_entry }
+        delete :destroy, :id => "apple", :locale => 'en'
         response.should redirect_to(entries_path)
       end
 

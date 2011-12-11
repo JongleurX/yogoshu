@@ -17,7 +17,6 @@ end
 [:en, :ja].each do |lang|
   eval <<-RUBY_END
   Factory.define :entry_#{lang}, :class => Entry do |f|
-    f.source_language '#{lang}'
     f.sequence(:term_in_#{lang}) { |n| "term\#{n}" }
     f.association :user, :factory => :user
   end

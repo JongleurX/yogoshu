@@ -27,10 +27,10 @@
           - @base_languages.each do |lang|
             %td
               - Globalize.with_locale(lang) do
-                - if (lang.to_s == entry.source_language)
-                  = link_to highlight(entry.term, params[:search]), entry
+                - if (lang.to_s == entry.glossary_language)
+                  = link_to highlight(entry.term || "", params[:search]), entry
                 - else
-                  = highlight(entry.term, params[:search])
+                  = highlight(entry.term || "", params[:search])
           - if logged_in?
             %td= link_to entry.user.name, entry.user
             %td

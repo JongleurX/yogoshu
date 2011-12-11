@@ -18,6 +18,7 @@ module Yogoshu
     end
 
     def self.set_glossary_language(locale)
+      raise ArgumentError, "Base languages must be Symbols" unless locale.class == Symbol
       @@glossary_language = locale unless !@@base_languages.include?(locale)
     end
 
@@ -44,7 +45,7 @@ module Yogoshu
       include Locales
 
       def postfix_attr_names
-        %w[ source_language glossary_language ]
+        %w[ glossary_language ]
       end
 
       def postfix
@@ -78,8 +79,9 @@ module Yogoshu
 
       def method_missing(sym, *args)
         if sym.to_s =~ /^find_by_(\w+)_in_(\w+)$/ && translated?($1) && postfix.include?($2)
-          lang = postfix_attr_names.include($2) ? eval($2) : $2
-          element = (translation_class.find :first, :conditions => { :locale => lang, $1.to_sym => args[0] }).send(self.to_s)
+          lang = postfix_attr_names.include?($2) ? eval($2) : $2
+          element = translation_class.find :first, :conditions => { :locale => lang, $1.to_sym => args[0] }
+          element.nil? ? nil : element.send(self.to_s.underscore)
         else
           super
         end
