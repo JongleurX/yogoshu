@@ -18,7 +18,7 @@ module Yogoshu
     end
 
     def self.set_glossary_language(locale)
-      raise ArgumentError, "Base languages must be Symbols" unless locale.class == Symbol
+      raise ArgumentError, "Glossary language must be a Symbol" unless locale.class == Symbol
       @@glossary_language = locale unless !@@base_languages.include?(locale)
     end
 

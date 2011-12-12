@@ -36,18 +36,18 @@ describe "entries/index.html.haml" do
       before(:each) do
         view.stub(:manager?) { false }
         @alice = Factory(:alice)
-        @entry1 = Entry.new(:user => @alice, :term_in_ja => "term1")
-        @entry2 = Entry.new(:user => @alice, :term_in_ja => "term2")
-        @entry3 = Entry.new(:user => @alice, :term_in_ja => "term3")
+        @entry1 = Entry.create(:user => @alice, :term_in_ja => "term1")
+        @entry2 = Entry.create(:user => @alice, :term_in_ja => "term2")
+        @entry3 = Entry.create(:user => @alice, :term_in_ja => "term3")
         @entries = [@entry1, @entry2, @entry3]
         Entry.stub(:all) { @entries }
       end
 
-      it "renders list of entries" do
+      pending "renders list of entries" do
         render
-        rendered.should have_content("term1")
-        rendered.should have_content("term2")
-        rendered.should have_content("term3")
+        rendered.should have_link("term1")
+        rendered.should have_link("term2")
+        rendered.should have_link("term3")
       end
 
     end
