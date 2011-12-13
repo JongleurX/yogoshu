@@ -42,7 +42,7 @@ class EntriesController < ApplicationController
   def index
     if (searchstring = params[:search]).present?
       tokens = searchstring.split.collect {|c| "%#{c.downcase}%"} 
-      @entries_translations = Entry.translation_class.find(:all, :conditions => [(['term LIKE ?'] * tokens.length).join(' or ')] + tokens.map { |term| "#{term}" })
+      @entries_translations = Entry.translation_class.find(:all, :conditions => [(['LOWER(term) LIKE ?'] * tokens.length).join(' or ')] + tokens.map { |term| "#{term}" })
       @entries = (@entries_translations.map { |t| Entry.find(t.entry_id) }).uniq
     else
       params[:search] = nil
