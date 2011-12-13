@@ -40,10 +40,12 @@ class EntriesController < ApplicationController
   end
 
   def index
-    if params[:search]
-      @entries_translations = Entry.translation_class.where("term LIKE ?", "%#{params[:search]}%")
+    if (searchstring = params[:search]).present?
+      tokens = searchstring.split.collect {|c| "%#{c.downcase}%"} 
+      @entries_translations = Entry.translation_class.where("term LIKE ?", "%#{tokens}%")
       @entries = (@entries_translations.map { |t| Entry.find(t.entry_id) }).uniq
     else
+      params[:search] = nil
       @entries = Entry.all
     end
     if !(logged_in?)
@@ -55,9 +57,6 @@ class EntriesController < ApplicationController
 
   def find_entry
     @entry = Entry.find_by_term_in_glossary_language(params[:id])
-    #if entries.empty?
-  #    raise ActiveRecord::RecordNotFound, "Couldn't find Entry with term_in_glossary_language = #{params[:id]}"
-  #  end
   end
 
 end

@@ -9,7 +9,7 @@ gem 'haml'
 gem 'twitter-bootstrap-rails'
 gem 'twitter_bootstrap_form_for'
 gem 'rails_autolink'
-gem 'globalize3'
+gem 'globalize3', :git => 'git://github.com/svenfuchs/globalize3.git'
 gem 'thin'
 
 # Gems used only for assets and not required

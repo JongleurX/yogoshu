@@ -68,12 +68,12 @@ describe Yogoshu::ActsAsGlossary do
         Entry.respond_to?(:find_by_term_in_en).should == true
         Entry.respond_to?(:find_by_term_in_ja).should == true
         Entry.respond_to?(:find_by_term_in_glossary_language).should == true
-        #Entry.respond_to?(:find_all_by_term_in_en).should == true
-        #Entry.respond_to?(:find_all_by_term_in_ja).should == true
-        #Entry.respond_to?(:find_all_by_term_in_glossary_language).should == true
-        #Entry.respond_to?(:find_last_by_term_in_en).should == true
-        #Entry.respond_to?(:find_last_by_term_in_ja).should == true
-        #Entry.respond_to?(:find_last_by_term_in_glossary_language).should == true
+        Entry.respond_to?(:find_all_by_term_in_en).should == true
+        Entry.respond_to?(:find_all_by_term_in_ja).should == true
+        Entry.respond_to?(:find_all_by_term_in_glossary_language).should == true
+        Entry.respond_to?(:find_last_by_term_in_en).should == true
+        Entry.respond_to?(:find_last_by_term_in_ja).should == true
+        Entry.respond_to?(:find_last_by_term_in_glossary_language).should == true
       end
 
       it "returns false for dynamic finders with other postfix values" do
@@ -116,21 +116,26 @@ describe Yogoshu::ActsAsGlossary do
       before do
         @entry1 = Entry.new(:user => Factory(:user)) 
         @entry1.term_in_ja = "あああ"
-        @entry1.term_in_en = "term1"
+        @entry1.term_in_en = "aaa"
         @entry1.save
 
         @entry2 = Entry.new(:user => Factory(:user)) 
         @entry2.term_in_ja = "バナナ"
-        @entry2.term_in_en = "term2"
+        @entry2.term_in_en = "banana"
         @entry2.save
 
         @entry3 = Entry.new(:user => Factory(:user)) 
         @entry3.term_in_ja = "りんご"
         @entry3.save
+
+        @entry4 = Entry.new(:user => Factory(:user))
+        @entry4.term_in_ja = "オレンジ"
+        @entry4.term_in_en = "banana"
+        @entry4.save
       end
       
       it "returns entries with matching terms in English" do
-        Entry.find_by_term_in_en("term1").should == @entry1
+        Entry.find_by_term_in_en("aaa").should == @entry1
       end
 
       it "returns entries with matching terms in Japanese" do
@@ -138,13 +143,13 @@ describe Yogoshu::ActsAsGlossary do
       end
 
       it "returns entry with matching terms in glossary language" do
-        Entry.find_by_term_in_glossary_language("term1").should be(nil)
+        Entry.find_by_term_in_glossary_language("aaa").should be(nil)
         Entry.find_by_term_in_glossary_language("バナナ").should == @entry2
         Entry.find_by_term_in_glossary_language("りんご").should == @entry3
       end
 
-      pending "returns multiple entries with matching terms in English with _all finder" do
-        Entry.find_all_by_term_in_en("term").should == [@entry1, @entry2]
+      it "returns multiple entries with matching terms in English with _all finder" do
+        Entry.find_all_by_term_in_en("banana").should == [@entry2, @entry4]
       end
 
     end

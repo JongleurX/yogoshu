@@ -73,18 +73,50 @@ module Yogoshu
     module ClassMethods
       include Postfixes, Locales
 
-      def respond_to?(method, priv=false)
-        (method.to_s =~ /^find_by_(\w+)_in_(\w+)$/ && translated?($1) && postfix.include?($2)) ? respond_to?("find_by_" + $1, priv) : super
+      def match_with_postfix(method_id)
+        if method_id.to_s =~ /^([_a-zA-Z]\w*)_in_(\w+)$/ && postfix.include?($2) && (match = ::ActiveRecord::DynamicFinderMatch.match($1) || ::ActiveRecord::DynamicScopeMatch.match($1))
+          lang = postfix_attr_names.include?($2) ? eval($2) : $2
+          return [match, lang]
+        else
+          return nil
+        end
       end
 
-      def method_missing(sym, *args)
-        if sym.to_s =~ /^find_by_(\w+)_in_(\w+)$/ && translated?($1) && postfix.include?($2)
-          lang = postfix_attr_names.include?($2) ? eval($2) : $2
-          element = translation_class.find :first, :conditions => { :locale => lang, $1.to_sym => args[0] }
-          element.nil? ? nil : element.send(self.to_s.underscore)
-        else
-          super
+      def respond_to?(method_id, priv=false)
+        supported_on_missing_with_postfix?(method_id) ? true : super
+      end
+
+      def supported_on_missing_with_postfix?(method_id)
+        match, lang = match_with_postfix(method_id)
+        return false if match.nil?
+        attribute_names = match.attribute_names.map(&:to_sym)
+        translated_attributes = attribute_names & translated_attribute_names
+        return false if translated_attributes.empty?
+
+        untranslated_attributes = attribute_names - translated_attributes
+        return false if untranslated_attributes.any?{|unt| ! respond_to(:"scoped_by_#{unt}")}
+
+        return [match, attribute_names, translated_attributes, untranslated_attributes, lang]
+      end
+
+      def method_missing(method_id, *args, &block)
+        match, attribute_names, translated_attributes, untranslated_attributes, lang = supported_on_missing_with_postfix?(method_id)
+        return super unless match
+
+        scope = scoped
+
+        translated_attributes.each do |attr|
+          scope = scope.with_translated_attribute(attr, args[attribute_names.index(attr)], lang)
         end
+
+        untranslated_attributes.each do |unt|                                              
+          index = attribute_names.index(unt)                                               
+          raise StandarError unless index                                                  
+          scope = scope.send(:"scoped_by_#{unt}", arguments[index])                        
+        end                                                                                
+
+        return scope.send(match.finder) if match.is_a?(::ActiveRecord::DynamicFinderMatch) 
+        return scope   
       end
     end
   end
