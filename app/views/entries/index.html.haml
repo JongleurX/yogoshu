@@ -28,9 +28,9 @@
             %td
               - Globalize.with_locale(lang) do
                 - if (lang == entry.glossary_language)
-                  = link_to highlight(entry.term, params[:search]), entry
+                  = link_to highlight(entry.term, @tokens), entry
                 - else
-                  = highlight(entry.term, params[:search]) unless entry.term.nil?
+                  = highlight(entry.term, @tokens) unless entry.term.nil?
           - if logged_in?
             %td= link_to entry.user.name, entry.user
             %td
