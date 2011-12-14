@@ -63,7 +63,7 @@ module Yogoshu
       def method_missing(sym, *args)
         if sym.to_s =~ /^(\w+)_in_(\w+)(=|)$/ && translated?($1) && postfix.include?($2)
           lang = postfix_attr_names.include?($2) ? eval($2) : $2
-          ($3 == '=') ? write_attribute($1, args[0], lang) : read_attribute($1, lang) unless lang.nil?
+          ($3 == '=') ? write_attribute($1, args[0], { :locale => lang }) : read_attribute($1, { :locale => lang }) unless lang.nil?
         else
           super
         end
