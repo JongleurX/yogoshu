@@ -14,6 +14,13 @@ Factory.define :alice, :class => User do |u|
   u.role "contributor"
 end
 
+Factory.define :manager, :class => User do |u|
+  u.name 'manager_user'
+  u.password 'secret'
+  u.password_confirmation 'secret'
+  u.role "manager"
+end
+
 [:en, :ja].each do |lang|
   eval <<-RUBY_END
   Factory.define :entry_#{lang}, :class => Entry do |f|

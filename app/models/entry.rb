@@ -1,4 +1,6 @@
 class Entry < ActiveRecord::Base
+  include Permissions
+
   translates :term
 
   # associations

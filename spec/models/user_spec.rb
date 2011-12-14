@@ -11,6 +11,7 @@ describe User do
 
     subject { @user }
 
+
     describe "user attributes" do
 
       it "should be valid created by factory" do
@@ -116,6 +117,17 @@ describe User do
         @manager.contributor?.should == false
       end
     end
+
+  end
+
+  describe "permissions" do
+    before do
+      @user = Factory(:user)
+    end
+
+    subject { @user }
+
+    it { should have_permissions }
 
   end
 

@@ -49,4 +49,17 @@ describe Entry do
     
   end
 
+  describe "permissions" do
+
+    before(:each) do
+      @entry = Entry.new(:user => Factory(:user)) 
+      @entry.term_in_ja = "term"
+    end
+
+    subject { @entry }
+
+    it { should have_permissions }
+
+  end
+
 end

@@ -1,4 +1,5 @@
 require 'yogoshu/acts_as_glossary'
+require 'yogoshu/permissions'
 
 # sets base languages to be used throughout the application
 Yogoshu::Locales.set_base_languages(:ja, :en)
