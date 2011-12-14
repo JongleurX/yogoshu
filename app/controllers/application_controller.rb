@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   def manager?
-    current_user && current_user.role == "manager"
+    current_user && current_user.manager?
   end
 
   def login_required

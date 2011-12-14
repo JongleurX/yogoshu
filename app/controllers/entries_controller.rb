@@ -2,6 +2,7 @@ class EntriesController < ApplicationController
 
   before_filter :login_required, :except => [:show, :index]
   before_filter :find_entry, :except => [:index, :new, :create]
+  before_filter :authorize, :only => [:destroy]
 
   def show
   end
@@ -57,6 +58,12 @@ class EntriesController < ApplicationController
 
   def find_entry
     @entry = Entry.find_by_term_in_glossary_language(params[:id])
+  end
+
+  def authorize
+    unless @entry.changeable_by?(current_user)
+      render :text => 'Unauthorized', :status => :unauthorized
+    end
   end
 
 end

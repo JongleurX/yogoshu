@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'spec_helper'
 
 describe EntriesController do
@@ -12,6 +13,11 @@ describe EntriesController do
     (@mock_user ||= mock_model(User).as_null_object).tap do |user|
       user.stub(stubs) unless stubs.empty?
     end
+  end
+
+  before do
+    Yogoshu::Locales.set_base_languages(:ja, :en)
+    Yogoshu::Locales.set_glossary_language(:ja)
   end
 
   context "with anonymous user" do
@@ -131,20 +137,90 @@ describe EntriesController do
 
     describe "DELETE destroy" do
 
-      it "destroys the requested entry" do
-        Entry.should_receive(:find_by_term_in_glossary_language).with("apple") { mock_entry }
-        mock_entry.should_receive(:destroy)
-        delete :destroy, :id => "apple", :locale => 'en'
+      def destroys_entry(entry)
+        Entry.should_receive(:find_by_term_in_glossary_language).and_return(entry)
+        entry.should_receive(:destroy)
+        delete :destroy, :id => "りんご"
       end
 
-      it "redirects to the homepage" do
-        Entry.stub(:find_by_term_in_glossary_language) { mock_entry }
-        delete :destroy, :id => "apple", :locale => 'en'
+      def redirects_to_entries(entry)
+        Entry.stub(:find_by_term_in_glossary_language) { entry }
+        delete :destroy, :id => "りんご"
         response.should redirect_to(entries_path)
       end
 
+      def responds_with_unauthorized(entry)
+        Entry.stub(:find_by_term_in_glossary_language) { entry }
+        delete :destroy, :id => "りんご"
+        response.status.should == 401
+      end
+
+      context "with contributor role" do
+
+        before do
+          user = mock_user(:manager? => false)
+          controller.stub(:current_user) { user }
+        end
+
+        context "for own entry" do
+
+          before do
+            @entry = Entry.create!(:user => mock_user, :term_in_ja => "りんご")
+          end
+
+          it "destroys the requested entry" do
+            destroys_entry(@entry)
+          end
+
+          it "redirects to the entries_index" do
+            redirects_to_entries(@entry)
+          end
+
+          it "returns a success message"
+
+        end
+
+        context "for other user's entry" do
+
+          before do
+            other_user = mock_model(User)
+            @entry = Entry.create!(:user => other_user, :term_in_ja => "りんご")
+          end
+        
+          it "responds with unauthorized" do
+            responds_with_unauthorized(@entry)
+          end
+
+          it "returns an error message"
+
+        end
+
+      end
+
+      context "with manager role" do
+
+        before do
+          user = mock_user(:manager? => true)
+          controller.stub(:current_user) { user }
+
+          other_user = mock_model(User)
+          @entry = Entry.create!(:user => other_user, :term_in_ja => "りんご")
+        end
+
+        it "destroys the requested entry" do
+          destroys_entry(@entry)
+        end
+
+        it "redirects to the entries_index" do
+          redirects_to_entries(@entry)
+        end
+
+        it "returns a success message"
+
+      end
+
     end
-    
+
   end
 
 end
