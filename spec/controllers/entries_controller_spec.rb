@@ -135,6 +135,96 @@ describe EntriesController do
 
     end
 
+    describe "PUT update" do
+
+      before do
+        request.env['HTTP_REFERER'] = "http://www.ablog.com/"
+      end
+
+      def updates_entry(entry)
+        Entry.should_receive(:find_by_term_in_glossary_language).and_return(entry)
+        entry.should_receive(:update_attributes!)
+        put :update, :id => "りんご"
+      end
+
+      def redirects_back(entry)
+        Entry.stub(:find_by_term_in_glossary_language) { entry }
+        put :update, :id => "りんご"
+        response.should redirect_to(:back)
+      end
+
+      def responds_with_unauthorized(entry)
+        Entry.stub(:find_by_term_in_glossary_language) { entry }
+        put :update, :id => "りんご"
+        response.status.should == 401
+      end
+
+      context "with contributor role" do
+
+        before do
+          user = mock_user(:manager? => false)
+          controller.stub(:current_user) { user }
+        end
+
+        context "for own entry" do
+
+          before do
+            @entry = Entry.create!(:user => mock_user, :term_in_ja => "りんご")
+          end
+
+          it "updates the requested entry" do
+            updates_entry(@entry)
+          end
+
+          it "redirects to the previous page" do
+            redirects_back(@entry)
+          end
+
+          it "returns a success message"
+
+        end
+
+        context "for other user's entry" do
+
+          before do
+            other_user = mock_model(User)
+            @entry = Entry.create!(:user => other_user, :term_in_ja => "りんご")
+          end
+        
+          it "responds with unauthorized" do
+            responds_with_unauthorized(@entry)
+          end
+
+          it "returns an error message"
+          
+        end
+
+      end
+
+      context "with manager role" do
+
+        before do
+          user = mock_user(:manager? => true)
+          controller.stub(:current_user) { user }
+
+          other_user = mock_model(User)
+          @entry = Entry.create!(:user => other_user, :term_in_ja => "りんご")
+        end
+
+        it "updates the requested entry" do
+          updates_entry(@entry)
+        end
+
+        it "redirects to the previous page" do
+          redirects_back(@entry)
+        end
+
+        it "returns a success message"
+
+      end
+
+    end
+
     describe "DELETE destroy" do
 
       def destroys_entry(entry)

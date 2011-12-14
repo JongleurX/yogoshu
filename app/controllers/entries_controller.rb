@@ -2,7 +2,7 @@ class EntriesController < ApplicationController
 
   before_filter :login_required, :except => [:show, :index]
   before_filter :find_entry, :except => [:index, :new, :create]
-  before_filter :authorize, :only => [:destroy]
+  before_filter :authorize, :only => [:destroy, :update]
 
   def show
   end
