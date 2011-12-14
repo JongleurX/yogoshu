@@ -21,10 +21,6 @@ class User < ActiveRecord::Base
     name
   end
 
-  def role_string
-    (0..ROLES.length) === role ? ROLES[role] : nil
-  end
-
   def self.authenticate(name, pass)
     user = User.find_by_name(name)
   end
@@ -47,8 +43,13 @@ class User < ActiveRecord::Base
     encrypted_password == User.encrypt(pass, salt)
   end
  
-  def manager?
-    role == "manager"
+  # shorthand methods for each role, i.e. manager?, contributor? etc.
+  ROLES.each do |r|
+    eval <<-END_RUBY
+    def #{r}?
+      role == "#{r}"
+    end
+    END_RUBY
   end
 
   protected

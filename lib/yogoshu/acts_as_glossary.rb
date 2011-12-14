@@ -70,6 +70,7 @@ module Yogoshu
       end
     end
 
+    # ClassMethods respond_to? and method_missing code derived from globalize3 (globalize/active_record/class_methods.rb)
     module ClassMethods
       include Postfixes, Locales
 
@@ -109,11 +110,11 @@ module Yogoshu
           scope = scope.with_translated_attribute(attr, args[attribute_names.index(attr)], lang)
         end
 
-        untranslated_attributes.each do |unt|                                              
-          index = attribute_names.index(unt)                                               
-          raise StandarError unless index                                                  
-          scope = scope.send(:"scoped_by_#{unt}", arguments[index])                        
-        end                                                                                
+        untranslated_attributes.each do |unt| 
+          index = attribute_names.index(unt) 
+          raise StandarError unless index 
+          scope = scope.send(:"scoped_by_#{unt}", arguments[index]) 
+        end 
 
         return scope.send(match.finder) if match.is_a?(::ActiveRecord::DynamicFinderMatch) 
         return scope   

@@ -92,4 +92,31 @@ describe User do
 
   end
 
+  describe "shorthand methods" do
+
+    before do
+      @contributor = Factory(:user, :role => "contributor")
+      @manager = Factory(:user, :role => "manager")
+    end
+
+    describe "#manager?" do
+      it "should return false if user is a contributor" do
+        @contributor.manager?.should == false
+      end
+      it "should return true if user is a manager" do
+        @manager.manager?.should == true
+      end
+    end
+
+    describe "#contributor?" do
+      it "should return true if user is a contributor" do
+        @contributor.contributor?.should == true
+      end
+      it "should return false if user is a manager" do
+        @manager.contributor?.should == false
+      end
+    end
+
+  end
+
 end
