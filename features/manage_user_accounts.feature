@@ -14,25 +14,3 @@ Feature: Manage user accounts
     When I go to the list of users
     Then I should see a link to jens' profile
     And I should see a link to susan's profile
-
-  Scenario: Successful user create
-    When I add a new user "frank" with password "secret" and role "contributor"
-    Then I should see frank's profile page
-    And I should see a notice message: "User frank has been created."
-    And user "frank" with password "secret" and role "contributor" should exist
-    And there should be 3 users
-
-  @wip
-  Scenario: User already exists
-    When I add a new user "jens"
-    Then I should see the new user page
-    And I should see an error message: "Name has already been taken" 
-    And there should be only 2 users
-
-  @wip
-  Scenario: Successful delete user account
-    Given I am on jens' profile page
-    When I click "delete user"
-    Then I should be asked to confirm the delete
-    And jens' account should be deleted
-    And there should be only 1 user

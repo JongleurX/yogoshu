@@ -20,13 +20,14 @@ Given /^I am logged in as "([^"]*)"$/ do |name|
   click_button('Login')
 end
 
-When /^I go to the list of users$/ do
-  visit homepage_path
-  click_link('Users')
-end
-
 When /^I go to the homepage$/ do
   visit homepage_path
+end
+
+
+When /^I go to the list of users$/ do
+  When "I go to the homepage"
+  click_link('Users')
 end
 
 Then /^I should see "([^"]*)"$/ do |text|
@@ -38,13 +39,13 @@ Then /^I should see a link to (.+)'s? profile$/ do |name|
   page.should have_link(@user.name, :href => user_path(@user))
 end
 
-When /^I add a new user "([^"]*)"(?: with password "|)([^"]*)(?:"|)$/ do |name,password|
-  visit homepage_path
-  click_link "Add user"
-  fill_in('User name', :with => name)
-  fill_in('Password', :with => password || "secret")
-  fill_in('Confirm password', :with => password || "secret")
-  click_button('Submit')
+When %{I add a new user "$name" with password "$password"} do |name,password|
+  When %{I go to the list of users}
+  And %{I click "Add user"}
+  And %{I fill in "User name" with "#{name}"}
+  And %{I fill in "Password" with "#{password || "secret"}"}
+  And %{I fill in "Confirm password" with "#{password || "secret"}"}
+  And %{I click "Submit"}
 end
 
 Then /^I should see (.+)'s? profile page$/ do |name|
@@ -104,20 +105,4 @@ end
 
 Then /^I should see the login page$/ do
   page.should have_xpath("//title", :text => "Yogoshu: Login")
-end
-
-When /^I click "([^"]*)"$/ do |link|
-  click_on (link)
-end
-
-Then /^I should be asked to confirm the delete$/ do
-  pending # express the regexp above with the code you wish you had
-end
-
-Then /^(.+)'s? account should be deleted$/ do
-  pending # express the regexp above with the code you wish you had
-end
-
-Then /^there should be only (\d+) user$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
 end

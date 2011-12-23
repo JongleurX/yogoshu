@@ -1,3 +1,14 @@
+When /^I go to the homepage$/ do
+  visit homepage_path
+end
+
+When /^I go to the list of users$/ do
+  visit homepage_path
+  click_link('Users')
+end
+
+
+
 Then /^I should see a navigation bar$/ do
   page.should have_selector(".nav")
 end
