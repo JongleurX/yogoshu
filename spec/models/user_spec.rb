@@ -93,6 +93,22 @@ describe User do
 
   end
 
+  describe "#authenticate" do
+
+    before do
+      @user = Factory(:user, :password => "secret")
+    end
+
+    it "should authenticate for correct password" do
+      User.authenticate(@user.name, @user.password).should == @user
+    end
+
+    it "should not authenticate for incorrect password" do
+      User.authenticate(@user.name, "abc").should be_nil
+    end
+
+  end
+
   describe "shorthand methods" do
 
     before do

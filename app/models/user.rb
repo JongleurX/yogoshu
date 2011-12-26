@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
 
   def self.authenticate(name, pass)
     user = User.find_by_name(name)
+    user && user.authenticated?(pass) ? user : nil
   end
 
   def self.current_user=(user)

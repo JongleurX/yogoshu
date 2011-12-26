@@ -3,6 +3,7 @@ Feature: Navigate glossary site
   I want to navigate the glossary site
   So that I can easily find glossary entries
 
+  @wip
   Scenario: Navigation bar for logged-in users
     Given I am logged in
     When I go to the homepage

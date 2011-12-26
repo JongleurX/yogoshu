@@ -10,6 +10,7 @@ Feature: Manage user accounts
       | susan | secret   | manager      |
     And I am logged in as "susan"
 
+  @wip
   Scenario: List users
     When I go to the list of users
     Then I should see a link to jens' profile

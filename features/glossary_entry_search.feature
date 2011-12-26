@@ -6,7 +6,7 @@ Feature: Lookup glossary entry
   Background:
     Given the following users:
       | name   | role        |
-      | yunike | user        |
+      | yunike | contributor |
       | jens   | contributor |
       | susan  | manager     |
     And a glossary in Japanese and English indexed in Japanese
