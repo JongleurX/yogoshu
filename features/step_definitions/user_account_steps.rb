@@ -20,10 +20,6 @@ Then /^I should not be logged in$/ do
   page.should_not have_link('Profile')
 end
 
-#Then /^I should see "([^"]*)"$/ do |text|
-#  page.should have_content(text)
-#end
-#
 #Then /^I should see a link to (.+)'s? profile$/ do |name|
 #  @user = User.find_by_name(name)
 #  page.should have_link(@user.name, :href => user_path(@user))
@@ -43,10 +39,6 @@ end
 #  @user.should_not be_nil
 #  uri = URI.parse(current_url)
 #  uri.path.should == user_path(@user)
-#end
-#
-#Then /^I should see an? (error|notice) message: "([^"]*)"$/ do |msg_type,message|
-#  page.should have_css(".#{msg_type}", :text => message)
 #end
 #
 #Then /^user "([^"]*)" with password "([^"]*)" should exist$/ do |name,password|
