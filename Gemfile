@@ -27,6 +27,7 @@ group :test, :development do
   gem 'capybara'
   gem 'spork'
   gem 'launchy'
+  gem 'ruby-debug19'
 end
 
 group :cucumber do

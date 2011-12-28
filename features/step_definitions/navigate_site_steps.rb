@@ -23,7 +23,11 @@ Then /^I should see the new glossary entry page$/ do
   page.should have_xpath("//title", :text => "Yogoshu: Add new entry")
 end
 
-Then /^I should see an? (error|success) message: "([^"]*)"$/ do |msg_type,message|
+Then /^I should see the glossary entries index page$/ do
+  page.should have_xpath("//title", :text => "Yogoshu: Search glossary")
+end
+
+Then /^I should see an? (error|success) message: "(.*)"$/ do |msg_type,message|
   page.should have_css(".#{msg_type}", :text => message)
 end
 

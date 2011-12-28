@@ -7,17 +7,27 @@ Feature: Approve glossary entries
     Given the following users:
       | name   | role        |
       | susan  | manager     |
-      | yokota | manager     |
       | jens   | contributor |
-    And a glossary in Japanese and English indexed in Japanese
+    And a glossary in "ja" and "en" indexed in "ja"
     And the following glossary entries:
-      | English | Japanese | approved? | approved_by |
-      | apple   | りんご   | yes       | yokota      |
-      | orange  | オレンジ | no        |             |
-      | banana  | バナナ   | yes       | susan       |
+      | user    | term_in_en | term_in_ja | approved  |
+      | susan   | apple      | りんご     | true      |
+      | jens    | orange     | オレンジ   | false     |
+      | jens    | banana     | バナナ     | true      |
 
-  Scenario: Glossary manager approves translated glossary entry
+  Scenario: Glossary manager approves glossary entry
+    Given I am logged in as "susan"
+    When I approve the glossary entry "りんご"
+    Then I should see the glossary entries index page
+    And I should see a success message: "Entry "りんご" has been updated."
+    And the glossary entry "りんご" should be approved
+
+  Scenario: Glossary manager unapproves glossary entry
+    Given I am logged in as "susan"
+    When I unapprove the glossary entry "りんご"
+    Then I should see the glossary entries index page
+    And I should see a success message: "Entry "りんご" has been updated."
+    And the glossary entry "りんご" should be unapproved
     
-  Scenario: Glossary manager tries to approve untranslated glossary entry
-    
+  @wip
   Scenario: Glossary manager tries to unapprove glossary entry that was approved by another manager
