@@ -24,7 +24,7 @@ end
 When /^I (approve|unapprove) the glossary entry "([^"]*)"$/ do |action, term|
   visit entries_path
   within('table') do
-    row = find(:xpath, "//tr[./td[contains(.,#{term})]]")
+    row = find(:xpath, "//tr[./td[contains(.,\"#{term}\")]]")
     row.find('a', :text => action).click
   end
 end

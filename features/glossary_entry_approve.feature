@@ -17,10 +17,10 @@ Feature: Approve glossary entries
 
   Scenario: Glossary manager approves glossary entry
     Given I am logged in as "susan"
-    When I approve the glossary entry "りんご"
+    When I approve the glossary entry "オレンジ"
     Then I should see the glossary entries index page
-    And I should see a success message: "Entry "りんご" has been updated."
-    And the glossary entry "りんご" should be approved
+    And I should see a success message: "Entry "オレンジ" has been updated."
+    And the glossary entry "オレンジ" should be approved
 
   Scenario: Glossary manager unapproves glossary entry
     Given I am logged in as "susan"

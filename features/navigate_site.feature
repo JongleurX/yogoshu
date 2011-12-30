@@ -3,10 +3,20 @@ Feature: Navigate glossary site
   I want to navigate the glossary site
   So that I can easily find glossary entries
 
-  @wip
-  Scenario: Navigation bar for logged-in users
-    Given I am logged in
-    When I go to the homepage
+  Background:
+    Given the following users:
+      | name |
+      | jens |
+
+  Scenario Outline: Navigation bar for logged-in users
+    Given I am logged in as "jens"
+    When I go to the <page>
     Then I should see a navigation bar
     And the navigation bar should have a link to my profile
-    And the navigation bar should have a link to the most recent glossary entries I have added
+
+    Examples:
+      | page           |
+      | homepage       |
+      | login page     |
+      | users page     |
+      | entries page   |

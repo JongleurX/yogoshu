@@ -24,7 +24,7 @@ class EntriesController < ApplicationController
 
   def update
     if @entry.update_attributes!(params[:entry])
-      flash[:success] = "Entry \"#{@entry.term}\" has been updated."
+      flash[:success] = "Entry \"#{@entry.term_in_glossary_language}\" has been updated."
       redirect_to :back
     else
       flash[:error] = "Entry could not be updated."

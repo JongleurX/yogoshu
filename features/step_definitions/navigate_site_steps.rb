@@ -1,14 +1,9 @@
-Given /^I am on the login page$/ do
-  visit login_path  
+Given /^I am on the ([^\s]*)(?: page|)$/ do |page|
+  visit eval("#{page}_path")
 end
 
-When /^I go to the homepage$/ do
-  visit homepage_path
-end
-
-When /^I go to the list of users$/ do
-  visit homepage_path
-  click_link('Users')
+When /^I go to the ([^\s]*)(?: page|)$/ do |page|
+  visit eval("#{page}_path")
 end
 
 Then /^I should see the homepage$/ do
@@ -35,20 +30,16 @@ Then /^I should see the text: "([^"]*)"$/ do |text|
   page.should have_content(text)
 end
 
-#
-#Then /^I should see a navigation bar$/ do
-#  page.should have_selector(".nav")
-#end
+Then /^ I should see a link to "([^"]*)"$/ do |link_text|
+  page.should have_link(link_text)
+end
 
-#Then /^the navigation bar should have a link to my profile$/ do
-#  within '.nav' do
-#    page.should have_selector('a', :href => user_path(@user), :text => "Profile")
-#  end
-#end
+Then /^I should see a navigation bar$/ do
+  page.should have_selector(".topbar")
+end
 
-#Then /^the navigation bar should have a link to the most recent glossary entries I have added$/ do
-#  pending
-##  within 'nav' do
-##    page.should have_selector('a', :href => user_path(@current_user), :content => "Profile")
-##  end
-#end
+Then /^the navigation bar should have a link to my profile$/ do
+  within '.topbar' do
+    page.should have_selector('a', :href => user_path(User.current_user), :text => User.current_user.name)
+  end
+end
