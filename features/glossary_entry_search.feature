@@ -10,22 +10,29 @@ Feature: Search glossary entries
       | susan  | manager     |
     And a glossary in "ja" and "en" indexed in "ja"
     And the following glossary entries:
-      | user | term_in_en | term_in_ja | note                       | approved |
-      | jens | apple      | りんご     | Is there a kanji for this? | true     |
-      | jens | orange     | オレンジ   |                            | false    |
-      | jens | banana     | バナナ     | Help translate this!       | false    |
+      | user | term_in_en | term_in_ja | approved |
+      | jens | apple      | りんご     | true     |
+      | jens | orange     | オレンジ   | false    |
+      | jens | banana     | バナナ     | false    |
 
   Scenario: Glossary user finds approved entry searching in Japanese
-    Given I am on the homepage
-    When I fill in "search" with "りんご"
-    And I submit the form
-    Then I should see the glossary entries index page
+    When I search for the keyword "りんご"
+    Then I should see the entries page
     And I should see a link to "りんご"
 
   Scenario: Glossary user finds approved entry searching in English
+    When I search for the keyword "apple"
+    Then I should see the entries page
+    And I should see a link to "りんご"
 
   Scenario: Glossary user fails to find unapproved entry
+    When I search for the keyword "オレンジ"
+    Then I should see the entries page
+    But I should not see a link to "オレンジ"
 
   Scenario: Glossary user fails to find non-existent entry
+    When I search for the keyword "pear"
+    Then I should see the entries page
+    But I should not see any search results
 
-  Scenario: Glossary contributor searches for untranslated entries
+  Scenario: Glossary manager searches for unapproved entries

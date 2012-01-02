@@ -1,6 +1,6 @@
-Feature: Manage my glossary contributions
+Feature: View my glossary contributions
   As a glossary contributor
-  I want to manage my glossary contributions
+  I want to view my glossary contributions
   So that I can keep track of their status
 
   Scenario: List my contributions

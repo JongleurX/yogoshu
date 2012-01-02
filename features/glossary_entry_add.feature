@@ -28,7 +28,7 @@ Feature: Add glossary entry
     When I add the following glossary entry:
       | term_in_ja   | term_in_en | note   |
       | <japanese>   | <english>  | <note> |
-    Then I should see the new glossary entry page
+    Then I should see the new entry page
     And I should see an error message: "There were errors in the information entered."
     And I should see the text: "<message>"
     And there should only be 1 glossary entry

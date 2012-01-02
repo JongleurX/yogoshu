@@ -4,6 +4,7 @@
     = page_title
   = form_tag entries_path, :method => :get do
     = text_field_tag :search, nil, :class => "large", :placeholder => "Enter search terms..."
+    = submit_tag "Submit"
   .clearfix{ :style => "padding: 10px 2px" }
     Search terms:
     %strong=params[:search] || "None"
