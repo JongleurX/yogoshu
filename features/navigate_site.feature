@@ -21,5 +21,5 @@ Feature: Navigate glossary site
       | jens  | login page     |
       | jens  | users page     |
       | jens  | entries page   |
-      | jens  | new_entry page |
-      | susan | new_user page  |
+      | jens  | new entry page |
+      | susan | new user page  |

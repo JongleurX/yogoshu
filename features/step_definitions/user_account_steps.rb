@@ -11,7 +11,7 @@ Given /^I am logged in as "([^"]*)"(?: with password "([^"]*)"|)$/ do |name, pas
   click_button('Login')
 end
 
-When /^I add a new user with:$/ do |table|
+When /^I add the following user:$/ do |table|
   visit new_user_path
   role = table.rows_hash.delete('Role')
   table.rows_hash.each do |field,value|

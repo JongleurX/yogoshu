@@ -16,8 +16,8 @@ Feature: Add glossary entry
   Scenario: Glossary contributor successfully adds glossary entry
     Given I am logged in as "jens"
     When I add the following glossary entry:
-      | term_in_ja | term_in_en |
-      | オレンジ   | orange     |
+      | Japanese | オレンジ |
+      | English  | orange   |
     Then I should see the page for "オレンジ"
     And I should see a success message: "New glossary entry has been created."
     And an unapproved glossary entry "オレンジ" should exist
@@ -26,8 +26,9 @@ Feature: Add glossary entry
   Scenario Outline: Glossary contributor tries to add invalid glossary entry
     Given I am logged in as "jens"
     When I add the following glossary entry:
-      | term_in_ja   | term_in_en | note   |
-      | <japanese>   | <english>  | <note> |
+      | Japanese | <japanese> |
+      | English  | <english>  |
+      | Notes    | <note>     |
     Then I should see the new entry page
     And I should see an error message: "There were errors in the information entered."
     And I should see the text: "<message>"

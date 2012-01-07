@@ -1,8 +1,8 @@
-Given /^I am on the (.+ page|.+)$/ do |page_name|
+Given /^I am on the (.+)$/ do |page_name|
   visit eval("#{page_name.gsub(' page','').gsub(' ','_')}_path")
 end
 
-When /^I go to the (.+ page|.+)$/ do |page_name|
+When /^I go to the (.+)$/ do |page_name|
   visit eval("#{page_name.gsub(' page','').gsub(' ','_')}_path")
 end
 
@@ -16,6 +16,10 @@ end
 
 Then /^I should see the new entry page$/ do
   page.should have_xpath("//title", :text => "Yogoshu: Add new entry")
+end
+
+Then /^I should see the new user page$/ do
+  page.should have_xpath("//title", :text => "Yogoshu: Create user")
 end
 
 Then /^I should see the entries page$/ do
@@ -36,7 +40,7 @@ Then /^I (should|should not) see a link to "([^"]*)"$/ do |expectation,link_text
     (page.should_not have_link(link_text))
 end
 
-Then /^I (should|should not) see a link to the (.+ page|.+)$/ do |expectation,page_name|
+Then /^I (should|should not) see a link to the (.+)$/ do |expectation,page_name|
   (expectation == 'should') ? 
     (page.should have_link('', :href => eval("#{page_name.gsub(' page','').gsub(' ','_')}_path"))) :
     (page.should_not have_link('', :href => eval("#{page_name.gsub(' page','').gsub(' ','_')}_path")))

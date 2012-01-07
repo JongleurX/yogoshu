@@ -8,30 +8,33 @@ Feature: Add user account
       | name  | password | role         |
       | jens  | secret   | contributor  |
       | susan | secret   | manager      |
-    And I am logged in as "susan"
+    And I am logged in as "susan" with password "secret"
 
-  @wip
-  Scenario: Successful user add
-    When I add user "frank" with password "secret" and role "contributor"
-    Then I should see frank's profile page
-    And I should see a notice message: "User frank has been created."
-    And user "frank" with password "secret" and role "contributor" should exist
+  Scenario: Glossary manager successfully adds new user
+    When I add the following user:
+      | User name         | frank        |
+      | Role              | contributor  |
+      | Password          | secret       |
+      | Confirm password  | secret       |
+    Then I should see the profile page for "frank"
+    And I should see a success message: "User frank has been created."
     And there should be 3 users
 
-  @wip
-  Scenario: User name already taken
-    When I add user "jens"
+  Scenario Outline: Glossary manager tries to add invalid user
+    When I add the following user:
+      | User name         | <name>                  |
+      | Role              | <role>                  |
+      | Password          | <password>              |
+      | Confirm password  | <password_confirmation> |
     Then I should see the new user page
-    And I should see an error message: "Name has already been taken" 
+    And I should see an error message: "There were errors in the information entered."
+    And I should see the error "<error>" on field "<field>"
     And there should be only 2 users
 
-  @wip
-  Scenario Outline: Invalid user info
-    Given I am on the "users" page
-    When I follow "Add user"
-    And I fill in "<field>" with "<value>"
-    And I click "Add"
-    Then I should see the inline error "<error>" for "<field>"
-
     Examples:
-      | field | value | error |
+      | name  | role        | password | password_confirmation | error                      | field         |
+      | zz    | contributor | secret   | secret                | is too short               | user_name     |
+      | '''-* | contributor | secret   | secret                | is invalid                 | user_name     |
+      | jens  | contributor | secret   | secret                | has already been taken     | user_name     |
+      | frank | contributor | secret   | somethingelse         | doesn't match confirmation | user_password |
+      | frank | contributor | abc      | abc                   | is too short               | user_password |

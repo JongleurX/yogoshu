@@ -10,15 +10,13 @@ Given /^the following glossary entr(?:y|ies):$/ do |table|
   end
 end
 
-When /^I add the following glossary entr(?:y|ies):$/ do |table|
+When /^I add the following glossary entry:$/ do |table|
   visit homepage_path
   click_link('Add Entry')
-  table.hashes.each do |hash|
-    hash.keys.each do |key|
-      fill_in('entry_' + key, :with => hash[key])
-    end
-    click_button('Add entry')
+  table.rows_hash.each do |field,value|
+    fill_in(field, :with => value)
   end
+  click_button('Add entry')
 end
 
 When /^I (approve|unapprove) the glossary entry "([^"]*)"$/ do |action, term|
