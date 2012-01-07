@@ -12,6 +12,5 @@ Feature: Delete user account
   Scenario: Glossary manager successfully deletes user
     Given I am logged in as "susan"
     When I delete the user "jens"
-    #And I confirm the delete
     Then user "jens" should not exist
     And there should be only 1 user

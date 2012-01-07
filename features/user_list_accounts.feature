@@ -8,9 +8,9 @@ Feature: List user accounts
       | name  | password | role         |
       | jens  | secret   | contributor  |
       | susan | secret   | manager      |
-    And I am logged in as "susan" with password "secret"
 
   Scenario: List users
+    Given I am logged in as "susan" with password "secret"
     When I go to the users page
     Then I should see a link to jens' profile
     And I should see a link to susan's profile
