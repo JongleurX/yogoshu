@@ -38,7 +38,7 @@ Then /^I should be logged in as "([^"]*)"$/ do |name|
   page.should have_link('Profile', :href => user_path(@user))
 end
 
-Then /^I should not be logged in$/ do
+Then /^I should (?:not be logged in|be logged out)$/ do
   page.should_not have_link('Profile')
 end
 

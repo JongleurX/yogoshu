@@ -180,8 +180,11 @@ describe EntriesController do
             redirects_back(@entry)
           end
 
-          it "returns a success message"
-
+          it "returns a success message" do
+            Entry.stub(:find_by_term_in_glossary_language) { @entry }
+            put :update, :id => "りんご"
+            flash[:success].should == "Entry \"りんご\" has been updated."
+          end
         end
 
         context "for other user's entry" do
@@ -195,7 +198,11 @@ describe EntriesController do
             responds_with_unauthorized(@entry)
           end
 
-          it "returns an error message"
+          it "responds with an unauthorized message" do
+            Entry.stub(:find_by_term_in_glossary_language) { @entry }
+            put :update, :id => "りんご"
+            response.body.should =~ /Unauthorized/
+          end
           
         end
 
@@ -219,7 +226,11 @@ describe EntriesController do
           redirects_back(@entry)
         end
 
-        it "returns a success message"
+        it "returns a success message" do
+            Entry.stub(:find_by_term_in_glossary_language) { @entry }
+            put :update, :id => "りんご"
+            flash[:success].should == "Entry \"りんご\" has been updated."
+        end
 
       end
 

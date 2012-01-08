@@ -26,8 +26,8 @@ Then /^I should see the entries page$/ do
   page.should have_xpath("//title", :text => "Yogoshu: Search glossary")
 end
 
-Then /^I should see an? (error|success) message: "(.*)"$/ do |msg_type,message|
-  page.should have_css(".#{msg_type}", :text => message)
+Then /^I should see an? (error|success|notice) message: "(.*)"$/ do |msg_type,message|
+  page.should have_css(".#{msg_type.gsub('notice','message')}", :text => message)
 end
 
 Then /^I should see the text: "([^"]*)"$/ do |text|

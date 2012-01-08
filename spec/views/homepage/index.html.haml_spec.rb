@@ -8,15 +8,13 @@ describe "homepage/index.html.haml" do
     end
 
     describe "search box" do
-      it "should show the search box" do
+      it "should show the search input field" do
         render
-        rendered.should =~ /Search glossary/
+        rendered.should have_selector("form input[@type='text'][@name='search']")
       end
-
       it "should show language checkboxes"
       it "should not show status checkboxes"
     end
-      
   end
 
   context "logged-in user" do

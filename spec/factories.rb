@@ -14,6 +14,13 @@ Factory.define :alice, :class => User do |u|
   u.role "contributor"
 end
 
+Factory.define :bob, :class => User do |u|
+  u.name 'bob'
+  u.password 'abcdef'
+  u.password_confirmation 'abcdef'
+  u.role "contributor"
+end
+
 Factory.define :manager, :class => User do |u|
   u.name 'manager_user'
   u.password 'secret'

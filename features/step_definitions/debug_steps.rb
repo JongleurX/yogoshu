@@ -1,3 +1,4 @@
-Then %{debug} do
+When /debug/ do
   breakpoint
+  0
 end
