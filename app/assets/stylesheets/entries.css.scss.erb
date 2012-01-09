@@ -1,0 +1,34 @@
+// Place all the styles related to the entries controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+$num_langs: <%= Yogoshu::Locales.base_languages.length %>;
+
+table.bordered-table {
+  &.entries-list {
+    width: 100%;
+    th { 
+      background: none repeat scroll 0 0 #FAFAF0;
+      text-align: center;
+    }
+    .col-index { background-color: #F0F0F0; width: 2% }
+    &.logged-out {
+      .col-term { width: (98% / $num_langs); }
+    }
+    &.logged-in {
+      .col-added_by { width: 12%; }
+      .col-status { width: 12%; }
+      &.contributor {
+        .col-term { width: (76% / $num_langs); }
+      }
+      &.manager {
+        .col-term { width: (64% / $num_langs); }
+        .col-actions { width: 10%; }
+      }
+    } 
+  }
+}
+
+.search-terms-box {
+  padding: 10px 2px;
+}

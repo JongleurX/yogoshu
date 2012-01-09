@@ -6,11 +6,11 @@ gem 'rails', '3.1.0'
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 gem 'haml'
-gem 'twitter-bootstrap-rails'
 gem 'twitter_bootstrap_form_for'
 gem 'rails_autolink'
 gem 'globalize3', :git => 'git://github.com/svenfuchs/globalize3.git'
 gem 'thin'
+gem 'fugue_icons_rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -18,6 +18,7 @@ group :assets do
   gem 'sass-rails', "  ~> 3.1.0"
   gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
+  gem 'bootstrap-sass'
 end
 
 group :test, :development do

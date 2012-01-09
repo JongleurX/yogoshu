@@ -5,16 +5,25 @@
   = form_tag entries_path, :method => :get do
     = text_field_tag :search, nil, :class => "large", :placeholder => "Enter search terms..."
     = submit_tag "Submit"
-  .clearfix{ :style => "padding: 10px 2px" }
+  .clearfix.search-terms-box
     Search terms:
     %strong=params[:search] || "None"
 
 - if @entries.empty?
   No entries found.
 - else
-  %table.bordered-table{ :style => (logged_in? ? "" : "table-layout:fixed") }
+  %table.entries-list.bordered-table{ :class => (logged_in? ? "logged-in" : "logged-out") + (manager? ? " manager" : " contributor")}
+    %colgroup.col-index
+    - @base_languages.each do 
+      %colgroup.col-term
+    - if logged_in? 
+      %colgroup.col-added_by
+      %colgroup.col-status
+    - if manager?
+      %colgroup.col-actions
     %thead
       %tr
+        %th 
         - @base_languages.each do |lang|
           %th=I18n.t(lang.to_s).capitalize
         - if logged_in?
@@ -23,8 +32,10 @@
         - if manager?
           %th Actions
     %tbody
-      - @entries.each do |entry|
+      - @entries.each_with_index do |entry,i|
         %tr
+          %td
+            = i + 1
           - @base_languages.each do |lang|
             %td
               - Globalize.with_locale(lang) do
@@ -41,9 +52,9 @@
                 %span.label.warning unapproved
           - if manager?
             %td
-              = link_to "destroy", entry, :confirm => "Are you sure you want to destroy this entry?", :method => :delete, :class => "btn"
-              = link_to "edit", "#", :class => "btn"
+              = link_to image_tag('icons/cross.png', :alt => "destroy"), entry, :confirm => "Are you sure you want to destroy this entry?", :method => :delete, :title => "destroy"
+              = link_to image_tag('icons/pencil.png', :alt => "edit"), "#", :title => "edit"
               - if entry.approved?
-                = link_to "unapprove", entry_path(entry, :entry => { :approved => false}), :method => :put, :class => "btn"
+                = link_to image_tag('icons/thumb.png', :alt => "unapprove"), entry_path(entry, :entry => { :approved => false}), :method => :put, :title => "unapprove"
               - else
-                = link_to "approve", entry_path(entry, :entry => { :approved => true}), :method => :put, :class => "btn"
+                = link_to image_tag('icons/thumb-up.png', :alt => "approve"), entry_path(entry, :entry => { :approved => true}), :method => :put, :title => "approve"

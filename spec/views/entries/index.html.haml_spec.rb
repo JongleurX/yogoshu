@@ -108,12 +108,12 @@ describe "entries/index.html.haml" do
 
       it "renders list of approved and unapproved entries with action buttons" do
         render
-        rendered.should have_xpath("//tr[./td[contains(.,'term1')]]/td/a[@data-method='delete']", :text => /^destroy$/)
-        rendered.should have_xpath("//tr[./td[contains(.,'term1')]]/td/a[@data-method='put']", :text => /^approve$/)
-        rendered.should have_xpath("//tr[./td[contains(.,'term2')]]/td/a[@data-method='delete']", :text => /^destroy$/)
-        rendered.should have_xpath("//tr[./td[contains(.,'term2')]]/td/a[@data-method='put']", :text => /^approve$/)
-        rendered.should have_xpath("//tr[./td[contains(.,'term3')]]/td/a[@data-method='delete']", :text => /^destroy$/)
-        rendered.should have_xpath("//tr[./td[contains(.,'term3')]]/td/a[@data-method='put']", :text => /^unapprove$/)
+        rendered.should have_xpath("//tr[./td[contains(.,'term1')]]/td/a[@data-method='delete'][@title='destroy']")
+        rendered.should have_xpath("//tr[./td[contains(.,'term1')]]/td/a[@data-method='put'][@title='approve']")
+        rendered.should have_xpath("//tr[./td[contains(.,'term2')]]/td/a[@data-method='delete'][@title='destroy']")
+        rendered.should have_xpath("//tr[./td[contains(.,'term2')]]/td/a[@data-method='put'][@title='approve']")
+        rendered.should have_xpath("//tr[./td[contains(.,'term3')]]/td/a[@data-method='delete'][@title='destroy']")
+        rendered.should have_xpath("//tr[./td[contains(.,'term3')]]/td/a[@data-method='put'][@title='unapprove']")
       end
     end
 
