@@ -10,7 +10,6 @@ gem 'twitter_bootstrap_form_for'
 gem 'rails_autolink'
 gem 'globalize3', :git => 'git://github.com/svenfuchs/globalize3.git'
 gem 'thin'
-gem 'fugue_icons_rails'
 
 # Gems used only for assets and not required
 # in production environments by default.

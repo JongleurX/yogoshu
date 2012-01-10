@@ -52,9 +52,9 @@
                 %span.label.warning unapproved
           - if manager?
             %td
-              = link_to image_tag('icons/cross.png', :alt => "destroy"), entry, :confirm => "Are you sure you want to destroy this entry?", :method => :delete, :title => "destroy"
-              = link_to image_tag('icons/pencil.png', :alt => "edit"), "#", :title => "edit"
+              = link_to sprite_img("icons-cross"), entry, :confirm => "Are you sure you want to destroy this entry?", :method => :delete, :title => "destroy"
+              = link_to sprite_img("icons-pencil"), "#", :title => "edit"
               - if entry.approved?
-                = link_to image_tag('icons/thumb.png', :alt => "unapprove"), entry_path(entry, :entry => { :approved => false}), :method => :put, :title => "unapprove"
+                = link_to sprite_img("icons-thumb"), entry_path(entry, :entry => { :approved => false}), :method => :put, :title => "unapprove"
               - else
-                = link_to image_tag('icons/thumb-up.png', :alt => "approve"), entry_path(entry, :entry => { :approved => true}), :method => :put, :title => "approve"
+                = link_to sprite_img("icons-thumb-up"), entry_path(entry, :entry => { :approved => true}), :method => :put, :title => "approve"
