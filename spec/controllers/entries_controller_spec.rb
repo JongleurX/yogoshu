@@ -40,6 +40,12 @@ describe EntriesController do
       end
     end
 
+    describe "GET index" do
+
+      it "assigns search results as @entries"
+
+    end
+
     describe "GET show" do
 
       before do
