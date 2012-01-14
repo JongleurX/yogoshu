@@ -6,3 +6,4 @@ config/database.yml
 vendor
 .sass-cache/
 .rspec
+*.swp

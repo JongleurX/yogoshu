@@ -29,10 +29,15 @@ group :test, :development do
   gem 'jasmine'
   gem 'jasminerice'
   gem 'guard'
+  gem 'guard-rspec'
+  gem 'guard-spork'
   gem 'guard-jasmine'
+  gem 'guard-cucumber'
   gem 'spork'
   gem 'launchy'
   gem 'ruby-debug19'
+  gem 'libnotify'
+  gem 'spork'
 end
 
 group :cucumber do

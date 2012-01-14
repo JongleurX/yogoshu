@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20111211021810) do
   end
 
   add_index "entry_translations", ["entry_id"], :name => "index_entry_translations_on_entry_id"
+  add_index "entry_translations", ["locale"], :name => "index_entry_translations_on_locale"
 
   create_table "users", :force => true do |t|
     t.string   "name"
