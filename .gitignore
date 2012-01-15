@@ -7,3 +7,4 @@ vendor
 .sass-cache/
 .rspec
 *.swp
+coverage
