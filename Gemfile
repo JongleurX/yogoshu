@@ -28,7 +28,6 @@ group :test, :development do
   gem 'capybara-webkit'
   gem 'jasmine'
   gem 'jasminerice'
-  gem 'guard'
   gem 'guard-rspec'
   gem 'guard-spork'
   gem 'guard-jasmine'

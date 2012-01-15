@@ -7,7 +7,7 @@ guard 'jasmine' do
   watch(%r{spec/javascripts/spec\.(js\.coffee|js|coffee)$})       { "spec/javascripts" }
 end
 
-guard 'spork', :rspec_env => { 'RAILS_ENV' => 'test' }, :wait => 50 do
+guard 'spork', :cucumber => false, :rspec_env => { 'RAILS_ENV' => 'test' }, :wait => 50 do
   watch('config/application.rb')
   watch('config/environment.rb')
   watch(%r{^config/environments/.+\.rb$})
