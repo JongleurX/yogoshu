@@ -37,6 +37,7 @@ group :test, :development do
   gem 'ruby-debug19'
   gem 'libnotify'
   gem 'spork'
+  gem 'simplecov', :require => false
 end
 
 group :cucumber do
