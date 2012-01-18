@@ -33,11 +33,10 @@ group :test, :development do
   gem 'capybara-webkit'
   gem 'jasmine'
   gem 'jasminerice'
-  gem 'spork'
+  gem 'spork', '~> 0.9.0.rc'
   gem 'launchy'
   gem 'ruby-debug19'
   gem 'libnotify'
-  gem 'spork'
   gem 'simplecov', :require => false
 end
 
@@ -46,7 +45,7 @@ group :cucumber do
   gem 'database_cleaner'
   gem 'cucumber-rails'
   gem 'cucumber'
-  gem 'spork'
+  gem 'spork', '~> 0.9.0.rc'
   gem 'launchy'
 end
 
