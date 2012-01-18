@@ -8,6 +8,13 @@ describe "entries/show.html.haml" do
     Yogoshu::Locales.set_glossary_language(:ja)
   end
 
+  # to avoid this annoying regex warningt: /home/chris/.rbenv/versions/1.9.2-p290/lib/ruby/gems/1.9.1/bundler/gems/rails-f407ec5f792c/activesupport/lib/active_support/core_ext/string/output_safety.rb:23: warning: regexp match /.../n against to UTF-8 string 
+  around(:each) do |example|
+    silence_warnings do
+      example.run
+    end
+  end
+
   context "English locale" do
 
     before do

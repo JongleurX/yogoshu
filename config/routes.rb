@@ -20,7 +20,9 @@ Yogoshu::Application.routes.draw do
   #   resources :products
 
   resources :users
-  resources :entries, :only => [:new, :create, :destroy, :show, :index, :update]
+  resources :entries, :only => [:new, :create, :destroy, :show, :index, :update] do
+    get :autocomplete_entry_term, :on => :collection
+  end
 
   # Sample resource route with options:
   #   resources :products do

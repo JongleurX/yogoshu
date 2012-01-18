@@ -1,8 +1,11 @@
 Before do
   DatabaseCleaner.start
+end
+
+Before do |scenario|
   DatabaseCleaner.clean
 end
 
-After do |scenario|
+After do
   DatabaseCleaner.clean
 end

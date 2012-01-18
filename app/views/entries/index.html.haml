@@ -3,7 +3,7 @@
   %h1
     = page_title
   = form_tag entries_path, :method => :get do
-    = text_field_tag :search, nil, :class => "large", :placeholder => "Enter search terms..."
+    = autocomplete_field_tag :search, '', autocomplete_entry_term_entries_path, :size => 75, :class => "large", :placeholder => "Enter search terms..." 
     = submit_tag "Submit"
   .clearfix.search-terms-box
     Search terms:

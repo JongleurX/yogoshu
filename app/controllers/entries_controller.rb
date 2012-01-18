@@ -1,6 +1,7 @@
 class EntriesController < ApplicationController
+  autocomplete :entry, :term, :class_name => Entry.translation_class
 
-  before_filter :login_required, :except => [:show, :index]
+  before_filter :login_required, :except => [:show, :index, :autocomplete_entry_term]
   before_filter :find_entry, :except => [:index, :new, :create]
   before_filter :authorize, :only => [:destroy, :update]
 

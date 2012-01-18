@@ -15,6 +15,13 @@ Feature: Search glossary entries
       | jens | orange     | オレンジ   | false    |
       | jens | banana     | バナナ     | false    |
 
+  @javascript @wip
+  Scenario: Autocomplete search
+    When I go to the homepage
+    And I fill in "search" with "ap"
+    And I choose "apple" in the autocomplete list
+    Then the "search" field should contain "apple"
+
   Scenario Outline: Glossary user finds entry
     When I search for the keyword "<keyword>"
     Then I should see the entries page

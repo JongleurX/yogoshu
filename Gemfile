@@ -1,15 +1,13 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0'
-
-# Bundle edge Rails instead:
-# gem 'rails',     :git => 'git://github.com/rails/rails.git'
+gem 'rails', :git => 'git://github.com/rails/rails.git', :branch=>'3-1-stable'
 
 gem 'haml'
 gem 'twitter_bootstrap_form_for'
 gem 'rails_autolink'
 gem 'globalize3', :git => 'git://github.com/svenfuchs/globalize3.git'
 gem 'thin'
+gem 'rails3-jquery-autocomplete'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -20,6 +18,13 @@ group :assets do
   gem 'bootstrap-sass'
 end
 
+group :test do
+  gem 'guard-rspec'
+  gem 'guard-spork'
+  gem 'guard-jasmine'
+  gem 'guard-cucumber'
+end
+
 group :test, :development do
   gem 'sqlite3'
   gem 'rspec-rails'
@@ -28,10 +33,6 @@ group :test, :development do
   gem 'capybara-webkit'
   gem 'jasmine'
   gem 'jasminerice'
-  gem 'guard-rspec'
-  gem 'guard-spork'
-  gem 'guard-jasmine'
-  gem 'guard-cucumber'
   gem 'spork'
   gem 'launchy'
   gem 'ruby-debug19'

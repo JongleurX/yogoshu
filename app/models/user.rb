@@ -61,7 +61,8 @@ class User < ActiveRecord::Base
     if new_record?
       self.salt = Digest::SHA1.hexdigest("--#{Time.now}--#{name}--")
     end
-    self.encrypted_password = User.encrypt(password, salt)
+    # should be User.encrypt but this bug causes problems in cucumber when run through guard, so switched to global namespace: https://github.com/rails/rails/issues/2333 
+    self.encrypted_password = ::User.encrypt(password, salt)
   end
 
   #   no encrypted password yet OR password attribute is set
