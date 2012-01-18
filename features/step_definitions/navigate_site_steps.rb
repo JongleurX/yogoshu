@@ -1,3 +1,10 @@
+module WithinHelpers
+  def with_scope(locator)
+    locator ? within(locator) { yield } : yield
+  end
+end
+World(WithinHelpers)
+
 Given /^I am on the (.+)$/ do |page_name|
   visit eval("#{page_name.gsub(' page','').gsub(' ','_')}_path")
 end
@@ -57,5 +64,31 @@ end
 Then /^the navigation bar should have a link to my profile$/ do
   within '.topbar' do
     page.should have_selector('a', :href => user_path(User.current_user), :text => User.current_user.name)
+  end
+end
+
+# from web_steps.rb
+Then /^the "([^"]*)" field(?: within (.*))? should contain "([^"]*)"$/ do |field, parent, value|
+  with_scope(parent) do
+    field = find_field(field)
+    field_value = (field.tag_name == 'textarea') ? field.text : field.value
+    if field_value.respond_to? :should
+      field_value.should =~ /#{value}/
+    else
+      assert_match(/#{value}/, field_value)
+    end
+  end
+end
+
+# from web_steps.rb
+Then /^the "([^"]*)" field(?: within (.*))? should not contain "([^"]*)"$/ do |field, parent, value|
+  with_scope(parent) do
+    field = find_field(field)
+    field_value = (field.tag_name == 'textarea') ? field.text : field.value
+    if field_value.respond_to? :should_not
+      field_value.should_not =~ /#{value}/
+    else
+      assert_no_match(/#{value}/, field_value)
+    end
   end
 end

@@ -15,7 +15,7 @@ Feature: Search glossary entries
       | jens | orange     | オレンジ   | false    |
       | jens | banana     | バナナ     | false    |
 
-  @javascript @wip
+  @javascript
   Scenario: Autocomplete search
     When I go to the homepage
     And I fill in "search" with "ap"
