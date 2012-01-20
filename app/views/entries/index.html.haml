@@ -39,7 +39,7 @@
           - @base_languages.each do |lang|
             %td
               - Globalize.with_locale(lang) do
-                - if (lang == entry.glossary_language)
+                - if (lang == @glossary_language)
                   = link_to highlight(entry.term, @tokens), entry
                 - else
                   = highlight(entry.term, @tokens) unless entry.term.nil?
@@ -53,7 +53,6 @@
           - if manager?
             %td
               = link_to sprite_img("icons-cross"), entry, :confirm => "Are you sure you want to destroy this entry?", :method => :delete, :title => "destroy"
-              = link_to sprite_img("icons-pencil"), "#", :title => "edit"
               - if entry.approved?
                 = link_to sprite_img("icons-thumb"), entry_path(entry, :entry => { :approved => false}), :method => :put, :title => "unapprove"
               - else

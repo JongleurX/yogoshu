@@ -8,3 +8,4 @@ vendor
 .rspec
 *.swp
 coverage
+public/assets/

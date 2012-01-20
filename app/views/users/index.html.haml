@@ -20,7 +20,12 @@
     - @users.each do |user|
       %tr
         %td= link_to user.name, user_path(user) 
-        %td= user.role.capitalize
+        %td
+          - if (manager? && user.changeable_by?(@current_user))
+            = best_in_place user, :role, type: :select, collection: User::ROLES.map { |role| [role, role.capitalize] }
+            = sprite_img("icons-pencil")
+          - else
+            = @user.role.capitalize
         %td= user.entries.length
         %td= user.created_at.strftime('%B %d, %Y @ %l:%M %p')
         - if manager?

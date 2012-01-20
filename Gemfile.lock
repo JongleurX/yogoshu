@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/bernat/best_in_place.git
+  revision: 47a908aa4f7bbe04e8439b84a7928ac88a3e6a35
+  specs:
+    best_in_place (1.0.4)
+      jquery-rails
+      rails (~> 3.1)
+
+GIT
   remote: git://github.com/rails/rails.git
   revision: f407ec5f792c15bd0fd47f046f20e7ed36856bc7
   branch: 3-1-stable
@@ -241,6 +249,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  best_in_place!
   bootstrap-sass
   capybara
   capybara-webkit

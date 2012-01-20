@@ -32,8 +32,10 @@
       - @base_languages.each do |lang|
         - Globalize.with_locale(lang) do
           %td{ :style => "text-align: center; font-size: 160%"}
-            = @entry.term
-            - if logged_in? && @entry.changeable_by?(@current_user)
-              = link_to sprite_img("icons-pencil"), "#", :title => "edit"
-%h4 Translator notes:
-= auto_link(simple_format(@entry.note))
+            - if (lang != @glossary_language) && logged_in? && @entry.changeable_by?(@current_user)
+              = best_in_place @entry, "term_in_#{lang}"
+              = sprite_img("icons-pencil")
+            - else
+              = @entry.term
+%h4 Translator notes
+~ best_in_place @entry, :note, type: :textarea, :display_with => :simple_format

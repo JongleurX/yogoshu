@@ -145,6 +145,7 @@ describe EntriesController do
 
       before do
         request.env['HTTP_REFERER'] = "http://www.ablog.com/"
+        controller.stub(:respond_with_bip) { true }
       end
 
       def updates_entry(entry)
@@ -182,15 +183,9 @@ describe EntriesController do
             updates_entry(@entry)
           end
 
-          it "redirects to the previous page" do
-            redirects_back(@entry)
-          end
+          it "responds with updated entry"
+          it "returns a success message"
 
-          it "returns a success message" do
-            Entry.stub(:find_by_term_in_glossary_language) { @entry }
-            put :update, :id => "りんご"
-            flash[:success].should == "Entry \"りんご\" has been updated."
-          end
         end
 
         context "for other user's entry" do
