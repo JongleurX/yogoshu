@@ -22,4 +22,9 @@ Feature: Navigate glossary site
       | jens  | users page     |
       | jens  | entries page   |
       | jens  | new entry page |
+      | susan | homepage       |
+      | susan | login page     |
+      | susan | users page     |
+      | susan | entries page   |
+      | susan | new entry page |
       | susan | new user page  |

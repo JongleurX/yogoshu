@@ -9,8 +9,9 @@ Given /^I am on the (.+)$/ do |page_name|
   visit eval("#{page_name.gsub(' page','').gsub(' ','_')}_path")
 end
 
-Given /^I am on the page of entry "([^"]*)"$/ do |term|
-  visit ("/entries/" + term)
+Given /^I am on entry "([^"]*)"$/ do |term|
+  entry = Entry.find_by_term_in_glossary_language(term)
+  visit entry
 end
 
 When /^I go to the (.+)$/ do |page_name|

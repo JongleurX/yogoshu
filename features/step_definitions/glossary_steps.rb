@@ -6,7 +6,7 @@ end
 Given /^the following glossary entr(?:y|ies):$/ do |table|
   table.hashes.each do |hash|
     u = User.find_by_name(hash.delete("user"))
-    Factory(:entry, u.nil? ? hash : hash.merge("user" => u))
+    Factory(:entry, u.nil? ? hash : hash.merge(:user => u))
   end
 end
 
@@ -17,6 +17,10 @@ When /^I add the following glossary entry:$/ do |table|
     fill_in(field, :with => value)
   end
   click_button('Add entry')
+end
+
+When /^I edit "([^"]*)" and replace it with "([^"]*)"$/ do |old_value,new_value|
+  element = find(:xpath, "//span[@class='best_in_place']", :text => old_value)
 end
 
 When /^I (approve|unapprove) the glossary entry "([^"]*)"$/ do |action, term|

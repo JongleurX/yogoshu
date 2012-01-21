@@ -6,6 +6,7 @@ describe "entries/index.html.haml" do
     Yogoshu::Locales.set_base_languages(:ja,:en)
     Yogoshu::Locales.set_glossary_language(:ja)
     assign(:base_languages, Yogoshu::Locales.base_languages) 
+    assign(:glossary_language, Yogoshu::Locales.glossary_language) 
     @alice = Factory(:alice)
     @bob = Factory(:bob)
   end

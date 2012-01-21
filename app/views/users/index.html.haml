@@ -25,7 +25,7 @@
             = best_in_place user, :role, type: :select, collection: User::ROLES.map { |role| [role, role.capitalize] }
             = sprite_img("icons-pencil")
           - else
-            = @user.role.capitalize
+            = user.role.capitalize
         %td= user.entries.length
         %td= user.created_at.strftime('%B %d, %Y @ %l:%M %p')
         - if manager?

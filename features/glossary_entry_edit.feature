@@ -10,17 +10,17 @@ Feature: Edit glossary entry
       | jens   | contributor |
     And a glossary in "ja" and "en" indexed in "ja"
     And the following glossary entries:
-      | user_id | term_in_en    | term_in_ja     |
-      | jens    | apple         | りんご         |
+      | user    | term_in_en    | term_in_ja |
+      | jens    | apple         | りんご     |
 
   @javascript @wip
   Scenario Outline: Glossary contributor edits glossary entry
     Given I am logged in as "jens"
-    And I am on the page of entry "りんご"
-    When I edit "<term>" and replace it with "<value>"
+    And I am on entry "りんご"
+    When I edit "<old_value>" and replace it with "<new_value>"
     And I click "Save"
     Then I should see the success message "<message>"
 
     Examples:
-      | term  | value | message |
-      | apple | newvalue | abc |
+      | old_value  | new_value    | message |
+      | apple      | newvalue     | abc     |

@@ -183,6 +183,33 @@ describe UsersController do
 
     end
 
+    describe "PUT update" do
+
+     context "with contributor role" do
+
+       context "edit my own info" do
+
+         it "should not allow me to edit my name"
+         it "should not allow me to edit my role"
+
+       end
+
+       context "edit another user's info" do
+
+         it "should not allow me to edit any info"
+
+       end
+
+     end
+
+     context "with manager role" do
+
+       it "should not allow me to edit user names"
+       it "should allow me to edit user roles"
+
+     end
+
+    end
 
   end
 

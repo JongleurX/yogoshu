@@ -19,8 +19,8 @@ Yogoshu::Application.routes.draw do
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 
-  resources :users
-  resources :entries, :only => [:new, :create, :destroy, :show, :index, :update] do
+  resources :users, :except => :edit
+  resources :entries, :except => :edit do
     get :autocomplete_entry_term, :on => :collection
   end
 

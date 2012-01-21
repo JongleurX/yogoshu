@@ -145,24 +145,24 @@ describe EntriesController do
 
       before do
         request.env['HTTP_REFERER'] = "http://www.ablog.com/"
-        controller.stub(:respond_with_bip) { true }
       end
 
       def updates_entry(entry)
         Entry.should_receive(:find_by_term_in_glossary_language).and_return(entry)
         entry.should_receive(:update_attributes!)
-        put :update, :id => "りんご"
+        put :update, :id => "りんご", :entry => { 'these' => 'params' }
       end
 
-      def redirects_back(entry)
+      def responds_with_updated(entry)
         Entry.stub(:find_by_term_in_glossary_language) { entry }
-        put :update, :id => "りんご"
-        response.should redirect_to(:back)
+        entry.stub(:update_attributes!) { true }
+        put :update, :id => "りんご", :entry => { 'these' => 'params' }
+        response.should render_template(entry)
       end
 
       def responds_with_unauthorized(entry)
         Entry.stub(:find_by_term_in_glossary_language) { entry }
-        put :update, :id => "りんご"
+        put :update, :id => "りんご", :entry => { 'these' => 'params' }
         response.status.should == 401
       end
 
@@ -183,7 +183,10 @@ describe EntriesController do
             updates_entry(@entry)
           end
 
-          it "responds with updated entry"
+          it "responds with updated entry" do
+            responds_with_updated(@entry)
+          end
+
           it "returns a success message"
 
         end
@@ -223,15 +226,11 @@ describe EntriesController do
           updates_entry(@entry)
         end
 
-        it "redirects to the previous page" do
-          redirects_back(@entry)
+        it "responds with the updated entry" do
+          responds_with_updated(@entry)
         end
 
-        it "returns a success message" do
-            Entry.stub(:find_by_term_in_glossary_language) { @entry }
-            put :update, :id => "りんご"
-            flash[:success].should == "Entry \"りんご\" has been updated."
-        end
+        it "returns a success message"
 
       end
 

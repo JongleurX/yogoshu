@@ -28,6 +28,12 @@ Factory.define :manager, :class => User do |u|
   u.role "manager"
 end
 
+Factory.define :entry do |f|
+  f.association :user, :factory => :alice
+  f.note 'MyString'
+  f.approved false
+end
+
 [:en, :ja].each do |lang|
   eval <<-RUBY_END
   Factory.define :entry_#{lang}, :class => Entry do |f|

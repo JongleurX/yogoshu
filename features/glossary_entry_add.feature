@@ -10,7 +10,7 @@ Feature: Add glossary entry
       | jens   | contributor |
     And a glossary in "ja" and "en" indexed in "ja"
     And the following glossary entries:
-      | user_id | term_in_en    | term_in_ja     |
+      | user    | term_in_en    | term_in_ja     |
       | jens    | apple         | りんご         |
 
   Scenario: Glossary contributor successfully adds glossary entry
