@@ -1,6 +1,6 @@
 = yogoshu
 
-[![Build Status](https://secure.travis-ci.org/shioyama/yogoshu.png)](http://travis-ci.org/shioyama/yogoshu)
+https://secure.travis-ci.org/shioyama/yogoshu.png
 
 A simple multilingual glossary in Ruby on Rails.
 
