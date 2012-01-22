@@ -6,8 +6,8 @@ require File.expand_path('../config/application', __FILE__)
 
 Yogoshu::Application.load_tasks
 
-task :spec do
-  system <<-BASH
-    bundle exec cucumber --format progress features
-  BASH
-end
+#task :spec do
+#  system <<-BASH
+#    bundle exec cucumber --format progress features
+#  BASH
+#end

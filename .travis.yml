@@ -1,5 +1,4 @@
 language: ruby
-bundler_args: --without development
 before_script: "bundle exec rake travis_ci"
 script: "bundle exec rake spec"
 gemfile:
