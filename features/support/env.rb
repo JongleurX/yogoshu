@@ -20,7 +20,12 @@ require 'rubygems'
 
 require 'cucumber/rails'
 require 'cucumber/autocomplete'
-require 'ruby-debug' unless !Gem.available?("ruby-debug19")
+
+# ruby-debug left out of travis-ci builds so have to rescue from LoadError
+begin 
+  require 'ruby-debug'
+rescue 'LoadError'
+end
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
