@@ -24,6 +24,11 @@ group :test do
   gem 'guard-spork'
   gem 'guard-jasmine'
   gem 'guard-cucumber'
+  gem 'rake'
+end
+
+group :development do
+  gem 'ruby-debug19'
 end
 
 group :test, :development do
@@ -36,7 +41,6 @@ group :test, :development do
   gem 'jasminerice'
   gem 'spork', '~> 0.9.0.rc'
   gem 'launchy'
-  gem 'ruby-debug19'
   gem 'libnotify'
   gem 'simplecov', :require => false
 end

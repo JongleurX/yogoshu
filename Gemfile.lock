@@ -273,6 +273,7 @@ DEPENDENCIES
   rails!
   rails3-jquery-autocomplete
   rails_autolink
+  rake
   rspec-rails
   ruby-debug19
   sass-rails (~> 3.1.0)
