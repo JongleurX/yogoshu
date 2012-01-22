@@ -27,22 +27,19 @@ group :test do
   gem 'rake'
 end
 
-group :development do
-  gem 'ruby-debug19'
-end
-
 group :test, :development do
   gem 'sqlite3'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'capybara'
-  gem 'capybara-webkit'
+  gem 'capybara-webkit', :git => 'https://github.com/thoughtbot/capybara-webkit.git'
   gem 'jasmine'
   gem 'jasminerice'
   gem 'spork', '~> 0.9.0.rc'
   gem 'launchy'
   gem 'libnotify'
   gem 'simplecov', :require => false
+  gem 'ruby-debug19', :require => 'ruby-debug'
 end
 
 group :cucumber do

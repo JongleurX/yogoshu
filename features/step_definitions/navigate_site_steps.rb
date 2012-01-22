@@ -11,7 +11,7 @@ end
 
 Given /^I am on entry "([^"]*)"$/ do |term|
   entry = Entry.find_by_term_in_glossary_language(term)
-  visit entry
+  visit entry_path(entry)
 end
 
 When /^I go to the (.+)$/ do |page_name|

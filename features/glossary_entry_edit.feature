@@ -13,13 +13,14 @@ Feature: Edit glossary entry
       | user    | term_in_en    | term_in_ja |
       | jens    | apple         | りんご     |
 
-  @javascript @wip
+  @javascript
   Scenario Outline: Glossary contributor edits glossary entry
     Given I am logged in as "jens"
+    #And I am on the entries page
     And I am on entry "りんご"
-    When I edit "<old_value>" and replace it with "<new_value>"
-    And I click "Save"
-    Then I should see the success message "<message>"
+    #    When I edit "<old_value>" and replace it with "<new_value>"
+    #And I click "Save"
+    #Then I should see the success message "<message>"
 
     Examples:
       | old_value  | new_value    | message |

@@ -64,6 +64,14 @@ GIT
       activerecord (>= 3.0.0)
       paper_trail (~> 2)
 
+GIT
+  remote: https://github.com/thoughtbot/capybara-webkit.git
+  revision: 59ba8611ba6388cf5262eb31ec06cea34fa66698
+  specs:
+    capybara-webkit (0.8.0)
+      capybara (>= 1.0.0, < 1.2)
+      json
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -80,8 +88,6 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
-    capybara-webkit (0.7.2)
-      capybara (>= 1.0.0, < 1.2)
     childprocess (0.3.0)
       ffi (~> 1.0.6)
     coffee-rails (3.1.1)
@@ -252,7 +258,7 @@ DEPENDENCIES
   best_in_place!
   bootstrap-sass
   capybara
-  capybara-webkit
+  capybara-webkit!
   coffee-rails (~> 3.1.0)
   cucumber
   cucumber-rails
