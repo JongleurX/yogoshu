@@ -5,7 +5,5 @@ before_script:
 script: "bundle exec rake travis"
 gemfile:
   - Gemfile.ci
-env:
-  - SKIP_COV=true
 rvm:
   - 1.9.2
