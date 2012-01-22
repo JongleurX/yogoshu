@@ -2,7 +2,7 @@
 
 def gem(*args)
   # Override 'gem' method to block any other database gems in the 'real' Gemfile
-  super unless %w(ruby-debug).include?(args.first)
+  super unless %w(ruby-debug libnotify).include?(args.first)
 end
 
 # Eval Gemfile
