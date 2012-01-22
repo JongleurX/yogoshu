@@ -6,6 +6,3 @@ require File.expand_path('../config/application', __FILE__)
 
 Yogoshu::Application.load_tasks
 
-task :spec do
-  Rake::Task["cucumber"].invoke
-end

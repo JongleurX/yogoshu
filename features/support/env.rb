@@ -24,7 +24,7 @@ require 'cucumber/autocomplete'
 # ruby-debug left out of travis-ci builds so have to rescue from LoadError
 begin 
   require 'ruby-debug'
-rescue 'LoadError'
+rescue LoadError
 end
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In

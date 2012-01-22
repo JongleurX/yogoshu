@@ -1,6 +1,5 @@
 language: ruby
-before_script: "bundle exec rake travis_ci"
-script: "bundle exec rake spec"
+script: "bundle exec rake travis"
 gemfile:
   - Gemfile.ci
 rvm:
