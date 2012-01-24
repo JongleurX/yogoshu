@@ -15,7 +15,6 @@ Feature: Approve glossary entries
       | jens    | orange     | オレンジ   | false     |
       | jens    | banana     | バナナ     | true      |
 
-  @wip
   Scenario: Glossary manager approves glossary entry
     Given I am logged in as "susan"
     When I approve the glossary entry "オレンジ"
@@ -23,7 +22,6 @@ Feature: Approve glossary entries
     And I should see a success message: "Entry "オレンジ" has been updated."
     And the glossary entry "オレンジ" should be approved
 
-  @wip
   Scenario: Glossary manager unapproves glossary entry
     Given I am logged in as "susan"
     When I unapprove the glossary entry "りんご"

@@ -1,5 +1,5 @@
 class EntriesController < ApplicationController
-  respond_to :html, :json
+#  respond_to :html, :json
 
   autocomplete :entry, :term, :class_name => Entry.translation_class
 
@@ -26,14 +26,21 @@ class EntriesController < ApplicationController
   end
 
   def update
-    @entry.update_attributes!(params[:entry])
-    respond_with_bip @entry
-#      flash[:success] = "Entry \"#{@entry.term_in_glossary_language}\" has been updated."
-#      redirect_to :back
-#    else
-#      flash[:error] = "Entry could not be updated."
-#      redirect_to :back
-#    end
+    respond_to do |format|
+      if (@entry.update_attributes!(params[:entry]))
+        format.json { respond_with_bip(@entry) }
+        format.html {
+          flash[:success] = "Entry \"#{@entry.term_in_glossary_language}\" has been updated."
+          redirect_to(:back) 
+        }
+      else
+        format.json { respond_with_bip(@entry) }
+        format.html { 
+          flash[:error] = "Entry could not be updated."
+          redirect_to(:back)
+        }
+      end
+    end
   end
 
   def destroy

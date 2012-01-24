@@ -156,7 +156,7 @@ describe EntriesController do
       def responds_with_updated(entry)
         Entry.stub(:find_by_term_in_glossary_language) { entry }
         entry.stub(:update_attributes!) { true }
-        put :update, :id => "りんご", :entry => { 'these' => 'params' }
+        put :update, :id => "りんご", :entry => { 'these' => 'params' }, :format => :json
         response.should render_template(entry)
       end
 
