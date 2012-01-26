@@ -1,14 +1,14 @@
 GIT
   remote: git://github.com/bernat/best_in_place.git
-  revision: 47a908aa4f7bbe04e8439b84a7928ac88a3e6a35
+  revision: 0d8434246dc20713df3de076c49817fb3aaeb376
   specs:
-    best_in_place (1.0.4)
+    best_in_place (1.0.6)
       jquery-rails
       rails (~> 3.1)
 
 GIT
   remote: git://github.com/rails/rails.git
-  revision: f407ec5f792c15bd0fd47f046f20e7ed36856bc7
+  revision: 423241c066d1c397841d3709975bef81fd47bafd
   branch: 3-1-stable
   specs:
     actionmailer (3.1.3)
@@ -108,31 +108,31 @@ GEM
       capybara (>= 1.1.2)
       cucumber (>= 1.1.3)
       nokogiri (>= 1.5.0)
-    daemons (1.1.5)
+    daemons (1.1.6)
     database_cleaner (0.7.1)
     diff-lcs (1.1.3)
     erubis (2.7.0)
     eventmachine (0.12.10)
-    execjs (1.2.13)
+    execjs (1.3.0)
       multi_json (~> 1.0)
-    factory_girl (2.4.1)
+    factory_girl (2.5.0)
       activesupport
-    factory_girl_rails (1.5.0)
-      factory_girl (~> 2.4.0)
+    factory_girl_rails (1.6.0)
+      factory_girl (~> 2.5.0)
       railties (>= 3.0.0)
     ffi (1.0.11)
-    gherkin (2.7.3)
+    gherkin (2.7.6)
       json (>= 1.4.6)
-    guard (0.10.0)
+    guard (1.0.0)
       ffi (>= 0.5.0)
       thor (~> 0.14.6)
     guard-cucumber (0.7.5)
       cucumber (>= 0.10)
       guard (>= 0.8.3)
-    guard-jasmine (0.9.3)
+    guard-jasmine (0.9.6)
+      childprocess
       guard (>= 0.8.3)
-      multi_json (~> 1.0.3)
-      rack
+      multi_json
       thor
     guard-rspec (0.6.0)
       guard (>= 0.10.0)
@@ -156,7 +156,7 @@ GEM
     json (1.6.5)
     launchy (2.0.5)
       addressable (~> 2.2.6)
-    libnotify (0.7.1)
+    libnotify (0.7.2)
     linecache19 (0.5.12)
       ruby_core_source (>= 0.1.4)
     mail (2.3.0)
@@ -166,7 +166,7 @@ GEM
     mime-types (1.17.2)
     multi_json (1.0.4)
     nokogiri (1.5.0)
-    paper_trail (2.5.2)
+    paper_trail (2.6.0)
       rails (~> 3)
     pg (0.12.2)
     polyglot (0.3.3)
@@ -225,7 +225,7 @@ GEM
       multi_json (~> 1.0.3)
       simplecov-html (~> 0.5.3)
     simplecov-html (0.5.3)
-    spork (0.9.0.rc9)
+    spork (0.9.0)
     sprockets (2.0.3)
       hike (~> 1.2)
       rack (~> 1.0)
