@@ -16,13 +16,26 @@ Feature: Search glossary entries
       | jens | banana     | バナナ     | false    |
 
   @javascript
-  Scenario: Autocomplete search
+  Scenario: Logged-out autocomplete search for approved entry
     When I go to the homepage
     And I fill in "search" with "ap"
     And I choose "apple" in the autocomplete list
     Then the "search" field should contain "apple"
 
-  Scenario Outline: Glossary user finds entry
+  @javascript @wip
+  Scenario: Logged-out autocomplete search for unapproved entry
+    When I go to the homepage
+    And I fill in "search" with "or"
+    Then I should not see the autocomplete result "orange"
+
+  @javascript
+  Scenario: Logged-in autocomplete search for unapproved entry
+    Given I am logged in as "jens"
+    When I go to the homepage
+    And I fill in "search" with "or"
+    Then I should see the autocomplete result "orange"
+
+  Scenario Outline: Glossary user finds approved entry
     When I search for the keyword "<keyword>"
     Then I should see the entries page
     And I should see a link to "<link_text>"
@@ -35,7 +48,7 @@ Feature: Search glossary entries
       | APPLE   | りんご    |
       | appL    | りんご    |
   
-  Scenario Outline: Glossary user fails to find entry
+  Scenario Outline: Glossary user fails to find unapproved entry
     When I search for the keyword "<keyword>"
     Then I should see the entries page
     But I should not see a link to "<link_text>"

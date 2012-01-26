@@ -60,6 +60,13 @@ describe EntriesController do
 
     end
 
+    describe "GET autocomplete_entry_term" do
+
+      pending "returns only approved entries" do
+        get :autocomplete_entry_term, :term => "apple", :format => :json
+      end
+    end
+
   end
 
   context "with logged-in user" do
@@ -86,6 +93,12 @@ describe EntriesController do
         get :new
         response.should render_template('new')
       end
+
+    end
+
+    describe "GET autocomplete_entry_term" do
+
+      it "returns approved and unapproved entries"
 
     end
 
