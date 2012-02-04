@@ -1,7 +1,7 @@
 Feature: Add glossary entry
   As a glossary contributor
   I want to add entries to the glossary
-  So that everyone maintains consistent terminology
+  So that I can share them with other users
 
   Background:
     Given the following users:

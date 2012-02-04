@@ -49,6 +49,29 @@ describe Entry do
     
   end
 
+  describe "#destroy" do
+
+    before(:each) do
+      @entry = Entry.new(:user => Factory(:user)) 
+      @entry.term_in_ja = "りんご"
+      @entry.term_in_en = "apple"
+    end
+
+    it "should destroy the entry" do
+      entry_id = @entry.id
+      @entry.destroy
+      Entry.find_by_id(entry_id).should be_nil
+    end
+
+    # to catch bug #17: https://github.com/shioyama/yogoshu/issues/17 this fails in integration test but doesn't here
+    it "should destroy all translations of the entry" do
+      entry_id = @entry.id
+      @entry.destroy
+      Entry::Translation.find_by_entry_id(entry_id).should be_nil
+    end
+
+  end
+
   describe "permissions" do
 
     before(:each) do

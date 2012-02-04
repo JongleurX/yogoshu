@@ -6,6 +6,7 @@ describe "entries/show.html.haml" do
   before do
     view.stub(:logged_in?) { true }
     Yogoshu::Locales.set_glossary_language(:ja)
+    User.current_user = @current_user = Factory(:alice)
   end
 
   # to avoid this annoying regex warningt: /home/chris/.rbenv/versions/1.9.2-p290/lib/ruby/gems/1.9.1/bundler/gems/rails-f407ec5f792c/activesupport/lib/active_support/core_ext/string/output_safety.rb:23: warning: regexp match /.../n against to UTF-8 string 
@@ -61,7 +62,15 @@ describe "entries/show.html.haml" do
           rendered.gsub("\n","").should =~ /<p>Here\'s a simple/
         end
 
-        it "should not have manager actions" do
+        it "should have delete but not approve actions if entry is created by this user" do
+          @entry.stub(:changeable_by?).with(@current_user) { true }
+          render
+          rendered.should have_link "Delete"
+          rendered.should_not have_link "Approve"
+        end
+
+        it "should have neither delete nor approve actions if entry not created by his user" do
+          @entry.stub(:changeable_by?).with(@current_user) { false }
           render
           rendered.should_not have_link "Delete"
           rendered.should_not have_link "Approve"
@@ -73,9 +82,10 @@ describe "entries/show.html.haml" do
 
         before do
           view.stub(:manager?) { true }
+          @entry.stub(:changeable_by?).with(@current_user) { true }
         end
 
-        it "should have manager actions" do
+        it "should have both delete and approve actions" do
           render
           rendered.should have_link "Delete", :href => entry_path(@entry)
           rendered.should have_link "Approve", :href => entry_path(@entry, :entry => { :approved => true})
