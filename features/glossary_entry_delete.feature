@@ -20,6 +20,5 @@ Feature: Delete glossary entry
     Then I should see the entries page
     And I should see a success message: "Entry "りんご" has been deleted."
     And there should be no glossary entries
-    And debug
     And there should be no glossary entry translations
     And the glossary entry "りんご" should not exist
