@@ -13,7 +13,7 @@ Feature: Delete glossary entry
       | user    | term_in_en    | term_in_ja     |
       | jens    | apple         | りんご         |
 
-  @javascript
+  @javascript @wip
   Scenario: Glossary contributor successfully deletes glossary entry
     Given I am logged in as "jens"
     When I delete the glossary entry "りんご"
