@@ -45,7 +45,7 @@ Then /^(?:the|a|an) (approved|unapproved|) ?glossary entry "([^"]*)" should exis
   entry.approved?.should == (status == "approved") unless status.nil?
 end
 
-Then /^the glossary entry "([^"]*)" should not exist$/ do
+Then /^the glossary entry "([^"]*)" should not exist$/ do |term|
   entry = Entry.find_by_term_in_glossary_language(term)
   entry.should be_nil
 end
