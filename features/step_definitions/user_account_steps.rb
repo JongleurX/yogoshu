@@ -8,7 +8,7 @@ Given /^I am logged in as "([^"]*)"(?: with password "([^"]*)"|)$/ do |name, pas
   visit login_path
   fill_in('User name', :with => name)
   fill_in('Password', :with => (password || "foobar") )
-  click_button('Login')
+  click_on('Login')
 end
 
 When /^I add the following user:$/ do |table|
