@@ -9,3 +9,4 @@ vendor
 *.swp
 coverage
 public/assets/
+gem_graph.png
