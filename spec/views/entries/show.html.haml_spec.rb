@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
 
-describe "entries/show.html.haml" do
+describe "entries/show" do
   
   before do
     view.stub(:logged_in?) { true }

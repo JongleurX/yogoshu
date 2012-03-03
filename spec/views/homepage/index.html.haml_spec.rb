@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "homepage/index.html.haml" do
+describe "homepage/index" do
 
   context "logged-out user" do
     before do

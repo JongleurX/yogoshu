@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "entries/new.html.haml" do
+describe "entries/new" do
 
   context "English locale" do
 

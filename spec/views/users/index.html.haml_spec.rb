@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe "users/index.html.haml" do
+describe "users/index" do
 
 end
