@@ -8,7 +8,7 @@ end
 
 Then /^I should see the error "([^"]*)" on field "([^"]*)"/ do |error,field|
   within '#new_user' do
-    div = find(:xpath, "//div[./input[@id=\"#{field}\"]]")
+    div = find(:xpath, "//div[.//input[@id=\"#{field}\"]]")
     div.should have_content(error)
   end
 end

@@ -16,7 +16,7 @@ describe "users/new" do
 
       it "renders form"  do
         render
-        rendered.should have_selector("form.new_user")
+        rendered.should have_selector("form#new_user")
       end
 
       it "renders input fields" do
@@ -24,7 +24,7 @@ describe "users/new" do
         rendered.should have_selector("input[type='text'][name='user[name]']")
         rendered.should have_selector("input[type='password'][name='user[password]']")
         rendered.should have_selector("input[type='password'][name='user[password_confirmation]']")
-        rendered.should have_selector("input[type='submit']")
+        rendered.should have_selector("button[type='submit']")
       end
 
       pending "should have role selector field" do

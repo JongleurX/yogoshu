@@ -20,7 +20,7 @@ describe "entries/new" do
 
         it "renders form" do
           render
-          rendered.should have_selector("form.new_entry")
+          rendered.should have_selector("form#new_entry")
         end
 
         it "renders input fields" do
@@ -28,7 +28,7 @@ describe "entries/new" do
           rendered.should have_selector("input[type='text'][name='entry[term_in_en]']")
           rendered.should have_selector("input[type='text'][name='entry[term_in_ja]']")
           rendered.should have_selector("textarea[name='entry[note]']")
-          rendered.should have_selector("input[type='submit']")
+          rendered.should have_selector("button[type='submit']")
         end
 
         context "trilingual glossary" do
