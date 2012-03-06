@@ -3,7 +3,6 @@ source 'http://rubygems.org'
 gem 'rails', "3.2.1"
 
 gem 'haml'
-gem 'twitter_bootstrap_form_for'
 gem 'rails_autolink'
 gem 'globalize3', :git => 'git://github.com/svenfuchs/globalize3.git'
 gem 'thin'
@@ -16,7 +15,7 @@ group :assets do
   gem 'sass-rails', "  ~> 3.2.3"
   gem 'coffee-rails', "~> 3.2.1"
   gem 'uglifier'
-  gem 'bootstrap-sass'
+  gem 'bootstrap-sass', '~> 2.0.1', :branch => '2.0'
 end
 
 group :test do
@@ -52,6 +51,7 @@ group :cucumber do
 end
 
 gem 'jquery-rails'
+gem 'twitter_bootstrap_form_for', :git => 'git://github.com/stouset/twitter_bootstrap_form_for.git', :branch => 'bootstrap-2.0'
 
 group :production do
   gem 'pg'

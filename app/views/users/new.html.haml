@@ -3,9 +3,9 @@
   %h1
     = page_title
 
-= twitter_bootstrap_form_for @user do |user|
+= twitter_bootstrap_form_for @user, :html => { :class => 'form-horizontal' } do |user|
 
-  = user.inputs do
+  = user.fieldset do
     = user.text_field :name, 'User name' do
       %span.help-block
         Usernames must be between 3 and 20 characters and only contain alphanumeric and underscore symbols.

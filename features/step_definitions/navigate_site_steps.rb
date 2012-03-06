@@ -59,11 +59,11 @@ Then /^I (should|should not) see a link to the (.+)$/ do |expectation,page_name|
 end
 
 Then /^I should see a navigation bar$/ do
-  page.should have_selector(".topbar")
+  page.should have_selector(".navbar")
 end
 
 Then /^the navigation bar should have a link to my profile$/ do
-  within '.topbar' do
+  within '.navbar' do
     page.should have_selector('a', :href => user_path(User.current_user), :text => User.current_user.name)
   end
 end

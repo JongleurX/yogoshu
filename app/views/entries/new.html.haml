@@ -3,15 +3,15 @@
   %h1
     = page_title
 
-= twitter_bootstrap_form_for @entry do |entry|
+= twitter_bootstrap_form_for @entry, :html => { :class => 'form-horizontal' } do |entry|
 
-  = entry.inputs do
+  = entry.fieldset do
     - @base_languages.each do |lang|
-      = entry.text_field "term_in_#{lang}", "#{I18n.t(lang).capitalize}", :class => "xlarge" do
+      = entry.text_field :"term_in_#{lang}", "#{I18n.t(lang).capitalize}", :class => "input-xlarge" do
         - if (lang == Entry.glossary_language)
-          %span.help-block
+          %p.help-block
             #{I18n.t(lang).capitalize} is the source language for this glossary so terms in this language can't be blank and must be unique.
-    = entry.text_area :note, "Notes", :class => "xxlarge", :rows => 5
+    = entry.text_area :note, "Notes", :class => "input-xxlarge", :rows => 5
   
   = entry.actions do
     = entry.submit 'Add entry'

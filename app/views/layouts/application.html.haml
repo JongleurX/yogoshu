@@ -7,32 +7,32 @@
     = javascript_include_tag :application
     = csrf_meta_tags
   %body{ :style => "padding-top: 40px" }
-    .topbar-wrapper
-      .topbar
-        .topbar-inner
-          .container
-            %h3
-              = link_to Yogoshu, homepage_path
-            - if logged_in?
-              %ul.nav
-                %li= link_to "Search", homepage_path
-                %li= link_to "Add Entry", new_entry_path
-                - if manager?
-                  %li= link_to "Manage Users", users_path
-              %ul.nav.secondary-nav
-                %li.dropdown{ :'data-dropdown' => 'dropdown'}
-                  =link_to @current_user.name, '#', :class => 'dropdown-toggle'
-                  %ul.dropdown-menu
-                    %li= link_to "Profile", user_path(@current_user)
-                    %li.divider
-                    %li= link_to "Logout", logout_path
-            - else
-              = form_tag login_path, :method => :post, :class => "pull-right" do
-                = text_field :user, :name, { :class => "input-small", :placeholder => "Username" }
-                = password_field :user, :password, { :class => "input-small", :placeholder => "Password" }
-                = button_tag 'Login', :class => "btn"
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          = link_to Yogoshu, homepage_path, :class => "brand"
+          - if logged_in?
+            %ul.nav
+              %li= link_to "Search", homepage_path
+              %li= link_to "Add Entry", new_entry_path
+              - if manager?
+                %li= link_to "Manage Users", users_path
+            %ul.nav.secondary-nav.pull-right
+              %li#profile-menu.dropdown{ :'data-dropdown' => 'dropdown'}
+                =link_to "#profile-menu", :class => 'dropdown-toggle' do
+                  = "@" + @current_user.name
+                  %b.caret
+                %ul.dropdown-menu
+                  %li= link_to "Profile", user_path(@current_user)
+                  %li.divider
+                  %li= link_to "Logout", logout_path
+          - else
+            = form_tag login_path, :method => :post, :class => "pull-right" do
+              = text_field :user, :name, { :class => "input-small", :placeholder => "Username" }
+              = password_field :user, :password, { :class => "input-small", :placeholder => "Password" }
+              = button_tag 'Login', :class => "btn"
     .container
       .content
         - flash.each do |name, msg|
-          = content_tag :div, '<a class="close" href="#">×</a>'.html_safe + msg, :class => "alert-message #{name}", :id => "flash_#{name}", :'data-alert' => 'alert' if msg.is_a?(String)
+          = content_tag :div, '<a class="close" href="#">×</a>'.html_safe + msg, :class => "alert #{name}", :id => "flash_#{name}", :'data-alert' => 'alert' if msg.is_a?(String)
         = yield

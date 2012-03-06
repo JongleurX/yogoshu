@@ -7,6 +7,15 @@ GIT
       rails (~> 3.1)
 
 GIT
+  remote: git://github.com/stouset/twitter_bootstrap_form_for.git
+  revision: a1ed21787872a1469d0e57a632f5442e3106d334
+  branch: bootstrap-2.0
+  specs:
+    twitter_bootstrap_form_for (2.0.1.0.rc1)
+      actionpack (~> 3)
+      railties (~> 3)
+
+GIT
   remote: git://github.com/svenfuchs/globalize3.git
   revision: 5cffcc81f0b5d5a246719117e348aaaa77e211bd
   specs:
@@ -56,8 +65,7 @@ GEM
     addressable (2.2.6)
     archive-tar-minitar (0.5.2)
     arel (3.0.2)
-    bootstrap-sass (1.4.4)
-      sass-rails (~> 3.1)
+    bootstrap-sass (2.0.1)
     builder (3.0.0)
     capybara (1.1.2)
       mime-types (>= 1.16)
@@ -232,9 +240,6 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
-    twitter_bootstrap_form_for (1.0.5)
-      actionpack (~> 3)
-      railties (~> 3)
     tzinfo (0.3.31)
     uglifier (1.2.2)
       execjs (>= 0.3.0)
@@ -247,7 +252,7 @@ PLATFORMS
 
 DEPENDENCIES
   best_in_place!
-  bootstrap-sass
+  bootstrap-sass (~> 2.0.1)
   capybara
   capybara-webkit!
   coffee-rails (~> 3.2.1)
@@ -278,5 +283,5 @@ DEPENDENCIES
   spork (~> 0.9.0.rc)
   sqlite3
   thin
-  twitter_bootstrap_form_for
+  twitter_bootstrap_form_for!
   uglifier
