@@ -58,7 +58,7 @@ describe User do
 
       before do
         # build does not save the record, which is important for testing passwords
-        @user = Factory.build(:user, :password => nil, :password_confirmation => nil)
+        @user = FactoryGirl.build(:user, :password => nil, :password_confirmation => nil)
       end
 
       it "should be invalid without a password" do

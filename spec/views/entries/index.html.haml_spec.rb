@@ -7,8 +7,8 @@ describe "entries/index" do
     Yogoshu::Locales.set_glossary_language(:ja)
     assign(:base_languages, Yogoshu::Locales.base_languages) 
     assign(:glossary_language, Yogoshu::Locales.glossary_language) 
-    @alice = Factory(:alice)
-    @bob = Factory(:bob)
+    @alice = Factory(:user, name: "alice")
+    @bob = Factory(:user, name: "bob")
   end
 
   context "logged-out user" do

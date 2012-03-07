@@ -12,18 +12,6 @@ FactoryGirl.define do
     role "contributor"
   end
 
-  factory :alice, :parent => :user do
-    name 'alice'
-    password 'wonderland'
-    role "contributor"
-  end
-
-  factory :bob, :parent => :user do
-    name 'bob'
-    password 'abcdef'
-    role "contributor"
-  end
-
   factory :manager, :parent => :user do
     name 'manager_user'
     password 'secret'
@@ -31,7 +19,7 @@ FactoryGirl.define do
   end
 
   factory :entry do
-    association :alice
+    user
     note 'MyString'
     approved false
   end
@@ -40,7 +28,7 @@ FactoryGirl.define do
     eval <<-RUBY_END
     factory :entry_#{lang}, :class => Entry do
       sequence(:term_in_#{lang}) { |n| "term\#{n}" }
-      association :user
+      user
     end
     RUBY_END
   end
