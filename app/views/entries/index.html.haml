@@ -12,7 +12,7 @@
 - if @entries.empty?
   No entries found.
 - else
-  %table.table.entries-list.bordered-table{ :class => (logged_in? ? "logged-in" : "logged-out") + (manager? ? " manager" : " contributor")}
+  %table.table.entries-list.table-bordered{ :class => (logged_in? ? "logged-in" : "logged-out") + (manager? ? " manager" : " contributor")}
     %colgroup.col-index
     - @base_languages.each do 
       %colgroup.col-term

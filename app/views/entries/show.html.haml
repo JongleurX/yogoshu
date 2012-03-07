@@ -23,7 +23,7 @@
   = link_to @entry.user.name, @entry.user
   = "on #{@entry.created_at.strftime('%B %d, %Y @ %l:%M %p')}."
 
-%table.table.bordered-table{ :style => "margin-top: 20px; table-layout: fixed" }
+%table.table.table-bordered{ :style => "margin-top: 20px; table-layout: fixed" }
   %thead
     %tr
       - @base_languages.each do |lang|
