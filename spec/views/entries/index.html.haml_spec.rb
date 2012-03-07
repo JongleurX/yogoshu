@@ -87,9 +87,9 @@ describe "entries/index" do
 
       it "renders list of entries with approved/unapproved status" do
         render
-        rendered.should have_xpath("//tr[./td[contains(.,'term1')]]/td/span", :text => /^unapproved$/)
-        rendered.should have_xpath("//tr[./td[contains(.,'term2')]]/td/span", :text => /^unapproved$/)
-        rendered.should have_xpath("//tr[./td[contains(.,'term3')]]/td/span", :text => /^approved$/)
+        rendered.should have_xpath("//tr[./td[contains(.,'term1')]]/td/span", :text => /^unapproved$/i)
+        rendered.should have_xpath("//tr[./td[contains(.,'term2')]]/td/span", :text => /^unapproved$/i)
+        rendered.should have_xpath("//tr[./td[contains(.,'term3')]]/td/span", :text => /^approved$/i)
       end
 
       it "renders name of user whoh added each entry" do
