@@ -4,9 +4,9 @@
     = page_title
     - if logged_in?
       - if @entry.approved?
-        %span.label.success approved
+        %span.btn.btn-success.btn-mini APPROVED
       - else
-        %span.label.warning unapproved
+        %span.btn.btn-warning.btn-mini UNAPPROVED
   - if @entry.changeable_by?(@current_user)
     .clearfix{ :style => "padding: 10px 2px" }
       #{@current_user.role.capitalize} functions:
@@ -23,7 +23,7 @@
   = link_to @entry.user.name, @entry.user
   = "on #{@entry.created_at.strftime('%B %d, %Y @ %l:%M %p')}."
 
-%table.bordered-table{ :style => "margin-top: 20px; table-layout: fixed" }
+%table.table.bordered-table{ :style => "margin-top: 20px; table-layout: fixed" }
   %thead
     %tr
       - @base_languages.each do |lang|

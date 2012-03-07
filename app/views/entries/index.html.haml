@@ -1,7 +1,7 @@
 - title (page_title = "Search glossary")
 .page-header
-  %h1
-    = page_title
+  %h1= page_title
+  %br
   = form_tag entries_path, :method => :get do
     = autocomplete_field_tag :search, '', autocomplete_entry_term_entries_path, :size => 75, :class => "large", :placeholder => "Enter search terms..." 
     = submit_tag "Submit"
@@ -12,7 +12,7 @@
 - if @entries.empty?
   No entries found.
 - else
-  %table.entries-list.bordered-table{ :class => (logged_in? ? "logged-in" : "logged-out") + (manager? ? " manager" : " contributor")}
+  %table.table.entries-list.bordered-table{ :class => (logged_in? ? "logged-in" : "logged-out") + (manager? ? " manager" : " contributor")}
     %colgroup.col-index
     - @base_languages.each do 
       %colgroup.col-term
@@ -47,9 +47,9 @@
             %td= link_to entry.user.name, entry.user
             %td
               - if entry.approved?
-                %span.label.success approved
+                %span.btn.btn-success.btn-mini APPROVED
               - else
-                %span.label.warning unapproved
+                %span.btn.btn-warning.btn-mini UNAPPROVED
           - if manager?
             %td
               = link_to sprite_img("icons-cross"), entry, :confirm => "Are you sure you want to destroy this entry?", :method => :delete, :title => "destroy"
