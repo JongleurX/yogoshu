@@ -32,10 +32,10 @@
         - if manager?
           %th Actions
     %tbody
-      - @entries.each_with_index do |entry,i|
+      - @entries.to_enum.with_index((@entries.current_page-1)*@entries.limit_value + 1).each do |entry,i|
         %tr
           %td
-            = i + 1
+            = i
           - @base_languages.each do |lang|
             %td
               - Globalize.with_locale(lang) do
@@ -57,3 +57,4 @@
                 = link_to sprite_img("icons-thumb"), entry_path(entry, :entry => { :approved => false}), :method => :put, :title => "unapprove"
               - else
                 = link_to sprite_img("icons-thumb-up"), entry_path(entry, :entry => { :approved => true}), :method => :put, :title => "approve"
+  = paginate @entries

@@ -52,17 +52,16 @@ class EntriesController < ApplicationController
   end
 
   def index
+    scope = (logged_in?) ? Entry.scoped : Entry.where(approved: true)
+    scope = scope.includes(:user).with_translations(base_languages)
     if (searchstring = params[:search]).present?
-      @tokens = searchstring.split 
-      @entries_translations = Entry.translation_class.find(:all, :conditions => [(['LOWER(term) LIKE ?'] * @tokens.length).join(' or ')] + @tokens.map { |token| "%#{token.downcase}%" })
-      @entries = (@entries_translations.map { |t| Entry.find(t.entry_id) }).uniq
+      (@tokens = searchstring.split).each do |token|
+        scope = scope.where('LOWER(term) LIKE ?', "%#{token.downcase}%")
+      end
     else
       params[:search] = nil
-      @entries = Entry.all
     end
-    if !(logged_in?)
-      @entries.delete_if { |e| !(e.approved?) }
-    end
+    @entries = scope.order(:term).page(params[:page])
   end
 
   private

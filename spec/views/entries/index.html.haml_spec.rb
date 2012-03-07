@@ -42,6 +42,7 @@ describe "entries/index" do
         @entry2 = Entry.create(:user => @bob, :term_in_ja => "term2")
         @entry3 = Entry.create(:user => @alice, :term_in_ja => "term3")
         @entries = [@entry1, @entry2, @entry3]
+        @entries.stub(current_page: 1, num_pages: 1, limit_value: 25)
         Entry.stub(:all) { @entries }
       end
 
@@ -76,6 +77,7 @@ describe "entries/index" do
       @entry2 = Entry.create(:user => @bob, :term_in_ja => "term2", :approved => false)
       @entry3 = Entry.create(:user => @alice, :term_in_ja => "term3", :approved => true)
       @entries = [@entry1, @entry2, @entry3]
+      @entries.stub(current_page: 1, num_pages: 1, limit_value: 25)
       Entry.stub(:all) { @entries }
     end
 

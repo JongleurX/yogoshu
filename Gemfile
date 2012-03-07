@@ -52,6 +52,7 @@ end
 
 gem 'jquery-rails'
 gem 'twitter_bootstrap_form_for', :git => 'git://github.com/stouset/twitter_bootstrap_form_for.git', :branch => 'bootstrap-2.0'
+gem 'kaminari'
 
 group :production do
   gem 'pg'
