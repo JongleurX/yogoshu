@@ -1,44 +1,47 @@
 # -*- coding: utf-8 -*-
 
-Factory.define :user do |f|
-  f.sequence(:name) { |n| "foo#{n}" }
-  f.password "foobar"
-  f.password_confirmation { |u| u.password }
-  f.role "contributor"
-end
-
-Factory.define :alice, :class => User do |u|
-  u.name 'alice'
-  u.password 'wonderland'
-  u.password_confirmation 'wonderland'
-  u.role "contributor"
-end
-
-Factory.define :bob, :class => User do |u|
-  u.name 'bob'
-  u.password 'abcdef'
-  u.password_confirmation 'abcdef'
-  u.role "contributor"
-end
-
-Factory.define :manager, :class => User do |u|
-  u.name 'manager_user'
-  u.password 'secret'
-  u.password_confirmation 'secret'
-  u.role "manager"
-end
-
-Factory.define :entry do |f|
-  f.association :user, :factory => :alice
-  f.note 'MyString'
-  f.approved false
-end
-
-[:en, :ja].each do |lang|
-  eval <<-RUBY_END
-  Factory.define :entry_#{lang}, :class => Entry do |f|
-    f.sequence(:term_in_#{lang}) { |n| "term\#{n}" }
-    f.association :user, :factory => :user
+FactoryGirl.define do
+  sequence :name do |n|
+    "foo#{n}" 
   end
-  RUBY_END
+
+  factory :user do
+    name
+    password "foobar"
+    password_confirmation { |u| u.password }
+    role "contributor"
+  end
+
+  factory :alice, :parent => :user do
+    name 'alice'
+    password 'wonderland'
+    role "contributor"
+  end
+
+  factory :bob, :parent => :user do
+    name 'bob'
+    password 'abcdef'
+    role "contributor"
+  end
+
+  factory :manager, :parent => :user do
+    name 'manager_user'
+    password 'secret'
+    role "manager"
+  end
+
+  factory :entry do
+    association :alice
+    note 'MyString'
+    approved false
+  end
+
+  [:en, :ja].each do |lang|
+    eval <<-RUBY_END
+    factory :entry_#{lang}, :class => Entry do
+      sequence(:term_in_#{lang}) { |n| "term\#{n}" }
+      association :user
+    end
+    RUBY_END
+  end
 end
