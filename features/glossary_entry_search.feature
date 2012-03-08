@@ -22,7 +22,7 @@ Feature: Search glossary entries
     And I choose "apple" in the autocomplete list
     Then the "search" field should contain "apple"
 
-  @javascript @wip
+  @javascript
   Scenario: Logged-out autocomplete search for unapproved entry
     When I go to the homepage
     And I fill in "search" with "or"

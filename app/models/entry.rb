@@ -20,3 +20,8 @@ class Entry < ActiveRecord::Base
   end
 
 end
+
+class Entry::Translation
+  belongs_to :entry
+  scope :accessible, lambda { includes(:entry).where(:entries => {:approved => true}) unless User.current_user.is_a?(User) }
+end

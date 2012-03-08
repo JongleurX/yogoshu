@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
 
   # setup user info on each page
   def initialize_user
-    User.current_user = @current_user = User.find_by_name(session[:user]) if session[:user]
+    User.current_user = @current_user = session[:user] ? User.find_by_name(session[:user]) : nil
   end
 
   def set_locale
