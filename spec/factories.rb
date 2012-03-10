@@ -5,6 +5,16 @@ FactoryGirl.define do
     "foo#{n}" 
   end
 
+  sequence :term do |n|
+    "term#{n}"
+  end
+
+  Yogoshu::Locales.base_languages.each do |lang|
+    sequence(:"term_in_#{lang}") { |n| "term_in_#{lang}_#{n}" }
+  end
+
+  sequence(:term_in_glossary_language) { FactoryGirl.generate(:term) }
+
   factory :user do
     name
     password "foobar"
@@ -18,18 +28,20 @@ FactoryGirl.define do
     role "manager"
   end
 
+  # default factory creates an entry with a term in the glossary language
   factory :entry do
     user
-    note 'MyString'
-    approved false
+    term_in_glossary_language
+    note 'a note'
   end
 
-  [:en, :ja].each do |lang|
-    eval <<-RUBY_END
-    factory :entry_#{lang}, :class => Entry do
-      sequence(:term_in_#{lang}) { |n| "term\#{n}" }
-      user
+  # language-specific factories create entry with glossary language term + term in language
+  Yogoshu::Locales.base_languages.each do |lang|
+  eval <<-END_RUBY
+    factory :entry_#{lang}, :class => Entry, :parent => :entry do
+      term_in_#{lang}
     end
-    RUBY_END
+  END_RUBY
   end
+
 end
