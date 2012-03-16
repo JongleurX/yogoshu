@@ -42,6 +42,22 @@ Spork.prefork do
     # instead of true.
     config.use_transactional_fixtures = true
 
+    # ref: https://github.com/bogdan/accept_values_for/blob/master/spec/spec_helper.rb & https://github.com/svenfuchs/globalize3/blob/master/test/globalize3/validations_test.rb
+    ActiveRecord::Schema.define do
+      create_table :validatees, :force => true do |t|
+      end
+
+      create_table :validatee_translations, :force => true do |t|
+        t.references :validatee
+        t.string :locale
+        t.string :string
+      end
+    end 
+
+    class Validatee < ActiveRecord::Base
+      translates :string
+    end
+
   end 
 end
 
