@@ -54,10 +54,6 @@ Spork.prefork do
       end
     end 
 
-    class Validatee < ActiveRecord::Base
-      translates :string
-    end
-
   end 
 end
 

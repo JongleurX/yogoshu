@@ -9,10 +9,15 @@ describe TranslationUniquenessValidator do
     before { I18n.locale = Globalize.locale = :en }
 
     describe "without postfix" do
-      before do
-        Validatee.class_eval { validates :string, :translation_uniqueness => true }
-        Validatee.create!(:string => "a")
+      before(:all) do
+        class Validatee < ActiveRecord::Base
+          translates :string
+          validates :string, :translation_uniqueness => { :message => "is already in the glossary" } 
+        end
       end
+      after(:all) { Object.send(:remove_const, :Validatee) }
+
+      before { Validatee.create!(:string => "a") }
 
       it "validates uniqueness on create" do
         Validatee.new(:string => "a").should_not be_valid
@@ -28,13 +33,24 @@ describe TranslationUniquenessValidator do
         validatee.update_attributes(:string => "c")
         validatee.should be_valid
       end
+
+      it "assigns error message" do
+        validatee = Validatee.new(:string => "a")
+        validatee.valid?
+        validatee.errors[:string].should == ["is already in the glossary"]
+      end
     end
 
     context "with postfix" do
-      before do
-        Validatee.class_eval { validates :string_in_en, :translation_uniqueness => true }
-        Validatee.create!(:string_in_en => "a")
+      before(:all) do
+        class Validatee < ActiveRecord::Base
+          translates :string
+          validates :string_in_en, :translation_uniqueness => { :message => "is already in the glossary" } 
+        end
       end
+      after(:all) { Object.send(:remove_const, :Validatee) }
+
+      before { Validatee.create!(:string_in_en => "a") }
 
       describe "create" do
 
@@ -45,6 +61,12 @@ describe TranslationUniquenessValidator do
 
         it "does not validate uniqueness in other language" do
           Validatee.new(:string_in_ja => "a").should be_valid
+        end
+
+        it "assigns error message" do
+          validatee = Validatee.new(:string_in_en => "a")
+          validatee.valid?
+          validatee.errors[:string_in_en].should == ["is already in the glossary"]
         end
       end
 
