@@ -17,7 +17,7 @@ GIT
 
 GIT
   remote: git://github.com/svenfuchs/globalize3.git
-  revision: 0e1f8dd995353ee54f4fc5849f93c5becb003cc1
+  revision: 6699cdf539f0095a0bfdc469114b168cf203268c
   specs:
     globalize3 (0.2.0)
       activemodel (>= 3.0.0)
@@ -157,7 +157,7 @@ GEM
     mime-types (1.17.2)
     multi_json (1.0.4)
     nokogiri (1.5.0)
-    paper_trail (2.6.0)
+    paper_trail (2.6.2)
       rails (~> 3)
     pg (0.12.2)
     polyglot (0.3.3)
