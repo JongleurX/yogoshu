@@ -8,11 +8,8 @@ class Entry < ActiveRecord::Base
 
   # validations
   validates :user_id, :presence => true
-
   base_languages.each do |lang|
-    eval <<-END_RUBY
-    validates :term_in_#{lang}, :presence => true, :translation_uniqueness => { :lang => :#{lang}, :message => "is already in the glossary"}, :if => Proc.new { |entry| entry.glossary_language == :#{lang}}, :on => :create
-    END_RUBY
+    validates :"term_in_#{lang}", :presence => true, :translation_uniqueness => { :message => "is already in the glossary"}, :if => Proc.new { |entry| entry.glossary_language == :"#{lang}"}
   end
 
   def to_param
@@ -23,5 +20,7 @@ end
 
 class Entry::Translation
   belongs_to :entry
+#  TODO: add line below
+#  belongs_to :entry, :inverse_of => :translations
   scope :accessible, lambda { includes(:entry).where(:entries => {:approved => true}) unless User.current_user.is_a?(User) }
 end
