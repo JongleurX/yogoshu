@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
+require 'ruby-debug'
 
 describe Entry do
 
@@ -30,7 +31,7 @@ describe Entry do
       should_not be_valid
     end
 
-    pending "should be invalid if not unique in glossary language" do
+    it "should be invalid if not unique in glossary language" do
       Factory(:entry, :term_in_ja => "りんご")
       subject.term_in_ja = "りんご"
       should_not be_valid

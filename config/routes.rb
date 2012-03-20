@@ -20,8 +20,9 @@ Yogoshu::Application.routes.draw do
   #   resources :products
 
   resources :users, :except => :edit
-  resources :entries, :except => :edit do
+  resources :entries do
     get :autocomplete_entry_term, :on => :collection
+    post :approve, :on => :member
   end
 
   # Sample resource route with options:

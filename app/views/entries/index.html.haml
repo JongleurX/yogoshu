@@ -52,9 +52,10 @@
                 %span.btn.btn-warning.btn-mini UNAPPROVED
           - if manager?
             %td
+              = link_to sprite_img("icons-pencil"), edit_entry_path(entry), :title => "edit"
               = link_to sprite_img("icons-cross"), entry, :confirm => "Are you sure you want to destroy this entry?", :method => :delete, :title => "destroy"
               - if entry.approved?
-                = link_to sprite_img("icons-thumb"), entry_path(entry, :entry => { :approved => false}), :method => :put, :title => "unapprove"
+                = link_to sprite_img("icons-thumb"), approve_entry_path(entry, :entry => { :approved => false}), :method => :post, :title => "unapprove"
               - else
-                = link_to sprite_img("icons-thumb-up"), entry_path(entry, :entry => { :approved => true}), :method => :put, :title => "approve"
+                = link_to sprite_img("icons-thumb-up"), approve_entry_path(entry, :entry => { :approved => true}), :method => :post, :title => "approve"
   = paginate @entries

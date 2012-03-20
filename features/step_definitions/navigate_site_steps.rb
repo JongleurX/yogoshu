@@ -5,7 +5,7 @@ module WithinHelpers
 end
 World(WithinHelpers)
 
-Given /^I am on the (.+)$/ do |page_name|
+Given /^I am on the (.+page)$/ do |page_name|
   visit eval("#{page_name.gsub(' page','').gsub(' ','_')}_path")
 end
 
@@ -14,8 +14,18 @@ Given /^I am on entry "([^"]*)"$/ do |term|
   visit entry_path(entry)
 end
 
-When /^I go to the (.+)$/ do |page_name|
+Given /^I am on the edit page for entry "([^"]*)"$/ do |term|
+  entry = Entry.find_by_term_in_glossary_language(term)
+  visit edit_entry_path(entry)
+end
+
+When /^I go to the (.+page)$/ do |page_name|
   visit eval("#{page_name.gsub(' page','').gsub(' ','_')}_path")
+end
+
+When /^I go to the edit page for entry "([^"]*)"$/ do |term|
+  entry = Entry.find_by_term_in_glossary_language(term)
+  visit edit_entry_path(entry)
 end
 
 Then /^I should see the login page$/ do
@@ -42,8 +52,8 @@ Then /^I should see an? (error|success|notice) message: "(.*)"$/ do |msg_type,me
   page.should have_css(".alert-#{msg_type.gsub('notice','message')}", :text => message)
 end
 
-Then /^I should see the text: "([^"]*)"$/ do |text|
-  page.should have_content(text)
+Then /^I (should|should not) see the text:? "([^"]*)"$/ do |expectation,text|
+  page.send(expectation.gsub(' ','_'),have_content(text))
 end
 
 Then /^I (should|should not) see a link to "([^"]*)"$/ do |expectation,link_text|

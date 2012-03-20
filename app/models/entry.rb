@@ -1,6 +1,10 @@
 class Entry < ActiveRecord::Base
   include Permissions
 
+  attr_accessible :term, :note
+  Yogoshu::Locales.base_languages.each { |lang| attr_accessible :"term_in_#{lang}" }
+  attr_accessible :approved, :as => :manager
+
   translates :term
 
   # associations

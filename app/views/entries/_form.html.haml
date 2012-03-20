@@ -1,0 +1,7 @@
+= entry.fieldset do
+  - @base_languages.each do |lang|
+    = entry.text_field :"term_in_#{lang}", "#{I18n.t(lang).capitalize}", :class => "input-xlarge" do
+      - if (lang == Entry.glossary_language)
+        %p.help-block
+          #{I18n.t(lang).capitalize} is the source language for this glossary so terms in this language can't be blank and must be unique.
+  = entry.text_area :note, "Notes", :class => "input-xxlarge", :rows => 5

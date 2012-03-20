@@ -119,24 +119,10 @@ describe Yogoshu::ActsAsGlossary do
     context "as a class method do" do
 
       before do
-        @entry1 = Entry.new(:user => Factory(:user)) 
-        @entry1.term_in_ja = "あああ"
-        @entry1.term_in_en = "aaa"
-        @entry1.save
-
-        @entry2 = Entry.new(:user => Factory(:user)) 
-        @entry2.term_in_ja = "バナナ"
-        @entry2.term_in_en = "banana"
-        @entry2.save
-
-        @entry3 = Entry.new(:user => Factory(:user)) 
-        @entry3.term_in_ja = "りんご"
-        @entry3.save
-
-        @entry4 = Entry.new(:user => Factory(:user))
-        @entry4.term_in_ja = "オレンジ"
-        @entry4.term_in_en = "banana"
-        @entry4.save
+        @entry1 = Factory(:entry, :term_in_ja => "あああ", :term_in_en => "aaa")
+        @entry2 = Factory(:entry, :term_in_ja => "バナナ", :term_in_en => "banana")
+        @entry3 = Factory(:entry, :term_in_ja => "りんご")
+        @entry4 = Factory(:entry, :term_in_ja => "オレンジ", :term_in_en => "banana")
       end
       
       it "returns entries with matching terms in English" do

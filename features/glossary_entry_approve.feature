@@ -19,14 +19,14 @@ Feature: Approve glossary entries
     Given I am logged in as "susan"
     When I approve the glossary entry "オレンジ"
     Then I should see the entries page
-    And I should see a success message: "Entry "オレンジ" has been updated."
+    And I should see a success message: "Entry "オレンジ" has been approved."
     And the glossary entry "オレンジ" should be approved
 
   Scenario: Glossary manager unapproves glossary entry
     Given I am logged in as "susan"
     When I unapprove the glossary entry "りんご"
     Then I should see the entries page
-    And I should see a success message: "Entry "りんご" has been updated."
+    And I should see a success message: "Entry "りんご" has been unapproved."
     And the glossary entry "りんご" should be unapproved
     
   @wip

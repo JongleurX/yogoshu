@@ -27,10 +27,6 @@ When /^I delete the glossary entry "([^"]*)"$/ do |term|
   end
 end
 
-When /^I edit "([^"]*)" and replace it with "([^"]*)"$/ do |old_value,new_value|
-  element = find(:xpath, "//span[@class='best_in_place']", :text => old_value)
-end
-
 When /^I (approve|unapprove) the glossary entry "([^"]*)"$/ do |action, term|
   visit entries_path
   within('table') do

@@ -26,11 +26,13 @@ describe EntriesController do
       controller.stub(:logged_in?) { false }
     end
 
-    it "should redirect new, create and destroy requests to login page" do
+    it "should redirect new, edit, create, update and destroy requests to login page" do
       requests = 
         [
           proc {  get :new },
+          proc {  get :edit },
           proc {  post :create, :entry => {'these' => 'params'} },
+          proc {  put :update, :id => "37" },
           proc {  delete :destroy, :id => "37" },
       ]
 
@@ -96,6 +98,35 @@ describe EntriesController do
 
     end
 
+    describe "GET edit" do
+
+      before do
+        entry = mock_entry
+      end
+
+      context "with contributor role" do
+
+        before do
+          user = mock_user(:manager? => false)
+          controller.stub(:current_user) { user }
+        end
+
+        context "for own entry" do
+          it "renders the edit page for the entry"
+        end
+
+        context "for other user's entry" do
+          it "redirects to the show page and returns error message"
+        end
+
+      end
+
+      context "with manager role" do
+        it "renders the edit page for the entry"
+      end
+
+    end
+
     describe "GET autocomplete_entry_term" do
 
       it "returns approved and unapproved entries"
@@ -108,7 +139,7 @@ describe EntriesController do
         before do
           entry = mock_entry
           entry.should_receive(:save).and_return { true }
-          Entry.stub(:new).with( { 'these' => 'params', 'user_id' => @mock_user.id } ) { entry }
+          Entry.stub(:new).with( { 'these' => 'params' } ) { entry }
         end
 
         it "assigns newly created entry as @entry" do
@@ -132,7 +163,7 @@ describe EntriesController do
         before do
           entry = mock_entry
           entry.should_receive(:save).and_return { false }
-          Entry.stub(:new).with( 'these' => 'params', 'user_id' => @mock_user.id ) { entry }
+          Entry.stub(:new).with( 'these' => 'params' ) { entry }
         end
 
         it "assigns newly created entry as @entry" do
@@ -162,21 +193,21 @@ describe EntriesController do
 
       def updates_entry(entry)
         Entry.should_receive(:find_by_term_in_glossary_language).and_return(entry)
-        entry.should_receive(:update_attributes!)
+        entry.should_receive(:update_attributes)
         put :update, :id => "りんご", :entry => { 'these' => 'params' }
       end
 
       def responds_with_updated(entry)
         Entry.stub(:find_by_term_in_glossary_language) { entry }
-        entry.stub(:update_attributes!) { true }
-        put :update, :id => "りんご", :entry => { 'these' => 'params' }, :format => :json
+        entry.stub(:update_attributes) { true }
+        put :update, :id => "りんご", :entry => { 'these' => 'params' }
         response.should render_template(entry)
       end
 
-      def responds_with_unauthorized(entry)
-        Entry.stub(:find_by_term_in_glossary_language) { entry }
+      def responds_with_error(entry)
         put :update, :id => "りんご", :entry => { 'these' => 'params' }
-        response.status.should == 401
+        response.should redirect_to(@entry)
+        flash[:error].should == "You are not authorized to edit this entry." 
       end
 
       context "with contributor role" do
@@ -189,7 +220,7 @@ describe EntriesController do
         context "for own entry" do
 
           before do
-            @entry = Entry.create!(:user => mock_user, :term_in_ja => "りんご")
+            @entry = Factory(:entry, :user => mock_user, :term_in_ja => "りんご")
           end
 
           it "updates the requested entry" do
@@ -208,19 +239,13 @@ describe EntriesController do
 
           before do
             other_user = mock_model(User)
-            @entry = Entry.create!(:user => other_user, :term_in_ja => "りんご")
+            @entry = Factory(:entry, :user => other_user, :term_in_ja => "りんご")
           end
         
-          it "responds with unauthorized" do
-            responds_with_unauthorized(@entry)
+          it "redirects to entry and returns error message" do
+            responds_with_error(@entry)
           end
 
-          it "responds with an unauthorized message" do
-            Entry.stub(:find_by_term_in_glossary_language) { @entry }
-            put :update, :id => "りんご"
-            response.body.should =~ /Unauthorized/
-          end
-          
         end
 
       end
@@ -232,7 +257,7 @@ describe EntriesController do
           controller.stub(:current_user) { user }
 
           other_user = mock_model(User)
-          @entry = Entry.create!(:user => other_user, :term_in_ja => "りんご")
+          @entry = Factory(:entry, :user => other_user, :term_in_ja => "りんご")
         end
 
         it "updates the requested entry" do
@@ -263,10 +288,11 @@ describe EntriesController do
         response.should redirect_to(entries_path)
       end
 
-      def responds_with_unauthorized(entry)
+      def responds_with_error(entry)
         Entry.stub(:find_by_term_in_glossary_language) { entry }
         delete :destroy, :id => "りんご"
-        response.status.should == 401
+        response.should redirect_to(@entry)
+        flash[:error].should == "You are not authorized to edit this entry."
       end
 
       context "with contributor role" do
@@ -279,7 +305,7 @@ describe EntriesController do
         context "for own entry" do
 
           before do
-            @entry = Entry.create!(:user => mock_user, :term_in_ja => "りんご")
+            @entry = Factory(:entry, :user => mock_user, :term_in_ja => "りんご")
           end
 
           it "destroys the requested entry" do
@@ -298,14 +324,12 @@ describe EntriesController do
 
           before do
             other_user = mock_model(User)
-            @entry = Entry.create!(:user => other_user, :term_in_ja => "りんご")
+            @entry = Factory(:entry, :user => other_user, :term_in_ja => "りんご")
           end
         
-          it "responds with unauthorized" do
-            responds_with_unauthorized(@entry)
+          it "redirects to entry and returns error message" do
+            responds_with_error(@entry)
           end
-
-          it "returns an error message"
 
         end
 
@@ -318,7 +342,7 @@ describe EntriesController do
           controller.stub(:current_user) { user }
 
           other_user = mock_model(User)
-          @entry = Entry.create!(:user => other_user, :term_in_ja => "りんご")
+          @entry = Factory(:entry, :user => other_user, :term_in_ja => "りんご")
         end
 
         it "destroys the requested entry" do

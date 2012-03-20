@@ -62,10 +62,11 @@ describe "entries/show" do
           rendered.gsub("\n","").should =~ /<p>Here\'s a simple/
         end
 
-        it "should have delete but not approve actions if entry is created by this user" do
+        it "should have delete and edit but not approve actions if entry is created by this user" do
           @entry.stub(:changeable_by?).with(@current_user) { true }
           render
-          rendered.should have_link "Delete"
+          rendered.should have_link "Delete", :href => entry_path(@entry)
+          rendered.should have_link "Edit", :href => edit_entry_path(@entry)
           rendered.should_not have_link "Approve"
         end
 
@@ -73,6 +74,7 @@ describe "entries/show" do
           @entry.stub(:changeable_by?).with(@current_user) { false }
           render
           rendered.should_not have_link "Delete"
+          rendered.should_not have_link "Edit"
           rendered.should_not have_link "Approve"
         end
 
@@ -88,6 +90,7 @@ describe "entries/show" do
         it "should have both delete and approve actions" do
           render
           rendered.should have_link "Delete", :href => entry_path(@entry)
+          rendered.should have_link "Edit", :href => edit_entry_path(@entry)
           rendered.should have_link "Approve", :href => entry_path(@entry, :entry => { :approved => true})
         end
 

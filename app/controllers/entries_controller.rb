@@ -4,7 +4,7 @@ class EntriesController < ApplicationController
 
   before_filter :login_required, :except => [:show, :index, :autocomplete_entry_term]
   before_filter :find_entry, :except => [:index, :new, :create]
-  before_filter :authorize, :only => [:destroy, :update]
+  before_filter :authorize, :only => [:destroy, :update, :edit, :approve]
 
   def show
   end
@@ -14,7 +14,8 @@ class EntriesController < ApplicationController
   end
 
   def create
-    @entry = Entry.new(params[:entry].merge(:user_id => current_user.id))
+    @entry = Entry.new(params[:entry])
+    @entry.user_id = current_user.id
     if @entry.save
       flash[:success] = "New glossary entry has been created."
       redirect_to @entry
@@ -26,20 +27,32 @@ class EntriesController < ApplicationController
 
   def update
     respond_to do |format|
-      if (@entry.update_attributes!(params[:entry]))
-        format.json { respond_with_bip(@entry) }
+      if (@entry.update_attributes(params[:entry]))
+#        format.json { respond_with_bip(@entry) }
         format.html {
           flash[:success] = "Entry \"#{@entry.term_in_glossary_language}\" has been updated."
-          redirect_to(:back) 
+          redirect_to @entry
         }
       else
-        format.json { respond_with_bip(@entry) }
+#        format.json { respond_with_bip(@entry) }
         format.html { 
-          flash[:error] = "Entry could not be updated."
-          redirect_to(:back)
+          flash.now[:error] = "Entry could not be updated."
+          render "edit"
         }
       end
     end
+  end
+
+  def approve
+    if @entry.update_attributes({ :approved => params[:entry][:approved] }, :as => :manager)
+      flash[:success] = "Entry \"#{@entry.term_in_glossary_language}\" has been #{(@entry.approved == true) ? "approved" : "unapproved"}."
+    else
+      flash[:error] = "Entry \"#{@entry.term_in_glossary_language}\" approval status was not changed."
+    end
+    redirect_to :back
+  end
+
+  def edit
   end
 
   def destroy
@@ -71,7 +84,9 @@ class EntriesController < ApplicationController
 
   def authorize
     unless @entry.changeable_by?(current_user)
-      render :text => 'Unauthorized', :status => :unauthorized
+      flash[:error] = "You are not authorized to edit this entry."
+      redirect_to entry_path(@entry)
+#      render :text => 'Unauthorized', :status => :unauthorized
     end
   end
 

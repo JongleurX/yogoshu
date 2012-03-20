@@ -38,9 +38,9 @@ describe "entries/index" do
     context "with 3 entries" do
 
       before(:each) do
-        @entry1 = Entry.create(:user => @alice, :term_in_ja => "term1")
-        @entry2 = Entry.create(:user => @bob, :term_in_ja => "term2")
-        @entry3 = Entry.create(:user => @alice, :term_in_ja => "term3")
+        @entry1 = Factory(:entry, :user => @alice, :term_in_ja => "term1")
+        @entry2 = Factory(:entry, :user => @bob, :term_in_ja => "term2")
+        @entry3 = Factory(:entry, :user => @alice, :term_in_ja => "term3")
         @entries = [@entry1, @entry2, @entry3]
         @entries.stub(current_page: 1, num_pages: 1, limit_value: 25)
         Entry.stub(:all) { @entries }
@@ -73,9 +73,9 @@ describe "entries/index" do
     end
 
     before(:each) do
-      @entry1 = Entry.create(:user => @alice, :term_in_ja => "term1", :approved => false)
-      @entry2 = Entry.create(:user => @bob, :term_in_ja => "term2", :approved => false)
-      @entry3 = Entry.create(:user => @alice, :term_in_ja => "term3", :approved => true)
+      @entry1 = Factory(:entry, :user => @alice, :term_in_ja => "term1", :approved => false)
+      @entry2 = Factory(:entry, :user => @bob, :term_in_ja => "term2", :approved => false)
+      @entry3 = Factory(:entry, :user => @alice, :term_in_ja => "term3", :approved => true)
       @entries = [@entry1, @entry2, @entry3]
       @entries.stub(current_page: 1, num_pages: 1, limit_value: 25)
       Entry.stub(:all) { @entries }
@@ -112,11 +112,14 @@ describe "entries/index" do
       it "renders list of approved and unapproved entries with action buttons" do
         render
         rendered.should have_xpath("//tr[./td[contains(.,'term1')]]/td/a[@data-method='delete'][@title='destroy']")
-        rendered.should have_xpath("//tr[./td[contains(.,'term1')]]/td/a[@data-method='put'][@title='approve']")
+        rendered.should have_xpath("//tr[./td[contains(.,'term1')]]/td/a[@title='edit']")
+        rendered.should have_xpath("//tr[./td[contains(.,'term1')]]/td/a[@data-method='post'][@title='approve']")
         rendered.should have_xpath("//tr[./td[contains(.,'term2')]]/td/a[@data-method='delete'][@title='destroy']")
-        rendered.should have_xpath("//tr[./td[contains(.,'term2')]]/td/a[@data-method='put'][@title='approve']")
+        rendered.should have_xpath("//tr[./td[contains(.,'term2')]]/td/a[@title='edit']")
+        rendered.should have_xpath("//tr[./td[contains(.,'term2')]]/td/a[@data-method='post'][@title='approve']")
         rendered.should have_xpath("//tr[./td[contains(.,'term3')]]/td/a[@data-method='delete'][@title='destroy']")
-        rendered.should have_xpath("//tr[./td[contains(.,'term3')]]/td/a[@data-method='put'][@title='unapprove']")
+        rendered.should have_xpath("//tr[./td[contains(.,'term3')]]/td/a[@title='edit']")
+        rendered.should have_xpath("//tr[./td[contains(.,'term3')]]/td/a[@data-method='post'][@title='unapprove']")
       end
     end
 
