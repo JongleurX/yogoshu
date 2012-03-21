@@ -7,4 +7,4 @@
   = render 'form', :entry => entry
   = entry.actions do
     = entry.submit 'Add entry'
-    = button_tag 'Cancel', :type => 'reset', :class => 'btn'
+    = link_to 'Cancel', homepage_path, :class => 'btn'

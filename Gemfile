@@ -39,11 +39,11 @@ group :test, :development do
   gem 'libnotify'
   gem 'simplecov', :require => false
   gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'database_cleaner'
 end
 
 group :cucumber do
   gem 'capybara'
-  gem 'database_cleaner'
   gem 'cucumber-rails'
   gem 'cucumber'
   gem 'spork', '~> 0.9.0.rc'
