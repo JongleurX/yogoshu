@@ -282,10 +282,10 @@ describe EntriesController do
         delete :destroy, :id => "りんご"
       end
 
-      def redirects_to_entries(entry)
+      def redirects_to_entries(entry, url)
         Entry.stub(:find_by_term_in_glossary_language) { entry }
         delete :destroy, :id => "りんご"
-        response.should redirect_to(entries_path)
+        response.should redirect_to(url)
       end
 
       def responds_with_error(entry)
@@ -312,8 +312,9 @@ describe EntriesController do
             destroys_entry(@entry)
           end
 
-          it "redirects to the entries_index" do
-            redirects_to_entries(@entry)
+          it "redirects to entries index with original query string" do
+            request.env["HTTP_REFERER"] = "http://ablog.com?page=3"
+            redirects_to_entries(@entry,'/entries?page=3')
           end
 
           it "returns a success message"
@@ -350,7 +351,8 @@ describe EntriesController do
         end
 
         it "redirects to the entries_index" do
-          redirects_to_entries(@entry)
+          request.env["HTTP_REFERER"] = "http://ablog.com?page=3"
+          redirects_to_entries(@entry,'/entries?page=3')
         end
 
         it "returns a success message"
