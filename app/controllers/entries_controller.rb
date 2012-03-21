@@ -60,7 +60,11 @@ class EntriesController < ApplicationController
     if @entry.destroy
       flash[:success] = "Entry \"#{term}\" has been deleted."
     end
-    redirect_to entries_path
+    if !(request.referrer.blank?)
+      redirect_to '/entries' + (request.referrer.slice(/\?.*/) || "")
+    else
+      redirect_to entries_path
+    end
   end
 
   def index
