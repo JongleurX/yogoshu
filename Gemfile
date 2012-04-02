@@ -19,10 +19,6 @@ group :assets do
 end
 
 group :test do
-  gem 'guard-rspec'
-  gem 'guard-spork'
-  gem 'guard-jasmine'
-  gem 'guard-cucumber'
   gem 'rake'
 end
 
@@ -36,18 +32,11 @@ group :test, :development do
   gem 'jasminerice'
   gem 'spork', '~> 0.9.0.rc'
   gem 'launchy'
-  gem 'libnotify'
   gem 'simplecov', :require => false
   gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'database_cleaner'
-end
-
-group :cucumber do
   gem 'capybara'
   gem 'cucumber-rails'
-  gem 'cucumber'
-  gem 'spork', '~> 0.9.0.rc'
-  gem 'launchy'
 end
 
 gem 'jquery-rails'
@@ -55,7 +44,7 @@ gem 'twitter_bootstrap_form_for', :git => 'git://github.com/stouset/twitter_boot
 gem 'kaminari'
 
 group :production do
-  gem 'pg'
+  gem 'mysql2'
 end
 # Use unicorn as the web server
 # gem 'unicorn'

@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(:version => 20111211021810) do
   create_table "entries", :force => true do |t|
     t.integer  "user_id"
     t.boolean  "approved"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.text     "note"
   end
 
@@ -25,8 +25,8 @@ ActiveRecord::Schema.define(:version => 20111211021810) do
     t.integer  "entry_id"
     t.string   "locale"
     t.string   "term"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "entry_translations", ["entry_id"], :name => "index_entry_translations_on_entry_id"
@@ -36,8 +36,8 @@ ActiveRecord::Schema.define(:version => 20111211021810) do
     t.string   "name"
     t.string   "encrypted_password", :limit => 40
     t.string   "salt",               :limit => 40
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.string   "role"
   end
 
