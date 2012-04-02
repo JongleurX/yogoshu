@@ -10,3 +10,4 @@ vendor
 coverage
 public/assets/
 gem_graph.png
+bin/
