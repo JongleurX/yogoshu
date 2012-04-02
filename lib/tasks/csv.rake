@@ -12,21 +12,16 @@ namespace :csv do
   # plus optionally "note" for translator notes
   # entries with duplicate terms in the glossary language are entered with an index
   task :import, [:filename, :username] => [:environment] do |t, args|
-    user = User.find_by_name(args.username)
-    csv_text = File.read(args.filename)
-    csv = CSV.parse(csv_text, :headers => true)
+    raise ArgumentError, "ERROR: User '#{args.username}' not found." unless user = User.find_by_name(args.username)
+    raise IOError, "ERROR: Unable to open CSV file." unless csv_text = File.read(args.filename)
+    raise IOError, "ERROR: Unable to parse CSV file." unless csv = CSV.parse(csv_text, :headers => true)
     csv.each do |row|
       row = row.to_hash.with_indifferent_access
-      entry = Entry.new(row.to_hash.symbolize_keys.merge(:user => user))
+      entry = Entry.new(row.to_hash.symbolize_keys)
+      entry.user_id = user.id
       term = entry.term_in_glossary_language
-      i = 0
-      while (Entry.find_by_term_in_glossary_language(entry.term_in_glossary_language)) 
-        entry.term_in_glossary_language = term + (i += 1).to_s
-      end
-      if entry.save
-        puts "Entry '#{entry.term_in_glossary_language}' saved."
-      else
-        puts "Entry save failed for '#{term}'."
+      if !(entry.save)
+        puts "Entry save failed for '#{term}'"
       end
     end
   end
