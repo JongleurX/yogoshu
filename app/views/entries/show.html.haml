@@ -16,9 +16,9 @@
       - if manager?
         |
         - if @entry.approved?
-          = link_to 'Unapprove', entry_path(@entry, :entry => { :approved => false }), :method => :put
+          = link_to 'Unapprove', approve_entry_path(@entry, :entry => { :approved => false }), :method => :post
         - else
-          = link_to 'Approve', entry_path(@entry, :entry => { :approved => true }), :method => :put
+          = link_to 'Approve', approve_entry_path(@entry, :entry => { :approved => true }), :method => :post
   
 %small
   Added by 

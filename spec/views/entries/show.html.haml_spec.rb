@@ -91,7 +91,7 @@ describe "entries/show" do
           render
           rendered.should have_link "Delete", :href => entry_path(@entry)
           rendered.should have_link "Edit", :href => edit_entry_path(@entry)
-          rendered.should have_link "Approve", :href => entry_path(@entry, :entry => { :approved => true})
+          rendered.should have_link "Approve", :href => approve_entry_path(@entry, :entry => { :approved => true})
         end
 
       end

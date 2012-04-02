@@ -27,10 +27,10 @@ When /^I delete the glossary entry "([^"]*)"$/ do |term|
   end
 end
 
-When /^I (approve|unapprove) the glossary entry "([^"]*)"$/ do |action, term|
-  visit entries_path
+When /^I click the thumbs (up|down) icon in the row for glossary entry "([^"]*)"$/ do |dir, term|
   within('table') do
     row = find(:xpath, "//tr[./td[contains(.,\"#{term}\")]]")
+    action = (dir == "up") ? "approve" : "unapprove"
     row.find("a[@title=\"#{action}\"]").click
   end
 end

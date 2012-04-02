@@ -4,7 +4,8 @@ class EntriesController < ApplicationController
 
   before_filter :login_required, :except => [:show, :index, :autocomplete_entry_term]
   before_filter :find_entry, :except => [:index, :new, :create]
-  before_filter :authorize, :only => [:destroy, :update, :edit, :approve]
+  before_filter :authorize, :only => [:destroy, :update, :edit]
+  before_filter :manager_authorize, :only => [:approve]
 
   def show
   end
@@ -94,4 +95,10 @@ class EntriesController < ApplicationController
     end
   end
 
+  def manager_authorize
+    unless manager?
+      flash[:error] = "Only managers can approve entries."
+      redirect_to entry_path(@entry)
+    end
+  end
 end

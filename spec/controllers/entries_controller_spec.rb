@@ -15,9 +15,64 @@ describe EntriesController do
     end
   end
 
+  # for approving entries
+  def updates_entry(entry)
+    Entry.should_receive(:find_by_term_in_glossary_language).and_return(entry)
+    entry.should_receive(:update_attributes)
+    put :update, :id => "りんご", :entry => { 'these' => 'params' }
+  end
+
+  def responds_with_updated(entry)
+    Entry.stub(:find_by_term_in_glossary_language) { entry }
+    entry.stub(:update_attributes) { true }
+    put :update, :id => "りんご", :entry => { 'these' => 'params' }
+    response.should render_template(entry)
+  end
+
+  def update_responds_with_error(entry)
+    put :update, :id => "りんご", :entry => { 'these' => 'params' }
+    response.should redirect_to(@entry)
+    flash[:error].should == "You are not authorized to edit this entry." 
+  end
+
+  # for updating entries
+  def approves_entry(entry)
+    Entry.should_receive(:find_by_term_in_glossary_language).and_return(entry)
+    entry.should_receive(:update_attributes).and_return(true)
+    post :approve, :id => "りんご", :entry => { :approved => true }
+  end
+
+  def responds_with_approved(entry)
+    Entry.stub(:find_by_term_in_glossary_language) { entry }
+    entry.stub(:update_attributes) { true }
+    post :approve, :id => "りんご", :entry => { :approved => true }
+    response.should render_template(entry)
+  end
+
+  # for destroy
+  def destroys_entry(entry)
+    Entry.should_receive(:find_by_term_in_glossary_language).and_return(entry)
+    entry.should_receive(:destroy)
+    delete :destroy, :id => "りんご"
+  end
+
+  def destroy_redirects_to_entries(entry, url)
+    Entry.stub(:find_by_term_in_glossary_language) { entry }
+    delete :destroy, :id => "りんご"
+    response.should redirect_to(url)
+  end
+
+  def destroy_responds_with_error(entry)
+    Entry.stub(:find_by_term_in_glossary_language) { entry }
+    delete :destroy, :id => "りんご"
+    response.should redirect_to(@entry)
+    flash[:error].should == "You are not authorized to edit this entry."
+  end
+
   before do
     Yogoshu::Locales.set_base_languages(:ja, :en)
     Yogoshu::Locales.set_glossary_language(:ja)
+    request.env['HTTP_REFERER'] = "http://www.ablog.com/"
   end
 
   context "with anonymous user" do
@@ -85,7 +140,7 @@ describe EntriesController do
         entry = mock_entry
         Entry.should_receive(:new).and_return { entry }
       end
-      
+
       it "assigns newly created entry as @entry" do
         get :new
         assigns(:entry).should be(@mock_entry)
@@ -185,30 +240,50 @@ describe EntriesController do
 
     end
 
+    describe "POST approve" do 
+      
+      context "with contributor role" do
+
+        before do
+          user = mock_user(:manager? => false)
+          controller.stub(:current_user) { user }
+          @entry = Factory(:entry, :user => user, :term_in_ja => "りんご")
+        end
+
+        it "redirects to entry and returns error message" do
+          Entry.stub(:find_by_term_in_glossary_language) { @entry }
+          post :approve, :id => "りんご", :entry => { :approved => true }
+          response.should redirect_to(@entry)
+          flash[:error].should == "Only managers can approve entries."
+        end
+
+      end
+
+      context "with manager role" do
+
+        before do
+          user = mock_user(:manager? => true)
+          controller.stub(:current_user) { user }
+
+          @entry = Factory(:entry, :user => user, :term_in_ja => "りんご")
+          Entry.stub(:find_by_term_in_glossary_language) { @entry }
+        end
+
+        it "approves the entry" do
+          approves_entry(@entry)
+        end
+
+        it "responds with approved entry" do
+          responds_with_approved(@entry)
+        end
+
+        it "returns a success message"
+
+      end
+
+    end
+
     describe "PUT update" do
-
-      before do
-        request.env['HTTP_REFERER'] = "http://www.ablog.com/"
-      end
-
-      def updates_entry(entry)
-        Entry.should_receive(:find_by_term_in_glossary_language).and_return(entry)
-        entry.should_receive(:update_attributes)
-        put :update, :id => "りんご", :entry => { 'these' => 'params' }
-      end
-
-      def responds_with_updated(entry)
-        Entry.stub(:find_by_term_in_glossary_language) { entry }
-        entry.stub(:update_attributes) { true }
-        put :update, :id => "りんご", :entry => { 'these' => 'params' }
-        response.should render_template(entry)
-      end
-
-      def responds_with_error(entry)
-        put :update, :id => "りんご", :entry => { 'these' => 'params' }
-        response.should redirect_to(@entry)
-        flash[:error].should == "You are not authorized to edit this entry." 
-      end
 
       context "with contributor role" do
 
@@ -241,9 +316,9 @@ describe EntriesController do
             other_user = mock_model(User)
             @entry = Factory(:entry, :user => other_user, :term_in_ja => "りんご")
           end
-        
+
           it "redirects to entry and returns error message" do
-            responds_with_error(@entry)
+            update_responds_with_error(@entry)
           end
 
         end
@@ -276,25 +351,6 @@ describe EntriesController do
 
     describe "DELETE destroy" do
 
-      def destroys_entry(entry)
-        Entry.should_receive(:find_by_term_in_glossary_language).and_return(entry)
-        entry.should_receive(:destroy)
-        delete :destroy, :id => "りんご"
-      end
-
-      def redirects_to_entries(entry, url)
-        Entry.stub(:find_by_term_in_glossary_language) { entry }
-        delete :destroy, :id => "りんご"
-        response.should redirect_to(url)
-      end
-
-      def responds_with_error(entry)
-        Entry.stub(:find_by_term_in_glossary_language) { entry }
-        delete :destroy, :id => "りんご"
-        response.should redirect_to(@entry)
-        flash[:error].should == "You are not authorized to edit this entry."
-      end
-
       context "with contributor role" do
 
         before do
@@ -314,7 +370,7 @@ describe EntriesController do
 
           it "redirects to entries index with original query string" do
             request.env["HTTP_REFERER"] = "http://ablog.com?page=3"
-            redirects_to_entries(@entry,'/entries?page=3')
+            destroy_redirects_to_entries(@entry,'/entries?page=3')
           end
 
           it "returns a success message"
@@ -327,9 +383,9 @@ describe EntriesController do
             other_user = mock_model(User)
             @entry = Factory(:entry, :user => other_user, :term_in_ja => "りんご")
           end
-        
+
           it "redirects to entry and returns error message" do
-            responds_with_error(@entry)
+            destroy_responds_with_error(@entry)
           end
 
         end
@@ -352,7 +408,7 @@ describe EntriesController do
 
         it "redirects to the entries_index" do
           request.env["HTTP_REFERER"] = "http://ablog.com?page=3"
-          redirects_to_entries(@entry,'/entries?page=3')
+          destroy_redirects_to_entries(@entry,'/entries?page=3')
         end
 
         it "returns a success message"
