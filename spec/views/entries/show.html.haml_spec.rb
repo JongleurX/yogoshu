@@ -25,7 +25,7 @@ describe "entries/show" do
       before do
         Yogoshu::Locales.set_base_languages(:ja, :en)
         assign(:base_languages, %w[en ja])
-        @entry = Factory(:entry_en, :term_in_en => "apple", :term_in_ja => "りんご", :info => "A yummy fruit.", :note => "Here's a simple word in Japanese and English. I found it on this site: http://abc.com . some text\nHere's some more text.")
+        @entry = FactoryGirl.create(:entry_en, :term_in_en => "apple", :term_in_ja => "りんご", :info => "A yummy fruit.", :note => "Here's a simple word in Japanese and English. I found it on this site: http://abc.com . some text\nHere's some more text.")
       end
 
       context "logged-out user" do
@@ -56,7 +56,7 @@ describe "entries/show" do
 
         before do
           view.stub(:logged_in?) { true }
-          User.current_user = @current_user = Factory(:user)
+          User.current_user = @current_user = FactoryGirl.create(:user)
           view.stub(:manager?) { false }
         end
 
@@ -109,7 +109,7 @@ describe "entries/show" do
 
         before do
           view.stub(:logged_in?) { true }
-          User.current_user = @current_user = Factory(:user)
+          User.current_user = @current_user = FactoryGirl.create(:user)
           view.stub(:manager?) { true }
           @entry.stub(:changeable_by?).with(@current_user) { true }
         end

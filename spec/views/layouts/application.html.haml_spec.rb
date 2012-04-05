@@ -34,7 +34,7 @@ describe "layouts/application" do
     before do
       view.stub(:logged_in?) { true }
       view.stub(:manager?) { false }
-      assign(:current_user, Factory(:user, :name => "alice"))
+      assign(:current_user, FactoryGirl.create(:user, :name => "alice"))
     end
 
     describe "menu items" do
