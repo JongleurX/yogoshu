@@ -27,6 +27,7 @@ describe "entries/new" do
           render
           rendered.should have_selector("input[type='text'][name='entry[term_in_en]']")
           rendered.should have_selector("input[type='text'][name='entry[term_in_ja]']")
+          rendered.should have_selector("textarea[name='entry[info]']")
           rendered.should have_selector("textarea[name='entry[note]']")
           rendered.should have_selector("button[type='submit']")
         end

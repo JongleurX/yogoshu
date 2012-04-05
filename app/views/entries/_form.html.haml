@@ -4,4 +4,9 @@
       - if (lang == Entry.glossary_language)
         %p.help-block
           #{I18n.t(lang).capitalize} is the source language for this glossary so terms in this language can't be blank and must be unique.
-  = entry.text_area :note, "Notes", :class => "input-xxlarge", :rows => 5
+  = entry.text_area :info, "Usage information", :class => "input-xxlarge", :rows => 3 do
+    %p.help-block
+      Usage information is viewable by all users.
+  = entry.text_area :note, "Translator notes", :class => "input-xxlarge", :rows => 3 do
+    %p.help-block
+      Translator notes are only viewable to logged-in users.

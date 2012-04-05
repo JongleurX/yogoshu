@@ -49,12 +49,6 @@ end
 Then %{I should see the page for "$term"} do |term|
   entry = Entry.find_by_term_in_glossary_language(term)
   page.should have_xpath("//title", :text => "Yogoshu: #{term}")
-  Yogoshu::Locales.base_languages.each do |lang|
-    Globalize.with_locale(lang) do
-      page.should have_content(entry.term)
-    end
-    page.should have_content(entry.note)
-  end
 end
 
 Then /^there should (?:only |)be ([\d]+) glossary entr(?:y|ies)/ do |n|

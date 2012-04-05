@@ -4,12 +4,10 @@ require 'spec_helper'
 describe "entries/show" do
   
   before do
-    view.stub(:logged_in?) { true }
     Yogoshu::Locales.set_glossary_language(:ja)
-    User.current_user = @current_user = Factory(:user)
   end
 
-  # to avoid this annoying regex warningt: /home/chris/.rbenv/versions/1.9.2-p290/lib/ruby/gems/1.9.1/bundler/gems/rails-f407ec5f792c/activesupport/lib/active_support/core_ext/string/output_safety.rb:23: warning: regexp match /.../n against to UTF-8 string 
+  # to avoid this annoying regex warning: /home/chris/.rbenv/versions/1.9.2-p290/lib/ruby/gems/1.9.1/bundler/gems/rails-f407ec5f792c/activesupport/lib/active_support/core_ext/string/output_safety.rb:23: warning: regexp match /.../n against to UTF-8 string 
   around(:each) do |example|
     silence_warnings do
       example.run
@@ -27,23 +25,50 @@ describe "entries/show" do
       before do
         Yogoshu::Locales.set_base_languages(:ja, :en)
         assign(:base_languages, %w[en ja])
-        @entry = Factory(:entry_en, :term_in_en => "apple", :term_in_ja => "りんご", :note => "Here's a simple word in Japanese and English. I found it on this site: http://abc.com . some text\nHere's some more text.")
+        @entry = Factory(:entry_en, :term_in_en => "apple", :term_in_ja => "りんご", :info => "A yummy fruit.", :note => "Here's a simple word in Japanese and English. I found it on this site: http://abc.com . some text\nHere's some more text.")
+      end
+
+      context "logged-out user" do
+
+        before do
+          view.stub(:logged_in?) { false }
+        end
+
+        it "should have glossary terms in all languages" do
+          render
+          rendered.should =~ /apple/
+          rendered.should =~ /りんご/
+        end
+
+        it "should have info" do
+          render
+          rendered.should =~ /A yummy fruit./
+        end
+
+        it "should not have translator notes" do
+          render
+          rendered.should_not =~ /Here's a simple word in Japanese and English./
+        end
+
       end
 
       context "logged-in user" do
 
         before do
+          view.stub(:logged_in?) { true }
+          User.current_user = @current_user = Factory(:user)
           view.stub(:manager?) { false }
         end
 
-        it "should have English glossary term" do
+        it "should have glossary terms in all languages" do
           render
           rendered.should =~ /apple/
+          rendered.should =~ /りんご/
         end
 
-        it "should have Japanese glossary term" do
+        it "should have info" do
           render
-          rendered.should =~ /りんご/
+          rendered.should =~ /A yummy fruit./
         end
 
         it "should have note" do
@@ -51,7 +76,7 @@ describe "entries/show" do
           rendered.should =~ /Here's a simple word in Japanese and English./
         end
 
-        pending "should autolink any links in note" do
+        it "should autolink any links in note" do
           render
           rendered.should have_link("http://abc.com", :href => "http://abc.com")
         end
@@ -83,6 +108,8 @@ describe "entries/show" do
       context "logged-in manager" do
 
         before do
+          view.stub(:logged_in?) { true }
+          User.current_user = @current_user = Factory(:user)
           view.stub(:manager?) { true }
           @entry.stub(:changeable_by?).with(@current_user) { true }
         end
