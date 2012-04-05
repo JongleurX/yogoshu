@@ -18,6 +18,7 @@ Feature: Add glossary entry
     When I add the following glossary entry:
       | Japanese | オレンジ |
       | English  | orange   |
+      | Notes    | A fruit. |
     Then I should see the page for "オレンジ"
     And I should see a success message: "New glossary entry has been created."
     And an unapproved glossary entry "オレンジ" should exist
