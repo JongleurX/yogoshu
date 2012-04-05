@@ -33,7 +33,7 @@ group :test, :development do
   gem 'spork', '~> 0.9.0.rc'
   gem 'launchy'
   gem 'simplecov', :require => false
-  gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'ruby-debug-base19x', '0.11.30.pre10'
   gem 'database_cleaner'
   gem 'capybara'
   gem 'cucumber-rails'

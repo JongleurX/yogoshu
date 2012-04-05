@@ -186,14 +186,11 @@ GEM
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec (~> 2.8.0)
-    ruby-debug-base19 (0.11.25)
+    ruby-debug-base19x (0.11.30.pre10)
       columnize (>= 0.3.1)
       linecache19 (>= 0.5.11)
+      rake (>= 0.8.1)
       ruby_core_source (>= 0.1.4)
-    ruby-debug19 (0.11.6)
-      columnize (>= 0.3.1)
-      linecache19 (>= 0.5.11)
-      ruby-debug-base19 (>= 0.11.19)
     ruby_core_source (0.1.5)
       archive-tar-minitar (>= 0.5.2)
     rubyzip (0.9.6.1)
@@ -259,7 +256,7 @@ DEPENDENCIES
   rails_autolink
   rake
   rspec-rails
-  ruby-debug19
+  ruby-debug-base19x (= 0.11.30.pre10)
   sass-rails (~> 3.2.3)
   simplecov
   spork (~> 0.9.0.rc)
