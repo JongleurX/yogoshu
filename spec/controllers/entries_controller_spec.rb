@@ -247,7 +247,7 @@ describe EntriesController do
         before do
           user = mock_user(:manager? => false)
           controller.stub(:current_user) { user }
-          @entry = Factory(:entry, :user => user, :term_in_ja => "りんご")
+          @entry = FactoryGirl.create(:entry, :user => user, :term_in_ja => "りんご")
         end
 
         it "redirects to entry and returns error message" do
@@ -265,7 +265,7 @@ describe EntriesController do
           user = mock_user(:manager? => true)
           controller.stub(:current_user) { user }
 
-          @entry = Factory(:entry, :user => user, :term_in_ja => "りんご")
+          @entry = FactoryGirl.create(:entry, :user => user, :term_in_ja => "りんご")
           Entry.stub(:find_by_term_in_glossary_language) { @entry }
         end
 
@@ -295,7 +295,7 @@ describe EntriesController do
         context "for own entry" do
 
           before do
-            @entry = Factory(:entry, :user => mock_user, :term_in_ja => "りんご")
+            @entry = FactoryGirl.create(:entry, :user => mock_user, :term_in_ja => "りんご")
           end
 
           it "updates the requested entry" do
@@ -314,7 +314,7 @@ describe EntriesController do
 
           before do
             other_user = mock_model(User)
-            @entry = Factory(:entry, :user => other_user, :term_in_ja => "りんご")
+            @entry = FactoryGirl.create(:entry, :user => other_user, :term_in_ja => "りんご")
           end
 
           it "redirects to entry and returns error message" do
@@ -332,7 +332,7 @@ describe EntriesController do
           controller.stub(:current_user) { user }
 
           other_user = mock_model(User)
-          @entry = Factory(:entry, :user => other_user, :term_in_ja => "りんご")
+          @entry = FactoryGirl.create(:entry, :user => other_user, :term_in_ja => "りんご")
         end
 
         it "updates the requested entry" do
@@ -361,7 +361,7 @@ describe EntriesController do
         context "for own entry" do
 
           before do
-            @entry = Factory(:entry, :user => mock_user, :term_in_ja => "りんご")
+            @entry = FactoryGirl.create(:entry, :user => mock_user, :term_in_ja => "りんご")
           end
 
           it "destroys the requested entry" do
@@ -381,7 +381,7 @@ describe EntriesController do
 
           before do
             other_user = mock_model(User)
-            @entry = Factory(:entry, :user => other_user, :term_in_ja => "りんご")
+            @entry = FactoryGirl.create(:entry, :user => other_user, :term_in_ja => "りんご")
           end
 
           it "redirects to entry and returns error message" do
@@ -399,7 +399,7 @@ describe EntriesController do
           controller.stub(:current_user) { user }
 
           other_user = mock_model(User)
-          @entry = Factory(:entry, :user => other_user, :term_in_ja => "りんご")
+          @entry = FactoryGirl.create(:entry, :user => other_user, :term_in_ja => "りんご")
         end
 
         it "destroys the requested entry" do

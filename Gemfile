@@ -19,11 +19,12 @@ end
 
 group :test do
   gem 'rake'
+  gem 'rspec-rails'
+  gem 'cucumber-rails', '~> 1.3', require: false
 end
 
 group :test, :development do
   gem 'sqlite3'
-  gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'capybara-webkit', :git => 'https://github.com/thoughtbot/capybara-webkit.git'
@@ -35,7 +36,6 @@ group :test, :development do
   gem 'ruby-debug-base19x', '0.11.30.pre10'
   gem 'database_cleaner'
   gem 'capybara'
-  gem 'cucumber-rails'
 end
 
 gem 'jquery-rails'

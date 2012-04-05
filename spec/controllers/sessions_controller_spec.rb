@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe SessionsController do
   before do
-    @user = Factory(:user)
+    @user = FactoryGirl.create(:user)
   end
 
   describe "successful login" do
