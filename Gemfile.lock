@@ -1,12 +1,4 @@
 GIT
-  remote: git://github.com/bernat/best_in_place.git
-  revision: 0d8434246dc20713df3de076c49817fb3aaeb376
-  specs:
-    best_in_place (1.0.6)
-      jquery-rails
-      rails (~> 3.1)
-
-GIT
   remote: git://github.com/stouset/twitter_bootstrap_form_for.git
   revision: a1ed21787872a1469d0e57a632f5442e3106d334
   branch: bootstrap-2.0
@@ -235,7 +227,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  best_in_place!
   bootstrap-sass (~> 2.0.1)
   capybara
   capybara-webkit!
