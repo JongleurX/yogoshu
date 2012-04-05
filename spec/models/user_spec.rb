@@ -5,8 +5,8 @@ describe User do
   describe "validation with factory" do
 
     before do
-      @user = Factory(:user)
-      Factory(:user, :name => "alice")
+      @user = FactoryGirl.create(:user)
+      FactoryGirl.create(:user, :name => "alice")
     end
 
     subject { @user }
@@ -96,7 +96,7 @@ describe User do
   describe "#authenticate" do
 
     before do
-      @user = Factory(:user, :password => "secret")
+      @user = FactoryGirl.create(:user, :password => "secret")
     end
 
     it "should authenticate for correct password" do
@@ -112,8 +112,8 @@ describe User do
   describe "shorthand methods" do
 
     before do
-      @contributor = Factory(:user, :role => "contributor")
-      @manager = Factory(:user, :role => "manager")
+      @contributor = FactoryGirl.create(:user, :role => "contributor")
+      @manager = FactoryGirl.create(:user, :role => "manager")
     end
 
     describe "#manager?" do
@@ -138,7 +138,7 @@ describe User do
 
   describe "permissions" do
     before do
-      @user = Factory(:user)
+      @user = FactoryGirl.create(:user)
     end
 
     subject { @user }
