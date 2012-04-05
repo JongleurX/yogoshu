@@ -6,7 +6,7 @@ end
 Given /^the following glossary entr(?:y|ies):$/ do |table|
   table.hashes.each do |hash|
     u = User.find_by_name(hash.delete("user"))
-    Factory(:entry, u.nil? ? hash : hash.merge(:user => u))
+    FactoryGirl.create(:entry, u.nil? ? hash : hash.merge(:user => u))
   end
 end
 
