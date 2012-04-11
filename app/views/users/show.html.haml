@@ -9,7 +9,7 @@
       %td= @user.name
     %tr
       %th Role
-      %td= best_in_place @user, :role, type: :select, collection: User::ROLES.map { |role| [role, role.capitalize] } 
+      %td= @user.role.capitalize
     %tr
       %th Glossary entries added
       %td= @user.entries.length

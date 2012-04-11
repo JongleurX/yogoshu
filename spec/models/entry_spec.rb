@@ -13,7 +13,7 @@ describe Entry do
   describe "validation with factory" do
     
     before do
-      @entry = Factory(:entry)
+      @entry = FactoryGirl.create(:entry)
     end
     
     subject { @entry }
@@ -31,7 +31,7 @@ describe Entry do
     end
 
     it "should be invalid if not unique in glossary language" do
-      Factory(:entry, :term_in_ja => "りんご")
+      FactoryGirl.create(:entry, :term_in_ja => "りんご")
       subject.term_in_ja = "りんご"
       should_not be_valid
     end
@@ -41,7 +41,7 @@ describe Entry do
   describe "#destroy" do
 
     before(:each) do
-      @entry = Factory(:entry, :term_in_ja => "りんご", :term_in_en => "apple")
+      @entry = FactoryGirl.create(:entry, :term_in_ja => "りんご", :term_in_en => "apple")
     end
 
     it "should destroy the entry" do
@@ -61,7 +61,7 @@ describe Entry do
   describe "permissions" do
 
     before(:each) do
-      @entry = Factory(:entry) 
+      @entry = FactoryGirl.create(:entry) 
     end
 
     subject { @entry }

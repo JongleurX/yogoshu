@@ -1,1 +1,16 @@
+table.glossary-entry {
+  margin-top: 20px;
+  table-layout: fixed;
+  th {
+    text-align: center;
+    background-color: #F9F9F9;
+  }
+  td {
+    text-align: center;
+    font-size: 160%;
+  }
+}
+table.usage-info th { background-color: #F9F9F9; }
+table.translator-notes th { background-color: #F9F9F9; }
+
 @import "bootstrap";

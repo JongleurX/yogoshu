@@ -16,9 +16,15 @@ Feature: Add glossary entry
   Scenario: Glossary contributor successfully adds glossary entry
     Given I am logged in as "jens"
     When I add the following glossary entry:
-      | Japanese | オレンジ |
-      | English  | orange   |
+      | Japanese          | オレンジ            |
+      | English           | orange              |
+      | Usage information | A fruit.            |
+      | Translator notes  | need to check this  |
     Then I should see the page for "オレンジ"
+    And I should see the text "オレンジ"
+    And I should see the text "orange"
+    And I should see the text "A fruit."
+    And I should see the text "need to check this"
     And I should see a success message: "New glossary entry has been created."
     And an unapproved glossary entry "オレンジ" should exist
     And there should be 2 glossary entries
@@ -26,9 +32,9 @@ Feature: Add glossary entry
   Scenario Outline: Glossary contributor tries to add invalid glossary entry
     Given I am logged in as "jens"
     When I add the following glossary entry:
-      | Japanese | <japanese> |
-      | English  | <english>  |
-      | Notes    | <note>     |
+      | Japanese           | <japanese> |
+      | English            | <english>  |
+      | Translator notes   | <note>     |
     Then I should see the new entry page
     And I should see an error message: "There were errors in the information entered."
     And I should see the text: "<message>"

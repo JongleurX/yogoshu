@@ -25,20 +25,28 @@
   = link_to @entry.user.name, @entry.user
   = "on #{@entry.created_at.strftime('%B %d, %Y @ %l:%M %p')}."
 
-%table.table.table-bordered{ :style => "margin-top: 20px; table-layout: fixed" }
+%table.table.table-bordered.glossary-entry
   %thead
     %tr
       - @base_languages.each do |lang|
-        %th{ :style => "text-align: center; background-color: #F9F9F9"}=I18n.t(lang.to_s).capitalize
+        %th=I18n.t(lang.to_s).capitalize
   %tbody
     %tr
       - @base_languages.each do |lang|
         - Globalize.with_locale(lang) do
-          %td{ :style => "text-align: center; font-size: 160%"}
-            - if (lang != @glossary_language) && logged_in? && @entry.changeable_by?(@current_user)
-              = best_in_place @entry, "term_in_#{lang}"
-              = sprite_img("icons-pencil")
-            - else
-              = @entry.term
-%h4 Translator notes
-~ best_in_place @entry, :note, type: :textarea, :display_with => :simple_format
+          %td= @entry.term
+%table.table.table-bordered.usage-info
+  %thead
+    %tr
+      %th Usage information
+  %tbody
+    %tr
+      %td= auto_link(simple_format(@entry.info))
+- if logged_in?
+  %table.table.table-bordered.translator-notes
+    %thead
+      %tr
+        %th Translator notes
+    %tbody
+      %tr
+        %td= auto_link(simple_format(@entry.note))

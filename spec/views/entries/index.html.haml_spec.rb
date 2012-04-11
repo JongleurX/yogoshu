@@ -7,8 +7,8 @@ describe "entries/index" do
     Yogoshu::Locales.set_glossary_language(:ja)
     assign(:base_languages, Yogoshu::Locales.base_languages) 
     assign(:glossary_language, Yogoshu::Locales.glossary_language) 
-    @alice = Factory(:user, name: "alice")
-    @bob = Factory(:user, name: "bob")
+    @alice = FactoryGirl.create(:user, name: "alice")
+    @bob = FactoryGirl.create(:user, name: "bob")
   end
 
   context "logged-out user" do
@@ -38,9 +38,9 @@ describe "entries/index" do
     context "with 3 entries" do
 
       before(:each) do
-        @entry1 = Factory(:entry, :user => @alice, :term_in_ja => "term1")
-        @entry2 = Factory(:entry, :user => @bob, :term_in_ja => "term2")
-        @entry3 = Factory(:entry, :user => @alice, :term_in_ja => "term3")
+        @entry1 = FactoryGirl.create(:entry, :user => @alice, :term_in_ja => "term1")
+        @entry2 = FactoryGirl.create(:entry, :user => @bob, :term_in_ja => "term2")
+        @entry3 = FactoryGirl.create(:entry, :user => @alice, :term_in_ja => "term3")
         @entries = [@entry1, @entry2, @entry3]
         @entries.stub(current_page: 1, num_pages: 1, limit_value: 25)
         Entry.stub(:all) { @entries }
@@ -73,9 +73,9 @@ describe "entries/index" do
     end
 
     before(:each) do
-      @entry1 = Factory(:entry, :user => @alice, :term_in_ja => "term1", :approved => false)
-      @entry2 = Factory(:entry, :user => @bob, :term_in_ja => "term2", :approved => false)
-      @entry3 = Factory(:entry, :user => @alice, :term_in_ja => "term3", :approved => true)
+      @entry1 = FactoryGirl.create(:entry, :user => @alice, :term_in_ja => "term1", :approved => false)
+      @entry2 = FactoryGirl.create(:entry, :user => @bob, :term_in_ja => "term2", :approved => false)
+      @entry3 = FactoryGirl.create(:entry, :user => @alice, :term_in_ja => "term3", :approved => true)
       @entries = [@entry1, @entry2, @entry3]
       @entries.stub(current_page: 1, num_pages: 1, limit_value: 25)
       Entry.stub(:all) { @entries }
@@ -106,7 +106,7 @@ describe "entries/index" do
     context "as manager" do
       before do
         view.stub(:manager?) { true }
-        assign(:current_user, Factory(:manager))
+        assign(:current_user, FactoryGirl.create(:manager))
       end
 
       it "renders list of approved and unapproved entries with action buttons" do

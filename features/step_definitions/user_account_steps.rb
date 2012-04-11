@@ -1,6 +1,6 @@
 Given /^the following users:$/ do |table|
   table.hashes.each do |hash|
-    Factory(:user, hash)
+    FactoryGirl.create(:user, hash)
   end
 end
 

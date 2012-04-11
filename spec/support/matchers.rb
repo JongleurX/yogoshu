@@ -18,8 +18,8 @@ end
 
 RSpec::Matchers.define :have_permissions do
   match do |model|
-    manager = Factory(:manager)
-    other_user = Factory(:user)
+    manager = FactoryGirl.create(:manager)
+    other_user = FactoryGirl.create(:user)
     
     ((model.changeable_by?(other_user) == false) &&
      (model.changeable_by?(model.user) == true) &&

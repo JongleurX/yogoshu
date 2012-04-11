@@ -6,7 +6,7 @@ end
 Given /^the following glossary entr(?:y|ies):$/ do |table|
   table.hashes.each do |hash|
     u = User.find_by_name(hash.delete("user"))
-    Factory(:entry, u.nil? ? hash : hash.merge(:user => u))
+    FactoryGirl.create(:entry, u.nil? ? hash : hash.merge(:user => u))
   end
 end
 
@@ -47,6 +47,7 @@ Then /^the glossary entry "([^"]*)" should not exist$/ do |term|
 end
 
 Then %{I should see the page for "$term"} do |term|
+  entry = Entry.find_by_term_in_glossary_language(term)
   page.should have_xpath("//title", :text => "Yogoshu: #{term}")
 end
 

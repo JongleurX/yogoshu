@@ -4,8 +4,8 @@ describe "Site navigation" do
 
   before do
     I18n.locale = 'en'
-    @entry = Factory(:entry)
-    Factory(:manager)
+    @entry = FactoryGirl.create(:entry)
+    FactoryGirl.create(:manager)
     visit login_path
     fill_in "User name", :with => "manager_user"
     fill_in "Password", :with => "secret"

@@ -28,8 +28,8 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user.update_attributes!(params[:user])
-    respond_with_bip @user
+    @user.update_attributes(params[:user])
+    respond_with @user
   end
 
   def destroy

@@ -40,6 +40,18 @@ describe UsersController do
 
     end
 
+    describe "GET index" do
+      before do
+        user = mock_user
+        User.should_receive(:find).with(:all).and_return { [user] }
+      end
+
+      it "assigns requested users as @users" do
+        get :index
+        assigns(:users).should eq([@mock_user])
+      end
+    end
+
   end
 
   context "with logged-in user" do
@@ -49,7 +61,7 @@ describe UsersController do
       controller.stub(:manager?) { false }
     end
 
-    it "should redirect create, update & destroy requests to login page" do
+    it "should redirect create & new requests to login page" do
       requests = 
         [
           proc {  post :create, :user => {'these' => 'params'} },
@@ -60,6 +72,29 @@ describe UsersController do
         r.call
         response.should redirect_to(homepage_path)
       end
+    end
+
+    describe "PUT update" do
+
+      context "with valid params" do
+        before do
+          user = mock_user(:name => "alice")
+          User.stub(:find_by_name!).with("alice") { user }
+          user.should_receive(:update_attributes).and_return { true }
+        end
+
+        it "responds with the user" do
+          put :update, :id => "alice"
+          response.should render_template(@mock_user)
+        end
+
+        it "returns a success message"
+      end
+
+      context "with invalid params" do
+        it "redirects to entry and returns error message"
+      end
+
     end
 
     describe "DELETE destroy" do
@@ -180,34 +215,6 @@ describe UsersController do
         end
 
       end
-
-    end
-
-    describe "PUT update" do
-
-     context "with contributor role" do
-
-       context "edit my own info" do
-
-         it "should not allow me to edit my name"
-         it "should not allow me to edit my role"
-
-       end
-
-       context "edit another user's info" do
-
-         it "should not allow me to edit any info"
-
-       end
-
-     end
-
-     context "with manager role" do
-
-       it "should not allow me to edit user names"
-       it "should allow me to edit user roles"
-
-     end
 
     end
 

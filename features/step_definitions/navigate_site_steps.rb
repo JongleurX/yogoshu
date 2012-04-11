@@ -23,9 +23,18 @@ When /^I go to the (.+page)$/ do |page_name|
   visit eval("#{page_name.gsub(' page','').gsub(' ','_')}_path")
 end
 
+When /^I go to the show page for entry "([^"]*)"$/ do |term|
+  entry = Entry.find_by_term_in_glossary_language(term)
+  visit entry_path(entry)
+end
+
 When /^I go to the edit page for entry "([^"]*)"$/ do |term|
   entry = Entry.find_by_term_in_glossary_language(term)
   visit edit_entry_path(entry)
+end
+
+When /^I go to the url for user "([^"]*)"$/ do |name|
+  visit '/users/' + name
 end
 
 Then /^I should see the login page$/ do
