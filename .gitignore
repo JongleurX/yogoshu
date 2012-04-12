@@ -12,3 +12,4 @@ public/assets/
 gem_graph.png
 bin/
 .DS_Store
+.rbenv-version
