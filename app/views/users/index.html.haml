@@ -26,5 +26,5 @@
         %td= user.created_at.strftime('%B %d, %Y @ %l:%M %p')
         - if manager?
           %td
-            = link_to "delete", user, :confirm => "Are you sure you want to delete user \"#{user.name}\"?", :method => :delete, :class => "btn" unless user.manager?
-            = link_to "edit", "#", :class => "btn" unless user.manager?
+            = link_to "delete", user, :confirm => "Are you sure you want to delete user \"#{user.name}\"?", :method => :delete, :class => "btn"
+            = link_to "edit", "#", :class => "btn"

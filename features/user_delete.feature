@@ -5,18 +5,25 @@ Feature: Delete user account
 
   Background:
     Given the following users:
-      | name  | role         |
-      | jens  | contributor  |
-      | susan | manager      |
+      | name   | role         |
+      | jens   | contributor  |
+      | susan  | manager      |
+      | yokota | manager      |
     And the following glossary entries:
       | user  | term_in_en    | term_in_ja   |
       | jens  | apple         | りんご       |
 
-  Scenario: Glossary manager successfully deletes user
+  Scenario: Glossary manager successfully deletes contributor user
     Given I am logged in as "susan"
     When I delete the user "jens"
     Then user "jens" should not exist
-    And there should be only 1 user
+    And there should be only 2 users
+
+  Scenario: Glossary manager successfully deletes manager user
+    Given I am logged in as "susan"
+    When I delete the user "yokota"
+    Then user "yokota" should not exist
+    And there should be only 2 users
 
   @wip
   Scenario: User accesses entry created by deleted user
