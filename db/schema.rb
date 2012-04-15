@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120405051000) do
+ActiveRecord::Schema.define(:version => 20120415014304) do
 
   create_table "entries", :force => true do |t|
     t.integer  "user_id"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(:version => 20120405051000) do
 
   add_index "entry_translations", ["entry_id"], :name => "index_entry_translations_on_entry_id"
   add_index "entry_translations", ["locale"], :name => "index_entry_translations_on_locale"
+  add_index "entry_translations", ["term"], :name => "index_entry_translations_on_term"
 
   create_table "users", :force => true do |t|
     t.string   "name"
@@ -41,6 +42,8 @@ ActiveRecord::Schema.define(:version => 20120405051000) do
     t.datetime "updated_at"
     t.string   "role"
   end
+
+  add_index "users", ["name"], :name => "index_users_on_name", :unique => true
 
   create_table "validatee_translations", :force => true do |t|
     t.integer "validatee_id"
