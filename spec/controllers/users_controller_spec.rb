@@ -88,25 +88,22 @@ describe UsersController do
 
     describe "GET edit" do
 
-      context "with valid params" do
-
-        before do
-          user = mock_user(:name => "alice")
-          controller.stub(:current_user) { user }
-          User.stub(:find_by_name!).with("alice") { user }
-        end
-
-        it "assigns the requested user as @user" do
-          get :edit, :id => "alice"
-          assigns(:user).should be(@mock_user)
-        end
-
-        it "renders the edit view" do
-          get :edit, :id => "alice"
-          response.should render_template('edit')
-        end
-
+      before do
+        user = mock_user(:name => "alice")
+        controller.stub(:current_user) { user }
+        User.stub(:find_by_name!).with("alice") { user }
       end
+
+      it "assigns the requested user as @user" do
+        get :edit, :id => "alice"
+        assigns(:user).should be(@mock_user)
+      end
+
+      it "renders the edit view" do
+        get :edit, :id => "alice"
+        response.should render_template('edit')
+      end
+
     end
 
     describe "PUT update" do
@@ -137,8 +134,14 @@ describe UsersController do
       context "with invalid params" do
         before do
           @mock_user.should_receive(:update_attributes).and_return { false }
+          @mock_user.stub(:name) { "alice" }
         end
 
+        it "resets the name attribute" do
+          put :update, :id => "alice", :user => { 'these' => 'params' }
+          assigns[:user][:name].should == "alice"
+
+        end
         it "re-renders the edit user page" do
           put :update, :id => "alice", :user => { 'these' => 'params' }
           response.should render_template("edit")

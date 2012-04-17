@@ -29,11 +29,14 @@ class UsersController < ApplicationController
   end
 
   def update
+    name = @user.name
     if @user.update_attributes(params[:user])
       flash[:success] = "User #{@user.name} has been updated."
       redirect_to @user
     else
       flash.now[:error] = "There were errors in the information entered."
+      # reset name in case it was changed
+      @user.name = name
       render "edit"
     end
   end

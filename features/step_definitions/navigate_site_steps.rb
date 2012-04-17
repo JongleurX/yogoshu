@@ -72,6 +72,11 @@ Then %{I should see the page for user "$name"} do |name|
   page.should have_xpath("//title", :text => "Yogoshu: #{name}")
 end
 
+Then %{I should see the edit page for user "$name"} do |name|
+  user = User.find_by_name(name)
+  page.should have_xpath("//title", :text => "Edit user: #{name}")
+end
+
 Then /^I should see an? (error|success|notice) message: "(.*)"$/ do |msg_type,message|
   page.should have_css(".alert-#{msg_type.gsub('notice','message')}", :text => message)
 end

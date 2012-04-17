@@ -7,7 +7,7 @@ When /^I click "([^"]*)"$/ do |link_name|
 end
 
 Then /^I should see the error "([^"]*)" on field "([^"]*)"$/ do |error,field|
-  within '#new_user' do
+  within 'form' do
     div = find(:xpath, "//div[.//input[@id=\"#{field}\"]]")
     div.should have_content(error)
   end
