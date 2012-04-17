@@ -27,4 +27,4 @@
         - if manager?
           %td
             = link_to "delete", user, :confirm => "Are you sure you want to delete user \"#{user.name}\"?", :method => :delete, :class => "btn"
-            = link_to "edit", "#", :class => "btn"
+            = link_to "edit", edit_user_path(user), :class => "btn"

@@ -42,6 +42,13 @@ When /^I go to the url for user "([^"]*)"$/ do |name|
   visit '/users/' + name
 end
 
+When /^I click the link to (edit|delete) user "([^"]*)"$/ do |action, username|
+  within('table') do
+    row = find(:xpath, "//tr[./td[contains(.,\"#{username}\")]]")
+    row.find('a', :text => action).click
+  end
+end
+
 Then /^I should see the login page$/ do
   page.should have_xpath("//title", :text => "Yogoshu: Login")
 end
