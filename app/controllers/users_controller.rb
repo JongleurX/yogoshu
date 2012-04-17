@@ -1,6 +1,4 @@
 class UsersController < ApplicationController
-  respond_to :html, :json
-
   before_filter :login_required, :except => [:index, :show]
   before_filter :find_user, :except => [:index, :new, :create]
   before_filter :access_restricted, :only => [:new, :create]
@@ -11,6 +9,9 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+  end
+
+  def edit
   end
 
   def create
@@ -28,8 +29,13 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user.update_attributes(params[:user])
-    respond_with @user
+    if @user.update_attributes(params[:user])
+      flash[:success] = "User #{@user.name} has been updated."
+      redirect_to @user
+    else
+      flash.now[:error] = "There were errors in the information entered."
+      render "edit"
+    end
   end
 
   def destroy

@@ -19,6 +19,11 @@ Given /^I am on the edit page for entry "([^"]*)"$/ do |term|
   visit edit_entry_path(entry)
 end
 
+Given /^I am on the edit page for user "([^"]*)"$/ do |name|
+  user = User.find_by_name(name)
+  visit edit_user_path(user)
+end
+
 When /^I go to the (.+page)$/ do |page_name|
   visit eval("#{page_name.gsub(' page','').gsub(' ','_')}_path")
 end
@@ -55,6 +60,16 @@ end
 
 Then /^I should see the entries page$/ do
   page.should have_xpath("//title", :text => "Yogoshu: Search glossary")
+end
+
+Then %{I should see the page for "$term"} do |term|
+  entry = Entry.find_by_term_in_glossary_language(term)
+  page.should have_xpath("//title", :text => "Yogoshu: #{term}")
+end
+
+Then %{I should see the page for user "$name"} do |name|
+  user = User.find_by_name(name)
+  page.should have_xpath("//title", :text => "Yogoshu: #{name}")
 end
 
 Then /^I should see an? (error|success|notice) message: "(.*)"$/ do |msg_type,message|

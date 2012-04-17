@@ -62,3 +62,7 @@ end
 Then /^user "([^"]+)" should not exist$/ do |name|
   User.find_by_name(name).should be_nil
 end
+
+Then /^the password of user "([^"]+)" should be "([^"]+)"$/ do |name, password|
+  User.find_by_name(name).authenticated?(password).should be_true
+end
