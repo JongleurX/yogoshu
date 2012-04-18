@@ -46,11 +46,6 @@ Then /^the glossary entry "([^"]*)" should not exist$/ do |term|
   entry.should be_nil
 end
 
-Then %{I should see the page for "$term"} do |term|
-  entry = Entry.find_by_term_in_glossary_language(term)
-  page.should have_xpath("//title", :text => "Yogoshu: #{term}")
-end
-
 Then /^there should (?:only |)be ([\d]+) glossary entr(?:y|ies)/ do |n|
   Entry.count.should eql(n.to_i)
 end

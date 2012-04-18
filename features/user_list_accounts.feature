@@ -15,3 +15,9 @@ Feature: List user accounts
     Then I should see a link to jens' profile
     And I should see a link to susan's profile
     And I should see a link to the new user page
+
+  Scenario: Go to user edit page from list view
+    Given I am logged in as "susan" with password "secret"
+    When I go to the users page
+    And I click the link to edit user "jens"
+    Then I should see the edit page for user "jens"

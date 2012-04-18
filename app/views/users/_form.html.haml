@@ -1,0 +1,13 @@
+= user.fieldset do
+  = user.text_field :name, 'User name' do
+    %span.help-block
+      Usernames must be between 3 and 20 characters and only contain alphanumeric and underscore symbols.
+  = user.password_field :password, 'Password' do
+    %span.help-block
+      Passwords must be between 4 and 40 characters.
+  = user.password_field :password_confirmation, 'Confirm password'
+  = user.collection_select :role, 'Role', User::ROLES, :to_s, :titleize do
+    %span.help-block
+      Contributors can add glossary entries.
+      %br Managers can add and approve glossary entries, and create new users.
+
