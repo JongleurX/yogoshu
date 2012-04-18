@@ -1,7 +1,6 @@
-begin
+unless ENV['CI']
   require 'simplecov'
   SimpleCov.start 'rails'
-rescue LoadError
 end
 
 require 'rubygems'
