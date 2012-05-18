@@ -1,4 +1,5 @@
 require 'csv'
+require 'debugger'
 
 namespace :csv do
 
@@ -15,17 +16,34 @@ namespace :csv do
     raise ArgumentError, "ERROR: User '#{args.username}' not found." unless user = User.find_by_name(args.username)
     raise IOError, "ERROR: Unable to open CSV file." unless csv_text = File.read(args.filename)
     raise IOError, "ERROR: Unable to parse CSV file." unless csv = CSV.parse(csv_text, :headers => true, :col_sep => args.col_sep)
+
+    entries_hashes = []
+
     csv.each do |row|
       row = row.to_hash.with_indifferent_access
       entry = Entry.new(row.to_hash.symbolize_keys)
       entry.user_id = user.id
       term = entry.term_in_glossary_language
-      if !(entry.save)
-        puts "Entry save failed for '#{term}'"
-      else
-        puts "Entry #{term} saved."
-      end
-    end
-  end
 
+      # check for duplicates and mark first entry found as having duplicates
+      if (found = entries_hashes.find { |h| h[:term_in_glossary_language] == term })
+        found[:duplicates] = true
+      end
+
+      # add row to hash
+      entries_hashes << row
+
+      # save entry and set status and term_in_glossary_language accordingly
+      entries_hashes.last[:status] = entry.save
+      entries_hashes.last[:term_in_glossary_language] = term
+    end
+
+    # output all entries with duplicates (and anything else that could not be added)
+    if (duplicates = entries_hashes.find_all { |h| h[:duplicates] || !h[:status] })
+      puts duplicates.map { |d|
+        csv.headers.map { |h| d[h] }.join(args.col_sep) 
+      }.sort.join("\n")
+    end
+
+  end
 end
