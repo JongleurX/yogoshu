@@ -85,6 +85,7 @@ class EntriesController < ApplicationController
 
   def find_entry
     @entry = Entry.find_by_term_in_glossary_language(params[:id])
+    raise_not_found if @entry.nil?
   end
 
   def authorize

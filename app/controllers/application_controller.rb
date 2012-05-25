@@ -28,6 +28,9 @@ class ApplicationController < ActionController::Base
     redirect_to homepage_path unless manager?
   end
 
+  def raise_not_found
+    raise ActionController::RoutingError.new('Not Found')
+  end
   # setup user info on each page
   def initialize_user
     User.current_user = @current_user = session[:user] ? User.find_by_name(session[:user]) : nil

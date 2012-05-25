@@ -81,7 +81,7 @@ describe EntriesController do
       controller.stub(:logged_in?) { false }
     end
 
-    it "should redirect new, edit, create, update and destroy requests to login page" do
+    it "redirects new, edit, create, update and destroy requests to login page" do
       requests = 
         [
           proc {  get :new },
@@ -105,14 +105,32 @@ describe EntriesController do
 
     describe "GET show" do
 
-      before do
-        entry = mock_entry
-        Entry.should_receive(:find_by_term_in_glossary_language).with("apple").and_return { entry }
+      context "entry exists" do
+
+        before do
+          entry = mock_entry
+          Entry.should_receive(:find_by_term_in_glossary_language).with("apple").and_return { entry }
+        end
+
+        it "assigns the requested entry as @entry" do
+          get :show, :id => "apple"
+          assigns(:entry).should be(@mock_entry)
+        end
+
       end
 
-      it "assigns the requested entry as @entry" do
-        get :show, :id => "apple"
-        assigns(:entry).should be(@mock_entry)
+      context "entry does not exist" do
+
+        before do
+          Entry.should_receive(:find_by_term_in_glossary_language).with("apple").and_return { nil }
+        end
+
+        it "raises routing error" do
+          lambda {
+            get :show, :id => "apple"
+          }.should raise_error(ActionController::RoutingError)
+        end
+
       end
 
     end
@@ -132,6 +150,32 @@ describe EntriesController do
       controller.stub(:logged_in?) { true }
       user = mock_user
       controller.stub(:current_user) { user }
+    end
+
+    describe "entry does not exist" do
+
+      before do
+        Entry.stub(:find_by_term_in_glossary_language).with("apple") { nil }
+      end
+
+      it "raises routing error for get, put, post and delete requests" do
+
+        requests =
+          [
+            proc {  get :edit, :id => "apple" },
+            proc {  put :update, :id => "apple" },
+            proc {  post :approve, :id => "apple" },
+            proc {  delete :destroy, :id => "apple" },
+        ]
+
+        requests.each do |r|
+          lambda {
+            r.call
+          }.should raise_error(ActionController::RoutingError)
+        end
+
+      end
+
     end
 
     describe "GET new" do
