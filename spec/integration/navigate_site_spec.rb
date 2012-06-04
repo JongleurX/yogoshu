@@ -17,7 +17,7 @@ describe "Site navigation" do
     it "links to edit page from entry" do
       visit entry_path(@entry)
       click_link "Edit"
-      page.should have_css("title", :text => "Edit entry")
+      page.should have_css("title", :text => /Edit entry/)
     end
 
     it "links to edit page from entry index" do
@@ -25,7 +25,7 @@ describe "Site navigation" do
       within(:xpath, "//tr[./td[contains(.,'#{@entry.term_in_glossary_language}')]]") do
         click_link "edit"
       end
-      page.should have_css("title", :text => "Edit entry")
+      page.should have_css("title", :text => /Edit entry/)
     end
   end
 end
