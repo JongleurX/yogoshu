@@ -3,8 +3,10 @@
   %h1= page_title
   %br
   = form_tag entries_path, :method => :get do
-    = autocomplete_field_tag :search, '', autocomplete_entry_term_entries_path, :size => 75, :class => "large", :placeholder => "Enter search terms..." 
-    = submit_tag "Submit"
+    .input-append
+      = autocomplete_field_tag :search, '', autocomplete_entry_term_entries_path, :size => 75, :class => "large", :placeholder => "Enter search terms..." 
+      %button.btn.add-on
+        %i.icon-search
   .clearfix.search-terms-box
     Search terms:
     %strong=params[:search] || "None"

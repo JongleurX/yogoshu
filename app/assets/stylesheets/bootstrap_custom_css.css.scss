@@ -13,4 +13,13 @@ table.glossary-entry {
 table.usage-info th { background-color: #F9F9F9; }
 table.translator-notes th { background-color: #F9F9F9; }
 
+.input-append button.add-on {
+  height: inherit !important;
+}
+
+.centered-box {
+  width: 40%;
+  margin: 0px auto;
+}
+
 @import "bootstrap";
