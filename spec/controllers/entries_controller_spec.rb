@@ -105,16 +105,31 @@ describe EntriesController do
 
     describe "GET show" do
 
-      context "entry exists" do
+      context "entry exists and is approved" do
 
         before do
-          entry = mock_entry
+          entry = mock_entry(:approved? => true)
           Entry.should_receive(:find_by_term_in_glossary_language).with("apple").and_return { entry }
         end
 
         it "assigns the requested entry as @entry" do
           get :show, :id => "apple"
           assigns(:entry).should be(@mock_entry)
+        end
+
+      end
+
+      context "entry exists and is unapproved" do
+
+        before do
+          entry = mock_entry(:approved? => false)
+          Entry.should_receive(:find_by_term_in_glossary_language).with("apple").and_return { entry }
+        end
+
+        it "raises routing error" do
+          lambda {
+            get :show, :id => "apple"
+          }.should raise_error(ActionController::RoutingError)
         end
 
       end

@@ -8,6 +8,7 @@ class EntriesController < ApplicationController
   before_filter :manager_authorize, :only => [:approve]
 
   def show
+    raise_not_found unless (logged_in? or @entry.approved?)
   end
 
   def new
