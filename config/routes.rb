@@ -20,7 +20,7 @@ Yogoshu::Application.routes.draw do
   #   resources :products
 
   resources :users
-  resources :entries do
+  resources :entries, :constraints => { :id => /.*/ } do
     get :autocomplete_entry_term, :on => :collection
     post :approve, :on => :member
   end
