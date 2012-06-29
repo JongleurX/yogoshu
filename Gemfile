@@ -37,6 +37,7 @@ group :test, :development do
   gem 'debugger'
   gem 'database_cleaner'
   gem 'capybara'
+  gem 'timecop'
 end
 
 gem 'jquery-rails'
