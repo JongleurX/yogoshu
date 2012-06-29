@@ -25,6 +25,7 @@ describe "entries/show" do
       before do
         Yogoshu::Locales.set_base_languages(:ja, :en)
         assign(:base_languages, %w[en ja])
+        Timecop.freeze(Time.local(2012,7,1,10,5,0))
         @entry = FactoryGirl.create(:entry_en, :term_in_en => "apple", :term_in_ja => "りんご", :info => "A yummy fruit.", :note => "Here's a simple word in Japanese and English. I found it on this site: http://abc.com . some text\nHere's some more text.")
       end
 
@@ -34,18 +35,33 @@ describe "entries/show" do
           view.stub(:logged_in?) { false }
         end
 
-        it "should have glossary terms in all languages" do
+        it "has glossary terms in all languages" do
           render
           rendered.should =~ /apple/
           rendered.should =~ /りんご/
         end
 
-        it "should have info" do
+        it "has user info" do
+          render
+          rendered.should have_link(@entry.user.name)
+
+        end
+
+        it "has created_at and updated_on info" do
+          Timecop.freeze(Time.local(2012,7,5,16,10,0))
+          @entry.update_attributes!(:info => "A yummy yummy fruit.")
+          render
+          rendered.should =~ /on July 1, 2012 @ 10:05 AM/
+          rendered.should =~ /Last updated on July 5, 2012 @ 4:10 PM/
+          @entry.update_attributes!(:info => "A yummy fruit.")
+        end
+
+        it "has usage info" do
           render
           rendered.should =~ /A yummy fruit./
         end
 
-        it "should not have translator notes" do
+        it "does not have translator notes" do
           render
           rendered.should_not =~ /Here's a simple word in Japanese and English./
         end
@@ -60,34 +76,34 @@ describe "entries/show" do
           view.stub(:manager?) { false }
         end
 
-        it "should have glossary terms in all languages" do
+        it "has glossary terms in all languages" do
           render
           rendered.should =~ /apple/
           rendered.should =~ /りんご/
         end
 
-        it "should have info" do
+        it "has usage info" do
           render
           rendered.should =~ /A yummy fruit./
         end
 
-        it "should have note" do
+        it "has translator note" do
           render
           rendered.should =~ /Here's a simple word in Japanese and English./
         end
 
-        it "should autolink any links in note" do
+        it "autolinks any links in translator note" do
           render
           rendered.should have_link("http://abc.com", :href => "http://abc.com")
         end
 
-        it "should translate linebreaks in note into <br> tags" do
+        it "translates linebreaks in translator note into <br> tags" do
           render
           rendered.gsub("\n","").should =~ /some text<br \/>Here/
           rendered.gsub("\n","").should =~ /<p>Here\'s a simple/
         end
 
-        it "should have delete and edit but not approve actions if entry is created by this user" do
+        it "has delete and edit but not approve actions if entry is created by this user" do
           @entry.stub(:changeable_by?).with(@current_user) { true }
           render
           rendered.should have_link "Delete", :href => entry_path(@entry)
@@ -95,7 +111,7 @@ describe "entries/show" do
           rendered.should_not have_link "Approve"
         end
 
-        it "should have neither delete nor approve actions if entry not created by his user" do
+        it "has neither delete nor approve actions if entry not created by his user" do
           @entry.stub(:changeable_by?).with(@current_user) { false }
           render
           rendered.should_not have_link "Delete"
@@ -114,7 +130,7 @@ describe "entries/show" do
           @entry.stub(:changeable_by?).with(@current_user) { true }
         end
 
-        it "should have both delete and approve actions" do
+        it "has both delete and approve actions" do
           render
           rendered.should have_link "Delete", :href => entry_path(@entry)
           rendered.should have_link "Edit", :href => edit_entry_path(@entry)

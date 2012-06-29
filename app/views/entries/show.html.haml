@@ -23,7 +23,8 @@
 %small
   Added by 
   = link_to @entry.user.name, @entry.user
-  = "on #{@entry.created_at.strftime('%B %d, %Y @ %l:%M %p')}."
+  = "on #{@entry.created_at.strftime('%B %-d, %Y @ %l:%M %p')}. "
+  = "Last updated on #{@entry.updated_at.strftime('%B %-d, %Y @ %-l:%M %p')}."
 
 %table.table.table-bordered.glossary-entry
   %thead
