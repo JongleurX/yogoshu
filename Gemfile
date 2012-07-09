@@ -34,7 +34,7 @@ group :test, :development do
   gem 'launchy'
   gem 'simplecov', :require => false
 #  gem 'ruby-debug-base19x', '0.11.30.pre10'
-  gem 'debugger'
+  gem 'debugger' unless ENV['CI']
   gem 'database_cleaner'
   gem 'capybara'
   gem 'timecop'
