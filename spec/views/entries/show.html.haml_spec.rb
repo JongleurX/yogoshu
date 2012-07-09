@@ -25,8 +25,9 @@ describe "entries/show" do
       before do
         Yogoshu::Locales.set_base_languages(:ja, :en)
         assign(:base_languages, %w[en ja])
-        Timecop.freeze(Time.local(2012,7,1,10,5,0))
-        @entry = FactoryGirl.create(:entry_en, :term_in_en => "apple", :term_in_ja => "りんご", :info => "A yummy fruit.", :note => "Here's a simple word in Japanese and English. I found it on this site: http://abc.com . some text\nHere's some more text.")
+        Timecop.freeze(Time.utc(2012,7,1,10,5,0)) do
+          @entry = FactoryGirl.create(:entry_en, :term_in_en => "apple", :term_in_ja => "りんご", :info => "A yummy fruit.", :note => "Here's a simple word in Japanese and English. I found it on this site: http://abc.com . some text\nHere's some more text.")
+        end
       end
 
       context "logged-out user" do
@@ -48,12 +49,13 @@ describe "entries/show" do
         end
 
         it "has created_at and updated_on info" do
-          Timecop.freeze(Time.local(2012,7,5,16,10,0))
-          @entry.update_attributes!(:info => "A yummy yummy fruit.")
-          render
-          rendered.should =~ /on July 1, 2012 @ 10:05 AM/
-          rendered.should =~ /Last updated on July 5, 2012 @ 4:10 PM/
-          @entry.update_attributes!(:info => "A yummy fruit.")
+          Timecop.freeze(Time.utc(2012,7,5,16,10,0)) do
+            @entry.update_attributes!(:info => "A yummy yummy fruit.")
+            render
+            rendered.should =~ /on July 1, 2012 @ 10:05 AM/
+            rendered.should =~ /Last updated on July 5, 2012 @ 4:10 PM/
+            @entry.update_attributes!(:info => "A yummy fruit.")
+          end
         end
 
         it "has usage info" do
