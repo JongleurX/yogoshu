@@ -85,7 +85,7 @@ describe EntriesController do
       requests = 
         [
           proc {  get :new },
-          proc {  get :edit },
+          proc {  get :edit, :id => "37" },
           proc {  post :create, :entry => {'these' => 'params'} },
           proc {  put :update, :id => "37" },
           proc {  delete :destroy, :id => "37" },

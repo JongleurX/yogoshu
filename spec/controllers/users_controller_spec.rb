@@ -17,10 +17,10 @@ describe UsersController do
       requests = 
         [
           proc { get :new },
-          proc { get :edit },
+          proc { get :edit, :id => "susan" },
           proc {  post :create, :user => {'these' => 'params'} },
-          proc {  put :update, :id => "37" },
-          proc {  delete :destroy, :id => "37" },
+          proc {  put :update, :id => "susan" },
+          proc {  delete :destroy, :id => "susan" },
       ]
 
       requests.each do |r|
