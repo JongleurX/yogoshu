@@ -10,10 +10,11 @@ Feature: Search glossary entries
       | susan  | manager     |
     And a glossary in "ja" and "en" indexed in "ja"
     And the following glossary entries:
-      | user | term_in_en | term_in_ja | approved |
-      | jens | apple      | りんご     | true     |
-      | jens | orange     | オレンジ   | false    |
-      | jens | banana     | バナナ     | false    |
+      | user  | term_in_en | term_in_ja | approved |
+      | jens  | apple      | りんご     | true     |
+      | jens  | orange     | オレンジ   | false    |
+      | jens  | banana     | バナナ     | false    |
+      | susan | bacon      | ベーコン   | false    |
 
   @javascript
   Scenario: Logged-out autocomplete search for approved entry
@@ -34,6 +35,17 @@ Feature: Search glossary entries
     When I go to the homepage
     And I fill in "search" with "or"
     Then I should see the autocomplete result "orange"
+
+  @wip
+  Scenario: Search by user
+    Given I am logged in as "jens"
+    When I go to the homepage
+    And I select "susan" from the "user" dropdown list
+    And I click "Submit"
+    Then I should see the text "bacon"
+    And I should see the text "ベーコン"
+    And I should not see the text "banana"
+    And I should not see the text "バナナ"
 
   Scenario Outline: Glossary user finds approved entry
     When I search for the keyword "<keyword>"

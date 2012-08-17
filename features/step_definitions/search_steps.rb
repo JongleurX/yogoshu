@@ -4,6 +4,10 @@ When /^I search for the keywords? "([^"]*)"$/ do |keywords|
   click_on "Submit"
 end
 
+When /^I select "([^"]*)" from the "([^"]*)" dropdown list$/ do |item, list_id|
+  select(item, :from => list_id)
+end
+
 ["should", "should not"].each do |condition|
   eval <<-END_RUBY
   Then /^I #{condition} see the autocomplete result "([^"]*)"$/ do |text|
