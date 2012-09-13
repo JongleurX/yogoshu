@@ -1,7 +1,7 @@
 When /^I search for the keywords? "([^"]*)"$/ do |keywords|
   visit homepage_path
   fill_in "search", :with => keywords
-  click_on "Submit"
+  click_on "search-button"
 end
 
 When /^I select "([^"]*)" from the "([^"]*)" dropdown list$/ do |item, list_id|

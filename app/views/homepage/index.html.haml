@@ -8,5 +8,5 @@
         .input-append
           .centered-box
             = autocomplete_field_tag :search, '', autocomplete_entry_term_entries_path, :size => 75, :class => "large", :placeholder => "Enter search terms..." 
-            %button.btn.add-on
+            %button.btn.add-on#search-button
               %i.icon-search
