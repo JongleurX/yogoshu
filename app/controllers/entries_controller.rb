@@ -76,10 +76,11 @@ class EntriesController < ApplicationController
       (@tokens = searchstring.split).each do |token|
         scope = scope.where('LOWER(term) LIKE ?', "%#{token.downcase}%")
       end
+      @entries = scope.order(:term).page(params[:page])
     else
       params[:search] = nil
+      @entries = []
     end
-    @entries = scope.order(:term).page(params[:page])
   end
 
   private

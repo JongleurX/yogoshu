@@ -7,57 +7,59 @@
       = autocomplete_field_tag :search, '', autocomplete_entry_term_entries_path, :size => 75, :class => "large", :placeholder => "Enter search terms..." 
       %button.btn.add-on#search-button
         %i.icon-search
-  .clearfix.search-terms-box
-    Search terms:
-    %strong=params[:search] || "None"
+  - unless params[:search].nil?
+    .clearfix.search-terms-box
+      Search terms:
+      %strong=params[:search] || "None"
 
-- if @entries.empty?
-  No entries found.
-- else
-  %table.table.entries-list.table-bordered{ :class => (logged_in? ? "logged-in" : "logged-out") + (manager? ? " manager" : " contributor")}
-    %colgroup.col-index
-    - @base_languages.each do 
-      %colgroup.col-term
-    - if logged_in? 
-      %colgroup.col-added_by
-      %colgroup.col-status
-    - if manager?
-      %colgroup.col-actions
-    %thead
-      %tr
-        %th 
-        - @base_languages.each do |lang|
-          %th=I18n.t(lang.to_s).capitalize
-        - if logged_in?
-          %th Added by
-          %th Status
-        - if manager?
-          %th Actions
-    %tbody
-      - @entries.to_enum.with_index((@entries.current_page-1)*@entries.limit_value + 1).each do |entry,i|
+- unless params[:search].nil?
+  - if @entries.empty?
+    No entries found.
+  - else
+    %table.table.entries-list.table-bordered{ :class => (logged_in? ? "logged-in" : "logged-out") + (manager? ? " manager" : " contributor")}
+      %colgroup.col-index
+      - @base_languages.each do 
+        %colgroup.col-term
+      - if logged_in? 
+        %colgroup.col-added_by
+        %colgroup.col-status
+      - if manager?
+        %colgroup.col-actions
+      %thead
         %tr
-          %td
-            = i
+          %th 
           - @base_languages.each do |lang|
-            %td
-              - Globalize.with_locale(lang) do
-                - if (lang == @glossary_language)
-                  = link_to highlight(entry.term, @tokens), entry
-                - else
-                  = highlight(entry.term, @tokens) unless entry.term.nil?
+            %th=I18n.t(lang.to_s).capitalize
           - if logged_in?
-            %td= link_to entry.user.name, entry.user
-            %td
-              - if entry.approved?
-                %span.btn.btn-success.btn-mini APPROVED
-              - else
-                %span.btn.btn-warning.btn-mini UNAPPROVED
+            %th Added by
+            %th Status
           - if manager?
+            %th Actions
+      %tbody
+        - @entries.to_enum.with_index((@entries.current_page-1)*@entries.limit_value + 1).each do |entry,i|
+          %tr
             %td
-              = link_to sprite_img("icons-pencil"), edit_entry_path(entry), :title => "edit"
-              = link_to sprite_img("icons-cross"), entry, :confirm => "Are you sure you want to destroy this entry?", :method => :delete, :title => "destroy"
-              - if entry.approved?
-                = link_to sprite_img("icons-thumb"), approve_entry_path(entry, :entry => { :approved => false}), :method => :post, :title => "unapprove"
-              - else
-                = link_to sprite_img("icons-thumb-up"), approve_entry_path(entry, :entry => { :approved => true}), :method => :post, :title => "approve"
-  = paginate @entries
+              = i
+            - @base_languages.each do |lang|
+              %td
+                - Globalize.with_locale(lang) do
+                  - if (lang == @glossary_language)
+                    = link_to highlight(entry.term, @tokens), entry
+                  - else
+                    = highlight(entry.term, @tokens) unless entry.term.nil?
+            - if logged_in?
+              %td= link_to entry.user.name, entry.user
+              %td
+                - if entry.approved?
+                  %span.btn.btn-success.btn-mini APPROVED
+                - else
+                  %span.btn.btn-warning.btn-mini UNAPPROVED
+            - if manager?
+              %td
+                = link_to sprite_img("icons-pencil"), edit_entry_path(entry), :title => "edit"
+                = link_to sprite_img("icons-cross"), entry, :confirm => "Are you sure you want to destroy this entry?", :method => :delete, :title => "destroy"
+                - if entry.approved?
+                  = link_to sprite_img("icons-thumb"), approve_entry_path(entry, :entry => { :approved => false}), :method => :post, :title => "unapprove"
+                - else
+                  = link_to sprite_img("icons-thumb-up"), approve_entry_path(entry, :entry => { :approved => true}), :method => :post, :title => "approve"
+    = paginate @entries

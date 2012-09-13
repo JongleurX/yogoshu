@@ -13,7 +13,7 @@ Feature: Login to (and logout of) account
     When I fill in "User name" with "jens"
     And I fill in "Password" with "secret"
     And I click "Login"
-    Then I should see the homepage
+    Then I should see the entries page
     And I should see a notice message: "You've successfully logged in. Welcome back jens!"
     And I should be logged in as "jens"
     
@@ -34,6 +34,6 @@ Feature: Login to (and logout of) account
   Scenario: Successful logout
     Given I am logged in as "jens" with password "secret"
     When I click "Logout"
-    Then I should see the homepage
+    Then I should see the entries page
     And I should see a notice message: "You've successfully logged out."
     And I should be logged out

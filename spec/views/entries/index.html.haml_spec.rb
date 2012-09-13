@@ -28,9 +28,14 @@ describe "entries/index" do
         rendered.should have_selector("input[type='text'][name='search']")
       end
 
-      it "renders an empty entry list" do
+      it "does not render search terms" do
         render
-        rendered.should =~ /No entries/
+        rendered.should_not =~ /Search terms/
+      end
+
+      it "does not render search results table" do
+        render
+        rendered.should_not have_selector("table")
       end
 
     end
@@ -44,6 +49,8 @@ describe "entries/index" do
         @entries = [@entry1, @entry2, @entry3]
         @entries.stub(current_page: 1, num_pages: 1, limit_value: 25)
         Entry.stub(:all) { @entries }
+        # if params[:search] is nil then search results are not shown, so set it to an empty string
+        params[:search] = ""
       end
 
       it "renders list of entries" do
@@ -79,6 +86,8 @@ describe "entries/index" do
       @entries = [@entry1, @entry2, @entry3]
       @entries.stub(current_page: 1, num_pages: 1, limit_value: 25)
       Entry.stub(:all) { @entries }
+      # if params[:search] is nil then search results are not shown, so set it to an empty string
+      params[:search] = ""
     end
 
     context "as contributor" do

@@ -53,10 +53,6 @@ Then /^I should see the login page$/ do
   page.should have_xpath("//title", :text => "Yogoshu: Login")
 end
 
-Then /^I should see the homepage$/ do
-  page.should have_xpath("//title", :text => "Yogoshu: Home")
-end
-
 Then /^I should see the new entry page$/ do
   page.should have_xpath("//title", :text => "Yogoshu: Add new entry")
 end

@@ -17,7 +17,7 @@ Feature: Approve glossary entries
 
   Scenario: Glossary manager approves glossary entry from search results page
     Given I am logged in as "susan"
-    And I am on the entries page
+    And I search for the keyword "オレンジ"
     When I click the thumbs up icon in the row for glossary entry "オレンジ"
     Then I should see the entries page
     And I should see a success message: "Entry "オレンジ" has been approved."
@@ -25,7 +25,7 @@ Feature: Approve glossary entries
 
   Scenario: Glossary manager unapproves glossary entry from search results page
     Given I am logged in as "susan"
-    And I am on the entries page
+    And I search for the keyword "りんご"
     When I click the thumbs down icon in the row for glossary entry "りんご"
     Then I should see the entries page
     And I should see a success message: "Entry "りんご" has been unapproved."
