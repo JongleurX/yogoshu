@@ -7,6 +7,7 @@ gem 'rails_autolink'
 gem 'globalize3', :git => 'git://github.com/svenfuchs/globalize3.git'
 gem 'thin'
 gem 'rails3-jquery-autocomplete'
+gem 'mina', :git => 'https://github.com/nadarei/mina.git', :require => false
 
 # Gems used only for assets and not required
 # in production environments by default.
