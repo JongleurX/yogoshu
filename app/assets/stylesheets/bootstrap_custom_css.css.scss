@@ -13,12 +13,16 @@ table.glossary-entry {
 table.usage-info th { background-color: #F9F9F9; }
 table.translator-notes th { background-color: #F9F9F9; }
 
+$navbarBackground: #111988;
+$navbarBackgroundHighlight: lighten($navbarBackground, 20%);
+$navbarLinkColor: #DDDDDD;
+
 .input-append button.add-on {
   height: inherit !important;
 }
 
 .centered-box {
-  width: 40%;
+  width: 50%;
   margin: 0px auto;
 }
 

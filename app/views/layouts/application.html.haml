@@ -2,7 +2,7 @@
 %html
   %head
     %title
-      = "Yogoshu: " + yield_or_default(:title, "Multilingual Glossary")
+      = "RIKEN Glossary: " + yield_or_default(:title, "Multilingual Glossary")
     = stylesheet_link_tag :application
     = javascript_include_tag :application
     = csrf_meta_tags
@@ -10,7 +10,7 @@
     .navbar.navbar-fixed-top
       .navbar-inner
         .container
-          = link_to Yogoshu, homepage_path, :class => "brand"
+          = link_to "RIKEN Glossary", homepage_path, :class => "brand"
           - if logged_in?
             %ul.nav
               %li= link_to "Search", homepage_path

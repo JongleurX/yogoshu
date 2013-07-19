@@ -79,7 +79,14 @@ class EntriesController < ApplicationController
     else
       params[:search] = nil
     end
-    @entries = scope.order(:term).page(params[:page])
+    if params[:user]
+      scope = scope.includes(:user).where('users.name' => params[:user])
+    end
+    if params[:per]
+      @entries = scope.order(:term).page(params[:page]).per(params[:per])
+    else
+      @entries = scope.order(:term).page(params[:page])
+    end
   end
 
   private
