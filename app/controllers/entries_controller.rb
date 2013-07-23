@@ -13,11 +13,12 @@ class EntriesController < ApplicationController
 
   def new
     @entry = Entry.new
+    @entry.user_id = current_user.id
   end
 
   def create
     @entry = Entry.new(params[:entry])
-    @entry.user_id = current_user.id
+    set_user(@entry)
     if @entry.save
       flash[:success] = "New glossary entry has been created."
       redirect_to @entry
@@ -28,6 +29,7 @@ class EntriesController < ApplicationController
   end
 
   def update
+    set_user(@entry)
     respond_to do |format|
       if (@entry.update_attributes(params[:entry]))
 #        format.json { respond_with_bip(@entry) }
@@ -94,6 +96,14 @@ class EntriesController < ApplicationController
   def find_entry
     @entry = Entry.find_by_term_in_glossary_language(params[:id])
     raise_not_found if @entry.nil?
+  end
+
+  def set_user(entry)
+    if manager? && (user_id = params[:entry][:user_id])
+      entry.user_id = user_id
+    else
+      entry.user_id = current_user.id
+    end
   end
 
   def authorize

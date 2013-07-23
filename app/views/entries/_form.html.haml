@@ -4,6 +4,12 @@
       - if (lang == Entry.glossary_language)
         %p.help-block
           #{I18n.t(lang).capitalize} is the source language for this glossary so terms in this language can't be blank and must be unique.
+  - if manager?
+    = entry.collection_select :user_id, 'User', User.all, :id, :name do
+      %p.help-block
+        As a manager, you can set the user for entries, but generally
+        it's best to leave this so that the entry is set to the user who
+        created it.
   = entry.text_area :info, "Usage information", :class => "input-xxlarge", :rows => 3 do
     %p.help-block
       Usage information is viewable by all users.
