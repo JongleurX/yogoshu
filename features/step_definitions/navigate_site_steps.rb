@@ -50,33 +50,33 @@ When /^I click the link to (edit|delete) user "([^"]*)"$/ do |action, username|
 end
 
 Then /^I should see the login page$/ do
-  page.should have_xpath("//title", :text => "Yogoshu: Login")
+  page.should have_xpath("//title", :text => /Login$/)
 end
 
 Then /^I should see the homepage$/ do
-  page.should have_xpath("//title", :text => "Yogoshu: Home")
+  page.should have_xpath("//title", :text => /Home$/)
 end
 
 Then /^I should see the new entry page$/ do
-  page.should have_xpath("//title", :text => "Yogoshu: Add new entry")
+  page.should have_xpath("//title", :text => /Add new entry$/)
 end
 
 Then /^I should see the new user page$/ do
-  page.should have_xpath("//title", :text => "Yogoshu: Create user")
+  page.should have_xpath("//title", :text => /Create user$/)
 end
 
 Then /^I should see the entries page$/ do
-  page.should have_xpath("//title", :text => "Yogoshu: Search glossary")
+  page.should have_xpath("//title", :text => /Search glossary$/)
 end
 
 Then %{I should see the page for "$term"} do |term|
   entry = Entry.find_by_term_in_glossary_language(term)
-  page.should have_xpath("//title", :text => "Yogoshu: #{term}")
+  page.should have_xpath("//title", :text => /#{term}$/)
 end
 
 Then %{I should see the page for user "$name"} do |name|
   user = User.find_by_name(name)
-  page.should have_xpath("//title", :text => "Yogoshu: #{name}")
+  page.should have_xpath("//title", :text => /#{name}$/)
 end
 
 Then %{I should see the edit page for user "$name"} do |name|

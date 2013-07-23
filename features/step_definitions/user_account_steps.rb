@@ -48,7 +48,7 @@ Then /^I should see a link to (.+)'s? profile$/ do |name|
 end
 
 Then /^I should see the profile page for "([^"]*)"$/ do |name|
-  page.should have_xpath('//title', :text => "Yogoshu: #{name}")
+  page.should have_xpath('//title', :text => /#{name}$/)
 end
 
 Then /^there should be (?:only |)(\d+) users?$/ do |count|
