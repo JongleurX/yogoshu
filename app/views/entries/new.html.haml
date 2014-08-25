@@ -1,4 +1,4 @@
-- title (page_title = "Add new entry")
+- title (page_title = I18n.t('ui.add_entry_header'))
 .page-header
   %h1
     = page_title
@@ -6,5 +6,5 @@
 = twitter_bootstrap_form_for @entry, :html => { :class => 'form-horizontal' } do |entry|
   = render 'form', :entry => entry
   = entry.actions do
-    = entry.submit 'Add entry'
-    = link_to 'Cancel', homepage_path, :class => 'btn'
+    = entry.submit I18n.t('ui.add_entry')
+    = link_to I18n.t('ui.cancel'), homepage_path, :class => 'btn'

@@ -4,27 +4,26 @@
     = page_title
     - if logged_in?
       - if @entry.approved?
-        %span.btn.btn-success.btn-mini APPROVED
+        %span.btn.btn-success.btn-mini=I18n.t('ui.status_approved')
       - else
-        %span.btn.btn-warning.btn-mini UNAPPROVED
+        %span.btn.btn-warning.btn-mini=I18n.t('ui.status_unapproved')
   - if @entry.changeable_by?(@current_user)
     .clearfix{ :style => "padding: 10px 2px" }
       #{@current_user.role.capitalize} functions:
-      = link_to 'Edit', edit_entry_path(@entry)
+      = link_to I18n.t('ui.entry_actions_edit'), edit_entry_path(@entry)
       |
-      = link_to 'Delete', @entry, :confirm => "Are you sure you want to destroy this entry?", :method => :delete
+      = link_to I18n.t('ui.entry_actions_delete'), @entry, :confirm => "Are you sure you want to destroy this entry?", :method => :delete
       - if manager?
         |
         - if @entry.approved?
-          = link_to 'Unapprove', approve_entry_path(@entry, :entry => { :approved => false }), :method => :post
+          = link_to I18n.t('ui.entry_actions_unapprove'), approve_entry_path(@entry, :entry => { :approved => false }), :method => :post
         - else
-          = link_to 'Approve', approve_entry_path(@entry, :entry => { :approved => true }), :method => :post
+          = link_to I18n.t('ui.entry_actions_approve'), approve_entry_path(@entry, :entry => { :approved => true }), :method => :post
   
 %small
-  Added by 
-  = link_to @entry.user.name, @entry.user
-  = "on #{@entry.created_at.strftime('%B %-d, %Y @ %l:%M %p')}. "
-  = "Last updated on #{@entry.updated_at.strftime('%B %-d, %Y @ %-l:%M %p')}."
+   
+  = I18n.t('ui.entry_creation_history', :added_by => t('ui.entry_added_by'), :author => 'Jeremy', :datetime => @entry.created_at.strftime('%B %-d, %Y @ %l:%M %p'))
+  = I18n.t('ui.entry_update_history', :updated_by => t('ui.entry_updated_at'), :datetime => @entry.updated_at.strftime('%B %-d, %Y @ %-l:%M %p'))
 
 %table.table.table-bordered.glossary-entry
   %thead
@@ -39,7 +38,7 @@
 %table.table.table-bordered.usage-info
   %thead
     %tr
-      %th Usage information
+      %th=I18n.t('ui.add_entry_usage')
   %tbody
     %tr
       %td= auto_link(simple_format(@entry.info))
@@ -47,7 +46,7 @@
   %table.table.table-bordered.translator-notes
     %thead
       %tr
-        %th Translator notes
+        %th=I18n.t('ui.add_entry_translator')
     %tbody
       %tr
         %td= auto_link(simple_format(@entry.note))

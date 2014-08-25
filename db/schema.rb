@@ -16,18 +16,18 @@ ActiveRecord::Schema.define(:version => 20120415014304) do
   create_table "entries", :force => true do |t|
     t.integer  "user_id"
     t.boolean  "approved"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.text     "note"
     t.text     "info"
   end
 
   create_table "entry_translations", :force => true do |t|
     t.integer  "entry_id"
-    t.string   "locale"
+    t.string   "locale",     :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.string   "term"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   add_index "entry_translations", ["entry_id"], :name => "index_entry_translations_on_entry_id"
@@ -38,20 +38,11 @@ ActiveRecord::Schema.define(:version => 20120415014304) do
     t.string   "name"
     t.string   "encrypted_password", :limit => 40
     t.string   "salt",               :limit => 40
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.string   "role"
   end
 
   add_index "users", ["name"], :name => "index_users_on_name", :unique => true
-
-  create_table "validatee_translations", :force => true do |t|
-    t.integer "validatee_id"
-    t.string  "locale"
-    t.string  "string"
-  end
-
-  create_table "validatees", :force => true do |t|
-  end
 
 end

@@ -2,7 +2,7 @@
 %html
   %head
     %title
-      = "Yogoshu: " + yield_or_default(:title, "Multilingual Glossary")
+      = I18n.t('appname') + ": " + yield_or_default(:title, I18n.t('ui.title'))
     = stylesheet_link_tag :application
     = javascript_include_tag :application
     = csrf_meta_tags
@@ -13,24 +13,24 @@
           = link_to Yogoshu, homepage_path, :class => "brand"
           - if logged_in?
             %ul.nav
-              %li= link_to "Search", homepage_path
-              %li= link_to "Add Entry", new_entry_path
+              %li= link_to I18n.t('ui.menu_search'), homepage_path
+              %li= link_to I18n.t('ui.menu_add_entry'), new_entry_path
               - if manager?
-                %li= link_to "Manage Users", users_path
+                %li= link_to I18n.t('ui.menu_manage_users'), users_path
             %ul.nav.secondary-nav.pull-right
               %li.dropdown{ :'data-dropdown' => 'dropdown'}
                 =link_to "#", :class => 'dropdown-toggle', :'data-toggle' => "dropdown" do
                   = "@" + @current_user.name
                   %b.caret
                 %ul.dropdown-menu
-                  %li= link_to "Profile", user_path(@current_user)
+                  %li= link_to I18n.t('ui.menu_profile'), user_path(@current_user)
                   %li.divider
-                  %li= link_to "Logout", logout_path
+                  %li= link_to I18n.t('ui.menu_logout'), logout_path
           - else
             = form_tag login_path, :method => :post, :class => "pull-right navbar-form" do
               = text_field :user, :name, { :class => "input-small", :placeholder => "Username" }
               = password_field :user, :password, { :class => "input-small", :placeholder => "Password" }
-              = button_tag 'Login', :class => "btn"
+              = button_tag I18n.t('ui.menu_login'), :class => "btn"
     .container
       .content
         - flash.each do |name, msg|

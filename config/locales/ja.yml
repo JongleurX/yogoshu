@@ -1,61 +1,61 @@
-# US English translations for Ruby on Rails
+# Japanese translations for Ruby on Rails
 #
 # Last modified by Jeremy Bailey
 
 en:
-  en: "English"
-  ja: "Japanese"
-  fr: "French"
-  es: "Spanish"
-  pt: "Portuguese"
-  nl: "Dutch"
+  en: "英語"
+  ja: "日本語"
+  fr: "フランス語"
+  es: "スペイン語"
+  pt: "ポルトガル語"
+  nl: "オランダ語"
 
-  appname: "Yogoshu"
-
+  appname: "用語集"
+  
   ui:
-    title: "Multilingual Glossary"
-    home: "Home"
-    menu_search: "Search"
-    menu_add_entry: "Add Entry"
-    menu_manage_users: "Manage Users"
-    menu_login: "Login"
-    menu_logout: "Logout"
-    username: "User name"
-    password: "Password"
-    login_success: "You've successfully logged in. Welcome back %{username}!"
-    login_failed: "Username or password incorrect. Please try again."
-    logout_success: "You've successfully logged out."
-    menu_profile: "Profile"
-    search_header: "Search glossary"
-    search_prompt: "Enter search terms..."
-    search_terms: "Search terms: "
-    search_terms_none: "None"
-    search_no_results: "No entries found."
-    status_approved: "APPROVED"
-    status_unapproved: "UNAPPROVED"
-    entry_added_by: "Added by"
-    entry_updated_at: "Last updated"    
-    entry_status: "Status"
-    entry_actions: "Actions"
-    entry_actions_edit: "Edit"
-    edit_entry_header: "Edit entry"
-    save_entry: "Save"
-    entry_actions_delete: "Delete"
-    entry_actions_delete_conf: "Are you sure you want to destroy this entry?"
-    entry_actions_approve: "Approve"        
-    entry_actions_unapprove: "Unapprove"
-    add_entry_header: "Add new entry"
-    add_entry: "Add entry"
-    cancel: "Cancel"
-    add_entry_source_hint: " is the source language for this glossary. Terms in this language can't be blank and must be unique."
-    add_entry_usage: "Usage information"
-    add_entry_usage_hint: "Usage information is viewable by all users."
-    add_entry_translator: "Translator notes"
-    add_entry_translator_hint: "Translator notes are only viewable to logged-in users."
-    entry_creation_history: "%{added_by} %{author} on %{datetime}" 
-    entry_update_history: "%{updated_by} on %{datetime}" 
-    users_header_admin: "Manage Users"
-    users_header_contributor: "Users"
+    title: "多言語の用語集"
+    home: "ホーム"
+    menu_search: "検索"
+    menu_add_entry: "コンセプトを追加"
+    menu_manage_users: "ユーザ管理"
+    menu_login: "ログイン"
+    menu_logout: "ログアウト"
+    username: "ユーザ名"
+    password: "パスワード"
+    login_success: "ログイン完了。%{username} さん、ようこそ!"
+    login_failed: "ログイン失敗。ユーザ名またはパスワードが正しくありません。もう一度お試し下さい。"
+    logout_success: "ログアウト完了。"    
+    menu_profile: "プロフィール"
+    search_header: "用語集の検索"
+    search_prompt: "検索語を入れてください..."
+    search_terms: "検索した内容: "
+    search_terms_none: "なし"
+    search_no_results: "一致するコンセプトは見つかりませんでした。."    
+    status_approved: "承認済み"
+    status_unapproved: "未承認"
+    entry_added_by: "作成者しました。"
+    entry_updated_at: "最終更新日時："
+    entry_status: "ステータス"
+    entry_actions: "アクション"
+    entry_actions_edit: "編集する"
+    edit_entry_header: "コンセプトの編集"
+    save_entry: "保存"    
+    entry_actions_delete: "削除する"
+    entry_actions_delete_conf: "本当にこのコンセプトを削除しますか?"
+    entry_actions_approve: "承認する"        
+    entry_actions_unapprove: "未承認にする"create
+    add_entry_header: "コンセプトの追加"
+    add_entry: "追加"
+    cancel: "もどる"
+    add_entry_source_hint: " はこの用語集の親言語となっているため、一意でなければなりませんし、空欄にしてはいけません。"
+    add_entry_usage: "使用上の情報"
+    add_entry_usage_hint: "使用上の情報は、すべてのユーザが閲覧できます。"
+    add_entry_translator: "翻訳上の情報"
+    add_entry_translator_hint: "翻訳上の情報は、ログインしたユーザのみ閲覧できます。"
+    entry_creation_history: "%{author} が %{datetime} に%{added_by}" 
+    entry_update_history: "%{updated_by}%{datetime}"   
+    users_header_admin: "ユーザ管理"
+    users_header_contributor: "ユーザ一覧"      
 
   date:
     formats:
@@ -64,50 +64,50 @@ en:
       long: "%B %d, %Y"
 
     day_names:
-      - Sunday
-      - Monday
-      - Tuesday
-      - Wednesday
-      - Thursday
-      - Friday
-      - Saturday
+      - 日曜日
+      - 月曜日
+      - 火曜日
+      - 水曜日
+      - 木曜日
+      - 金曜日
+      - 土曜日
     abbr_day_names:
-      - Sun
-      - Mon
-      - Tue
-      - Wed
-      - Thu
-      - Fri
-      - Sat
+      - 日
+      - 月
+      - 火
+      - 水
+      - 木
+      - 金
+      - 土
 
     month_names:
       - ~
-      - January
-      - February
-      - March
-      - April
-      - May
-      - June
-      - July
-      - August
-      - September
-      - October
-      - November
-      - December
+      - 1月
+      - 2月
+      - 3月
+      - 4月
+      - 5月
+      - 6月
+      - 7月
+      - 8月
+      - 9月
+      - 10月
+      - 11月
+      - 12月
     abbr_month_names:
-      - ~
-      - Jan
-      - Feb
-      - Mar
-      - Apr
-      - May
-      - Jun
-      - Jul
-      - Aug
-      - Sep
-      - Oct
-      - Nov
-      - Dec
+      - ~create
+      - 1月
+      - 2月
+      - 3月
+      - 4月
+      - 5月
+      - 6月
+      - 7月
+      - 8月
+      - 9月
+      - 10月
+      - 11月
+      - 12月
     order:
       - :year
       - :month
@@ -123,12 +123,12 @@ en:
 
   support:
     array:
-      words_connector: ", "
-      two_words_connector: " and "
-      last_word_connector: ", and "
+      words_connector: "、"
+      two_words_connector: " と "
+      last_word_connector: "　及び "
 
     select:
-      prompt: "Please select"
+      prompt: "選択してください"
 
   number:
     format:
@@ -228,30 +228,30 @@ en:
 
   helpers:
     select:
-      prompt: "Please select"
+      prompt: "選択してください"
 
     submit:
-      create: 'Create %{model}'
-      update: 'Update %{model}'
-      submit: 'Save %{model}'
+      create: '%{model}　を作成'
+      update: '%{model}　を更新'
+      submit: '%{model}　を保存'
 
   errors:
     format: "%{attribute} %{message}"
 
     messages: &errors_messages
-      inclusion: "is not included in the list"
+      inclusion: "　はリストに含まれていません。"
       exclusion: "is reserved"
       invalid: "is invalid"
       confirmation: "doesn't match confirmation"
       accepted: "must be accepted"
-      empty: "can't be empty"
-      blank: "can't be blank"
+      empty: " を入れてください"
+      blank: " を入れてください"
       too_long:
-        one: "is too long (maximum is 1 character)"
-        other: "is too long (maximum is %{count} characters)"
+        one: " は長すぎます(最大の文字数は 1 です。)"
+        other: " は長すぎます(最大の文字数は %{count} です。)"
       too_short:
-        one: "is too short (minimum is 1 character)"
-        other: "is too short (minimum is %{count} characters)"
+        one: "は短すぎます(最小の文字数は 1 です。)"
+        other: "は短すぎます(最小の文字数は %{count} です。)"
       wrong_length:
         one: "is the wrong length (should be 1 character)"
         other: "is the wrong length (should be %{count} characters)"

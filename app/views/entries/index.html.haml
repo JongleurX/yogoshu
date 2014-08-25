@@ -1,18 +1,18 @@
-- title (page_title = "Search glossary")
+- title (page_title = I18n.t('ui.search_header'))
 .page-header
   %h1= page_title
   %br
   = form_tag entries_path, :method => :get do
     .input-append
-      = autocomplete_field_tag :search, '', autocomplete_entry_term_entries_path, :size => 75, :class => "large", :placeholder => "Enter search terms..." 
+      = autocomplete_field_tag :search, '', autocomplete_entry_term_entries_path, :size => 75, :class => "large", :placeholder => I18n.t('ui.search_prompt') 
       %button.btn.add-on#search-button
         %i.icon-search
   .clearfix.search-terms-box
-    Search terms:
-    %strong=params[:search] || "None"
+    =I18n.t('ui.search_terms')
+    %strong=params[:search] || I18n.t('ui.search_terms_none')
 
 - if @entries.empty?
-  No entries found.
+  =I18n.t('ui.search_no_results')
 - else
   %table.table.entries-list.table-bordered{ :class => (logged_in? ? "logged-in" : "logged-out") + (manager? ? " manager" : " contributor")}
     %colgroup.col-index
@@ -29,10 +29,10 @@
         - @base_languages.each do |lang|
           %th=I18n.t(lang.to_s).capitalize
         - if logged_in?
-          %th Added by
-          %th Status
+          %th=I18n.t('ui.entry_added_by')
+          %th=I18n.t('ui.entry_status')
         - if manager?
-          %th Actions
+          %th=I18n.t('ui.entry_actions')
     %tbody
       - @entries.to_enum.with_index((@entries.current_page-1)*@entries.limit_value + 1).each do |entry,i|
         %tr
@@ -49,15 +49,15 @@
             %td= link_to entry.user.name, entry.user
             %td
               - if entry.approved?
-                %span.btn.btn-success.btn-mini APPROVED
+                %span.btn.btn-success.btn-mini=I18n.t('ui.status_approved')
               - else
-                %span.btn.btn-warning.btn-mini UNAPPROVED
+                %span.btn.btn-warning.btn-mini=I18n.t('ui.status_unapproved')
           - if manager?
             %td
-              = link_to sprite_img("icons-pencil"), edit_entry_path(entry), :title => "edit"
-              = link_to sprite_img("icons-cross"), entry, :confirm => "Are you sure you want to destroy this entry?", :method => :delete, :title => "destroy"
+              = link_to sprite_img("icons-pencil"), edit_entry_path(entry), :title => I18n.t('ui.entry_actions_edit')
+              = link_to sprite_img("icons-cross"), entry, :confirm => I18n.t('entry_actions_delete_conf'), :method => :delete, :title => I18n.t('ui.entry_actions_delete')
               - if entry.approved?
-                = link_to sprite_img("icons-thumb"), approve_entry_path(entry, :entry => { :approved => false}), :method => :post, :title => "unapprove"
+                = link_to sprite_img("icons-thumb"), approve_entry_path(entry, :entry => { :approved => false}), :method => :post, :title => I18n.t('ui.entry_actions_unapprove')
               - else
-                = link_to sprite_img("icons-thumb-up"), approve_entry_path(entry, :entry => { :approved => true}), :method => :post, :title => "approve"
+                = link_to sprite_img("icons-thumb-up"), approve_entry_path(entry, :entry => { :approved => true}), :method => :post, :title => I18n.t('ui.entry_actions_approve')
   = paginate @entries
