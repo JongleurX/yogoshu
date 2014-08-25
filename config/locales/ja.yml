@@ -2,7 +2,7 @@
 #
 # Last modified by Jeremy Bailey
 
-en:
+ja:
   en: "英語"
   ja: "日本語"
   fr: "フランス語"
@@ -11,7 +11,7 @@ en:
   nl: "オランダ語"
 
   appname: "用語集"
-  
+
   ui:
     title: "多言語の用語集"
     home: "ホーム"
@@ -33,21 +33,33 @@ en:
     search_no_results: "一致するコンセプトは見つかりませんでした。."    
     status_approved: "承認済み"
     status_unapproved: "未承認"
+    actions_edit: "編集する"
+    actions_delete: "削除する"
     entry_added_by: "作成者しました。"
     entry_updated_at: "最終更新日時："
     entry_status: "ステータス"
-    entry_actions: "アクション"
-    entry_actions_edit: "編集する"
+    actions: "アクション"
     edit_entry_header: "コンセプトの編集"
     save_entry: "保存"    
-    entry_actions_delete: "削除する"
     entry_actions_delete_conf: "本当にこのコンセプトを削除しますか?"
     entry_actions_approve: "承認する"        
-    entry_actions_unapprove: "未承認にする"create
+    entry_actions_unapprove: "未承認にする"
     add_entry_header: "コンセプトの追加"
     add_entry: "追加"
+    entry_created: "新しいコンセプトを作成しました。"
+    entry_updated: "コンセプト「 %{entry} 」を更新しました。"
+    entry_not_updated: "コンセプト「 %{entry} 」を更新できませんでした。"
+    entry_deleted: "コンセプト「 %{entry} 」を削除しました。"
+    entry_changes_forbidden: "このコンセプトを編集する権限を持っていません。"
+    entry_approval_forbidden: "コンセプトを承認できるのは管理者のみです。"
+    entry_approval_changed: "コンセプト「 %{entry} 」を%{approval}。"
+    entry_already_present: "は既に用語集に登録されています。"
+    approved: "承認しました"
+    unapproved: "未承認にしました" 
+    entry_approval_unchanged: "コンセプト %{entry} の承認ステータスを変更しませんでした。"
     cancel: "もどる"
-    add_entry_source_hint: " はこの用語集の親言語となっているため、一意でなければなりませんし、空欄にしてはいけません。"
+    create: "作成"
+    add_entry_source_hint: "はこの用語集の親言語となっているため、一意でなければなりませんし、空欄にしてはいけません。"
     add_entry_usage: "使用上の情報"
     add_entry_usage_hint: "使用上の情報は、すべてのユーザが閲覧できます。"
     add_entry_translator: "翻訳上の情報"
@@ -56,7 +68,27 @@ en:
     entry_update_history: "%{updated_by}%{datetime}"   
     users_header_admin: "ユーザ管理"
     users_header_contributor: "ユーザ一覧"      
-
+    user_profile: "ユーザ・プロフィール"
+    user_admin_functions: "管理者専用のアクション:" 
+    users_create: "ユーザの作成"
+    users_edit: "ユーザの編集: %{user}"
+    user_created: "ユーザ %{user} を作成しました。"
+    user_updated: "ユーザ %{user} を更新しました。"
+    user_deleted: "ユーザ %{user} を削除しました。"
+    password_confirmation: "パスワードの確認"
+    username_hint: "ユーザー名は3〜20文字で、英数字とアンダースコアのみ使えます。"
+    password_hint: "パスワードは4〜40文字でなければなりません。"
+    role_hint_contributor: "Contributor (参加者) は用語集にコンセプトを追加できます。"
+    role_hint_terminologist: "Manager (管理人) は用語集のコンセプトの追加や承認、新規ユーザを登録できます。"    
+    user_actions_delete_conf: "本当に %{user} を削除しますか?"
+    user_role: "ロール"
+    user_entry_count: "追加したコンセプトの数"
+    user_registered_on: "登録日時"
+    role_definitions: ["contributor", "manager"]
+    contributor: "参加者"
+    manager: "ターミノロジスト"    
+    data_entry_error: "記入したデータにエラーがありました。"
+        
   date:
     formats:
       default: "%Y-%m-%d"
@@ -239,19 +271,19 @@ en:
     format: "%{attribute} %{message}"
 
     messages: &errors_messages
-      inclusion: "　はリストに含まれていません。"
+      inclusion: "　はリストに含まれていません"
       exclusion: "is reserved"
-      invalid: "is invalid"
+      invalid: "は不正です"
       confirmation: "doesn't match confirmation"
       accepted: "must be accepted"
-      empty: " を入れてください"
-      blank: " を入れてください"
+      empty: " を記入する必要があります"
+      blank: " を記入する必要があります"
       too_long:
-        one: " は長すぎます(最大の文字数は 1 です。)"
-        other: " は長すぎます(最大の文字数は %{count} です。)"
+        one: " は長すぎます(最大の文字数は 1 です)"
+        other: " は長すぎます(最大の文字数は %{count} です)"
       too_short:
-        one: "は短すぎます(最小の文字数は 1 です。)"
-        other: "は短すぎます(最小の文字数は %{count} です。)"
+        one: "は短すぎます(最小の文字数は 1 です)"
+        other: "は短すぎます(最小の文字数は %{count} です)"
       wrong_length:
         one: "is the wrong length (should be 1 character)"
         other: "is the wrong length (should be %{count} characters)"

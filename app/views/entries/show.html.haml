@@ -9,10 +9,10 @@
         %span.btn.btn-warning.btn-mini=I18n.t('ui.status_unapproved')
   - if @entry.changeable_by?(@current_user)
     .clearfix{ :style => "padding: 10px 2px" }
-      #{@current_user.role.capitalize} functions:
-      = link_to I18n.t('ui.entry_actions_edit'), edit_entry_path(@entry)
+      =I18n.t('ui.user_admin_functions')
+      = link_to I18n.t('ui.actions_edit'), edit_entry_path(@entry)
       |
-      = link_to I18n.t('ui.entry_actions_delete'), @entry, :confirm => "Are you sure you want to destroy this entry?", :method => :delete
+      = link_to I18n.t('ui.actions_delete'), @entry, :confirm => I18n.t('ui.entry_actions_delete_conf'), :method => :delete
       - if manager?
         |
         - if @entry.approved?

@@ -32,7 +32,7 @@
           %th=I18n.t('ui.entry_added_by')
           %th=I18n.t('ui.entry_status')
         - if manager?
-          %th=I18n.t('ui.entry_actions')
+          %th=I18n.t('ui.actions')
     %tbody
       - @entries.to_enum.with_index((@entries.current_page-1)*@entries.limit_value + 1).each do |entry,i|
         %tr
@@ -54,8 +54,8 @@
                 %span.btn.btn-warning.btn-mini=I18n.t('ui.status_unapproved')
           - if manager?
             %td
-              = link_to sprite_img("icons-pencil"), edit_entry_path(entry), :title => I18n.t('ui.entry_actions_edit')
-              = link_to sprite_img("icons-cross"), entry, :confirm => I18n.t('entry_actions_delete_conf'), :method => :delete, :title => I18n.t('ui.entry_actions_delete')
+              = link_to sprite_img("icons-pencil"), edit_entry_path(entry), :title => I18n.t('ui.actions_edit')
+              = link_to sprite_img("icons-cross"), entry, :confirm => I18n.t('entry_actions_delete_conf'), :method => :delete, :title => I18n.t('ui.actions_delete')
               - if entry.approved?
                 = link_to sprite_img("icons-thumb"), approve_entry_path(entry, :entry => { :approved => false}), :method => :post, :title => I18n.t('ui.entry_actions_unapprove')
               - else

@@ -19,10 +19,10 @@ class EntriesController < ApplicationController
     @entry = Entry.new(params[:entry])
     @entry.user_id = current_user.id
     if @entry.save
-      flash[:success] = "New glossary entry has been created."
+      flash[:success] = I18n.t('ui.entry_created')
       redirect_to @entry
     else
-      flash.now[:error] = "There were errors in the information entered."
+      flash.now[:error] = I18n.t('ui.data_entry_error')
       render "new"
     end
   end
@@ -32,13 +32,13 @@ class EntriesController < ApplicationController
       if (@entry.update_attributes(params[:entry]))
 #        format.json { respond_with_bip(@entry) }
         format.html {
-          flash[:success] = "Entry \"#{@entry.term_in_glossary_language}\" has been updated."
+          flash[:success] = I18n.t('ui.entry_updated', :entry => @entry.term_in_glossary_language)
           redirect_to @entry
         }
       else
 #        format.json { respond_with_bip(@entry) }
         format.html { 
-          flash.now[:error] = "Entry could not be updated."
+          flash.now[:error] = I18n.t('ui.entry_not_updated', :entry => @entry.term_in_glossary_language)
           render "edit"
         }
       end
@@ -47,9 +47,11 @@ class EntriesController < ApplicationController
 
   def approve
     if @entry.update_attributes({ :approved => params[:entry][:approved] }, :as => :manager)
-      flash[:success] = "Entry \"#{@entry.term_in_glossary_language}\" has been #{(@entry.approved == true) ? "approved" : "unapproved"}."
+      #flash[:success] = "Entry \"#{@entry.term_in_glossary_language}\" has been #{(@entry.approved == true) ? "approved" : "unapproved"}."
+      flash[:success] = I18n.t('ui.entry_approval_changed', :entry => @entry.term_in_glossary_language, :approval => (@entry.approved == true) ? I18n.t('ui.approved') : I18n.t('ui.unapproved') )
     else
-      flash[:error] = "Entry \"#{@entry.term_in_glossary_language}\" approval status was not changed."
+      #flash[:error] = "Entry \"#{@entry.term_in_glossary_language}\" approval status was not changed."
+      flash[:error] = I18n.t('ui.entry_approval_unchanged', :entry => @entry.term_in_glossary_language)
     end
     redirect_to :back
   end
@@ -60,7 +62,7 @@ class EntriesController < ApplicationController
   def destroy
     term = @entry.term_in_glossary_language
     if @entry.destroy
-      flash[:success] = "Entry \"#{term}\" has been deleted."
+      flash[:success] = I18n.t('ui.entry_deleted', :entry => term)
     end
     if !(request.referrer.blank?)
       redirect_to '/entries' + (request.referrer.slice(/\?.*/) || "")
@@ -91,7 +93,7 @@ class EntriesController < ApplicationController
 
   def authorize
     unless @entry.changeable_by?(current_user)
-      flash[:error] = "You are not authorized to edit this entry."
+      flash[:error] = I18n.t('ui.entry_changes_forbidden')
       redirect_to entry_path(@entry)
 #      render :text => 'Unauthorized', :status => :unauthorized
     end
@@ -99,7 +101,7 @@ class EntriesController < ApplicationController
 
   def manager_authorize
     unless manager?
-      flash[:error] = "Only managers can approve entries."
+      flash[:error] = I18n.t('ui.entry_approval_forbidden')
       redirect_to entry_path(@entry)
     end
   end

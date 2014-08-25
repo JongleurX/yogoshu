@@ -10,7 +10,7 @@
     .navbar.navbar-fixed-top
       .navbar-inner
         .container
-          = link_to Yogoshu, homepage_path, :class => "brand"
+          = link_to I18n.t('appname'), homepage_path, :class => "brand"
           - if logged_in?
             %ul.nav
               %li= link_to I18n.t('ui.menu_search'), homepage_path
@@ -28,8 +28,8 @@
                   %li= link_to I18n.t('ui.menu_logout'), logout_path
           - else
             = form_tag login_path, :method => :post, :class => "pull-right navbar-form" do
-              = text_field :user, :name, { :class => "input-small", :placeholder => "Username" }
-              = password_field :user, :password, { :class => "input-small", :placeholder => "Password" }
+              = text_field :user, :name, { :class => "input-small", :placeholder => I18n.t('ui.username') }
+              = password_field :user, :password, { :class => "input-small", :placeholder => I18n.t('ui.password') }
               = button_tag I18n.t('ui.menu_login'), :class => "btn"
     .container
       .content

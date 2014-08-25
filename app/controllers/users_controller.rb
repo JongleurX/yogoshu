@@ -17,10 +17,10 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      flash[:success] = "User #{@user.name} has been created."
+      flash[:success] = I18n.t('ui.user_created', :user => @user.name)
       redirect_to @user
     else
-      flash.now[:error] = "There were errors in the information entered."
+      flash.now[:error] = I18n.t('ui.data_entry_error')
       render "new"
     end
   end
@@ -31,10 +31,10 @@ class UsersController < ApplicationController
   def update
     name = @user.name
     if @user.update_attributes(params[:user])
-      flash[:success] = "User #{@user.name} has been updated."
+      flash[:success] = I18n.t('ui.user_updated', :user => @user.name)
       redirect_to @user
     else
-      flash.now[:error] = "There were errors in the information entered."
+      flash.now[:error] = I18n.t('ui.data_entry_error')
       # reset name in case it was changed
       @user.name = name
       render "edit"
@@ -43,7 +43,7 @@ class UsersController < ApplicationController
 
   def destroy
     if @user.destroy
-      flash[:success] = "User #{@user.name} has been destroyed."
+      flash[:success] = I18n.t('ui.user_deleted', :user => @user.name)
     end
     redirect_to users_path
   end

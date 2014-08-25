@@ -1,18 +1,18 @@
 - title @user.name
 .page-header
-  %h1 User profile
+  %h1=I18n.t('ui.user_profile')
 
 %table.table.table-bordered
   %tbody
     %tr
-      %th User name
+      %th=I18n.t('ui.username')
       %td= @user.name
     %tr
-      %th Role
+      %th=I18n.t('ui.user_role')
       %td= @user.role.capitalize
     %tr
-      %th Glossary entries added
+      %th=I18n.t('ui.user_entry_count')
       %td= @user.entries.length
     %tr
-      %th Registered on
+      %th=I18n.t('ui.user_registered_on')
       %td= @user.created_at.strftime('%B %d, %Y @ %l:%M %p')
