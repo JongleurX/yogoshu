@@ -37,6 +37,7 @@ ja:
     actions_delete: "削除する"
     entry_added_by: "作成者しました。"
     entry_updated_at: "最終更新日時："
+    entry_previous_versions: "前のバージョン"
     entry_status: "ステータス"
     actions: "アクション"
     edit_entry_header: "コンセプトの編集"

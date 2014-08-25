@@ -6,7 +6,8 @@ class Entry < ActiveRecord::Base
   Yogoshu::Locales.base_languages.each { |lang| attr_accessible :"term_in_#{lang}" }
   attr_accessible :approved, :as => :manager
 
-  translates :term
+  has_paper_trail
+  translates :term, :versioning => :paper_trail
 
   # associations
   belongs_to :user

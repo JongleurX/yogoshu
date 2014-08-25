@@ -47,13 +47,14 @@ class EntriesController < ApplicationController
 
   def approve
     if @entry.update_attributes({ :approved => params[:entry][:approved] }, :as => :manager)
-      #flash[:success] = "Entry \"#{@entry.term_in_glossary_language}\" has been #{(@entry.approved == true) ? "approved" : "unapproved"}."
       flash[:success] = I18n.t('ui.entry_approval_changed', :entry => @entry.term_in_glossary_language, :approval => (@entry.approved == true) ? I18n.t('ui.approved') : I18n.t('ui.unapproved') )
     else
-      #flash[:error] = "Entry \"#{@entry.term_in_glossary_language}\" approval status was not changed."
       flash[:error] = I18n.t('ui.entry_approval_unchanged', :entry => @entry.term_in_glossary_language)
     end
     redirect_to :back
+  end
+
+  def history
   end
 
   def edit

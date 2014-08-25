@@ -50,3 +50,19 @@
     %tbody
       %tr
         %td= auto_link(simple_format(@entry.note))
+  %table.table.table-bordered.translator-notes
+    %thead
+      %tr
+        %th=I18n.t('ui.entry_previous_versions')
+    %tbody
+      %tr
+        %td
+          %ul
+            %li= @entry.term_in_ja
+            %li= @entry.translation.versions
+            %li= @entry.translation.version
+            %li= @entry.translation.live?
+            %li= @entry.translation.originator
+            %li= @entry.translation.version_at(Time.now)
+            %li= @entry.translation.previous_version
+            %li= @entry.term_in_en

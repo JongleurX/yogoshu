@@ -8,6 +8,8 @@ gem 'globalize', '~> 3.1.0', :git => 'https://github.com/globalize/globalize.git
 gem 'thin'
 gem 'rails3-jquery-autocomplete'
 gem 'bcrypt', :require => 'bcrypt' # For encrypting passwords
+gem 'paper_trail', '~> 3.0.3' # For versioning
+gem 'globalize-versioning', '~> 0.1.0.alpha.1' # Interface between globalize and paper_trail
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -34,10 +36,10 @@ group :test, :development do
   gem 'spork', '~> 0.9.0.rc'
   gem 'launchy'
   gem 'simplecov', :require => false
-#  gem 'ruby-debug-base19x', '0.11.30.pre10'
+  # gem 'ruby-debug-base19x'
   gem 'debugger' unless ENV['CI']
+  gem 'debugger-xml' unless ENV['CI'] # Lets you debug with Ruby IDEs like vim-ruby-debugger
   gem 'database_cleaner'
-  gem 'capybara'
   gem 'timecop'
 end
 
@@ -47,15 +49,10 @@ gem 'kaminari'
 
 group :production do
   # gem 'mysql2', :git => 'https://github.com/brianmario/mysql2'
-  # gem 'pg'
-  gem 'sqlite3'
+  gem 'pg'
 end
 # Use unicorn as the web server
 # gem 'unicorn'
 
 # Deploy with Capistrano
 # gem 'capistrano'
-
-# To use debugger
-gem 'debugger'
-
