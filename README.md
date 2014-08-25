@@ -30,6 +30,19 @@ encrypted_password == User.encrypt(pass, salt)
 puts salt
 puts encrypted_password```
 
+# jeremy@Studio-XPS:~/dev/rails/yogoshu$ rails c
+# [deprecated] I18n.enforce_available_locales will default to true in the future. If you really want to skip validation of your locale you can set I18n.enforce_available_locales = false to avoid this message.
+# Loading development environment (Rails 3.2.19)
+# irb(main):008:0> name = 'jeremy'
+# => "jeremy"
+# irb(main):010:0> user = User.find(1)
+  # User Load (26.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+# => #<User id: 1, name: "jeremy", encrypted_password: "ehanUoNcZ9JVfTIJbSTwXpkbt8CxWcTu", salt: "$2a$10$7Y/4X018ecWtFNlCLBQxge", created_at: "2014-08-24 16:12:28", updated_at: "2014-08-24 16:12:28", role: "manager">
+# irb(main):011:0> salt = Digest::SHA1.hexdigest("--#{Time.now}--#{name}--")
+# => "a1c440e8927dcb40a52b6189eb8c4f0c05e125f5"
+# irb(main):013:0> encrypted_password = User.encrypt('tobydog',salt)
+# => "571c0178f1d50abf2ea1f74bfce9676950426df9"
+
 There's probably an easier way, but I'm using SQLite for development, so I installed the SQLite Database Browser, then entered the salt and the encrypted password for the user I created via the rails console through the Database Browser front-end.
 
 Configuration Options
