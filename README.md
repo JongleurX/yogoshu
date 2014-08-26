@@ -1,4 +1,4 @@
-yogoshu [![Build Status](https://secure.travis-ci.org/shioyama/yogoshu.png)](http://travis-ci.org/shioyama/yogoshu) 
+yogoshu [![Build Status](https://secure.travis-ci.org/JongleurX/yogoshu.png)](http://travis-ci.org/JongleurX/yogoshu) 
 =======
 
 
