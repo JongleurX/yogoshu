@@ -78,7 +78,7 @@ You can create additional accounts by clicking on the **Manage Users** link in t
 
 Configuration Options
 ---------------------
-In `/config/initializers/yogoshu.rb`, you can set the "parent" language (the one that drives the others and always requires a term to be filled in for the entry), as well as define which other languages you want to include in your glossary. Below is an example of how to set up a hexalingual glossary driven by Japanese.
+In `/config/initializers/yogoshu.rb`, you can set the "parent" language (the one that drives the others and always requires a term to be filled in for the entry), as well as define which other languages you want to include in your glossary. Below is an example of how to set up an octalingual glossary driven by Japanese.
 
 	# sets base languages to be used throughout the application
 	Yogoshu::Locales.set_base_languages(:ja, :en, :fr, :es, :pt, :de, :nl, :ar)
