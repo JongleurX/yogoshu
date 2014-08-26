@@ -59,7 +59,7 @@ Instead of entering all your terms and entries by hand, you can batch-import ter
 An example CSV file is provided in the Git repository as `import_test.csv`, but the syntax is shown below.
 
 	"term_in_ja","term_in_en","term_in_fr","term_in_es","term_in_pt","term_in_nl","term_in_de","term_in_it","term_in_ar"
-	"コンピューター","computer","ordinateur (f)","computadora (f)","computador (m)","computer (m)","blah","Rechner (m)","elaboratore (m)","الكمبيوتر"
+	"コンピューター","computer","ordinateur (f)","computadora (f)","computador (m)","computer (m)","Rechner (m)","elaboratore (m)","الكمبيوتر"
 	"卓球","ping pong","ping-pong","ping pong","ping pong","ping pong","Tischtennis","ping pong","بينج بونج"
 
 You can create additional accounts by clicking on the **Manage Users** link in the menu at the top of the page. Below is an overview of how the permissions work.
