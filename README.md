@@ -89,4 +89,5 @@ In `/config/initializers/yogoshu.rb`, you can set the "parent" language (the one
 Copyright
 ---------
 Copyright (c) 2014 Jeremy Bailey. See MIT-LICENSE for details.
+
 Copyright (c) 2011 Chris Salzberg. See MIT-LICENSE for details.
