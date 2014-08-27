@@ -4,7 +4,7 @@ gem 'rails', "3.2.13"
 
 gem 'haml'
 gem 'rails_autolink'
-gem 'globalize3', :git => 'git://github.com/svenfuchs/globalize3.git'
+gem 'globalize', :git => 'https://github.com/globalize/globalize.git', :branch => '3-1-stable'
 gem 'thin'
 gem 'rails3-jquery-autocomplete'
 
@@ -27,7 +27,7 @@ group :test, :development do
   gem 'sqlite3'
   gem 'factory_girl_rails'
   gem 'capybara'
-  gem 'capybara-webkit', :git => 'https://github.com/thoughtbot/capybara-webkit.git'
+  gem 'capybara-webkit', :git => 'https://github.com/thoughtbot/capybara-webkit.git', :tag => 'v1.3.0'
   gem 'jasmine'
   gem 'jasminerice'
   gem 'spork', '~> 0.9.0.rc'
