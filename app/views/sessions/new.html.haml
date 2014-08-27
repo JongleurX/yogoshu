@@ -1,12 +1,12 @@
-- title "Login"
+- title I18n.t('ui.menu_login')
 .page-header
   %h1
-    Login
+    =I18n.t('ui.menu_login')
 .row
   .span16
     = twitter_bootstrap_form_for @user, :url => login_path do |user|
-      = user.text_field :name, 'User name'
-      = user.password_field :password, 'Password'
+      = user.text_field :name, I18n.t('ui.username')
+      = user.password_field :password, I18n.t('ui.password')
       = user.actions do
-        = user.submit 'Login'
-        = button_tag 'Cancel', :type => 'reset', :class => 'btn'
+        = user.submit I18n.t('ui.menu_login')
+        = button_tag I18n.t('ui.cancel'), :type => 'reset', :class => 'btn'

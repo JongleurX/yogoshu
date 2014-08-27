@@ -1,0 +1,317 @@
+# Japanese translations for Ruby on Rails
+#
+# Last modified by Jeremy Bailey
+
+ja:
+  en: "英語"
+  ja: "日本語"
+  fr: "フランス語"
+  es: "スペイン語"
+  pt: "ポルトガル語"
+  nl: "オランダ語"
+  de: "ドイツ語"
+  ar: "アラビア語"
+
+  appname: "用語集"
+
+  ui:
+    title: "多言語の用語集"
+    home: "ホーム"
+    menu_search: "検索"
+    menu_add_entry: "コンセプトを追加"
+    menu_manage_users: "ユーザ管理"
+    menu_login: "ログイン"
+    menu_logout: "ログアウト"
+    username: "ユーザ名"
+    password: "パスワード"
+    login_success: "ログイン完了。%{username} さん、ようこそ!"
+    login_failed: "ログイン失敗。ユーザ名またはパスワードが正しくありません。もう一度お試し下さい。"
+    logout_success: "ログアウト完了。"    
+    menu_profile: "プロフィール"
+    search_header: "用語集の検索"
+    search_prompt: "検索語を入れてください..."
+    search_terms: "検索した内容: "
+    search_terms_none: "なし"
+    search_no_results: "一致するコンセプトは見つかりませんでした。."    
+    status_approved: "承認済み"
+    status_unapproved: "未承認"
+    actions_edit: "編集する"
+    actions_delete: "削除する"
+    entry_added_by: "作成者しました。"
+    entry_updated_at: "最終更新日時："
+    entry_previous_versions: "前のバージョン"
+    entry_status: "ステータス"
+    actions: "アクション"
+    edit_entry_header: "コンセプトの編集"
+    save_entry: "保存"    
+    entry_actions_delete_conf: "本当にこのコンセプトを削除しますか?"
+    entry_actions_approve: "承認する"        
+    entry_actions_unapprove: "未承認にする"
+    add_entry_header: "コンセプトの追加"
+    add_entry: "追加"
+    entry_created: "新しいコンセプトを作成しました。"
+    entry_updated: "コンセプト「 %{entry} 」を更新しました。"
+    entry_not_updated: "コンセプト「 %{entry} 」を更新できませんでした。"
+    entry_deleted: "コンセプト「 %{entry} 」を削除しました。"
+    entry_changes_forbidden: "このコンセプトを編集する権限を持っていません。"
+    entry_approval_forbidden: "コンセプトを承認できるのは管理者のみです。"
+    entry_approval_changed: "コンセプト「 %{entry} 」を%{approval}。"
+    entry_already_present: "は既に用語集に登録されています。"
+    approved: "承認しました"
+    unapproved: "未承認にしました" 
+    entry_approval_unchanged: "コンセプト %{entry} の承認ステータスを変更しませんでした。"
+    cancel: "もどる"
+    create: "作成"
+    add_entry_source_hint: "はこの用語集の親言語となっているため、一意でなければなりませんし、空欄にしてはいけません。"
+    add_entry_usage: "使用上の情報"
+    add_entry_usage_hint: "使用上の情報は、すべてのユーザが閲覧できます。"
+    add_entry_translator: "翻訳上の情報"
+    add_entry_translator_hint: "翻訳上の情報は、ログインしたユーザのみ閲覧できます。"
+    entry_creation_history: "%{author} が %{datetime} に%{added_by}" 
+    entry_update_history: "%{updated_by}%{datetime}"   
+    users_header_admin: "ユーザ管理"
+    users_header_contributor: "ユーザ一覧"      
+    user_profile: "ユーザ・プロフィール"
+    user_admin_functions: "管理者専用のアクション:" 
+    users_create: "ユーザの作成"
+    users_edit: "ユーザの編集: %{user}"
+    user_created: "ユーザ %{user} を作成しました。"
+    user_updated: "ユーザ %{user} を更新しました。"
+    user_deleted: "ユーザ %{user} を削除しました。"
+    password_confirmation: "パスワードの確認"
+    username_hint: "ユーザー名は3〜20文字で、英数字とアンダースコアのみ使えます。"
+    password_hint: "パスワードは4〜40文字でなければなりません。"
+    role_hint_contributor: "Contributor (参加者) は用語集にコンセプトを追加できます。"
+    role_hint_terminologist: "Manager (管理人) は用語集のコンセプトの追加や承認、新規ユーザを登録できます。"    
+    user_actions_delete_conf: "本当に %{user} を削除しますか?"
+    user_role: "ロール"
+    user_entry_count: "追加したコンセプトの数"
+    user_registered_on: "登録日時"
+    role_definitions: ["contributor", "manager"]
+    contributor: "参加者"
+    manager: "ターミノロジスト"    
+    data_entry_error: "記入したデータにエラーがありました。"
+        
+  date:
+    formats:
+      default: "%Y-%m-%d"
+      short: "%b %d"
+      long: "%B %d, %Y"
+
+    day_names:
+      - 日曜日
+      - 月曜日
+      - 火曜日
+      - 水曜日
+      - 木曜日
+      - 金曜日
+      - 土曜日
+    abbr_day_names:
+      - 日
+      - 月
+      - 火
+      - 水
+      - 木
+      - 金
+      - 土
+
+    month_names:
+      - ~
+      - 1月
+      - 2月
+      - 3月
+      - 4月
+      - 5月
+      - 6月
+      - 7月
+      - 8月
+      - 9月
+      - 10月
+      - 11月
+      - 12月
+    abbr_month_names:
+      - ~create
+      - 1月
+      - 2月
+      - 3月
+      - 4月
+      - 5月
+      - 6月
+      - 7月
+      - 8月
+      - 9月
+      - 10月
+      - 11月
+      - 12月
+    order:
+      - :year
+      - :month
+      - :day
+
+  time:
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      short: "%d %b %H:%M"
+      long: "%B %d, %Y %H:%M"
+    am: "am"
+    pm: "pm"
+
+  support:
+    array:
+      words_connector: "、"
+      two_words_connector: " と "
+      last_word_connector: "　及び "
+
+    select:
+      prompt: "選択してください"
+
+  number:
+    format:
+      separator: "."
+      delimiter: ","
+      precision: 3
+      significant: false
+      strip_insignificant_zeros: false
+
+    currency:
+      format:
+        format: "%u%n"
+        unit: "$"
+        separator: "."
+        delimiter: ","
+        precision: 2
+        significant: false
+        strip_insignificant_zeros: false
+
+    percentage:
+      format:
+        delimiter: ""
+
+    precision:
+      format:
+        delimiter: ""
+
+    human:
+      format:
+        delimiter: ""
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one:   "Byte"
+            other: "Bytes"
+          kb: "KB"
+          mb: "MB"
+          gb: "GB"
+          tb: "TB"
+      decimal_units:
+        format: "%n %u"
+        units:
+          unit: ""
+          thousand: Thousand
+          million: Million
+          billion: Billion
+          trillion: Trillion
+          quadrillion: Quadrillion
+
+  datetime:
+    distance_in_words:
+      half_a_minute: "half a minute"
+      less_than_x_seconds:
+        one:   "less than 1 second"
+        other: "less than %{count} seconds"
+      x_seconds:
+        one:   "1 second"
+        other: "%{count} seconds"
+      less_than_x_minutes:
+        one:   "less than a minute"
+        other: "less than %{count} minutes"
+      x_minutes:
+        one:   "1 minute"
+        other: "%{count} minutes"
+      about_x_hours:
+        one:   "about 1 hour"
+        other: "about %{count} hours"
+      x_days:
+        one:   "1 day"
+        other: "%{count} days"
+      about_x_months:
+        one:   "about 1 month"
+        other: "about %{count} months"
+      x_months:
+        one:   "1 month"
+        other: "%{count} months"
+      about_x_years:
+        one:   "about 1 year"
+        other: "about %{count} years"
+      over_x_years:
+        one:   "over 1 year"
+        other: "over %{count} years"
+      almost_x_years:
+        one:   "almost 1 year"
+        other: "almost %{count} years"
+    prompts:
+      year:   "Year"
+      month:  "Month"
+      day:    "Day"
+      hour:   "Hour"
+      minute: "Minute"
+      second: "Seconds"
+
+  helpers:
+    select:
+      prompt: "選択してください"
+
+    submit:
+      create: '%{model}　を作成'
+      update: '%{model}　を更新'
+      submit: '%{model}　を保存'
+
+  errors:
+    format: "%{attribute} %{message}"
+
+    messages: &errors_messages
+      inclusion: "　はリストに含まれていません"
+      exclusion: "is reserved"
+      invalid: "は不正です"
+      confirmation: "doesn't match confirmation"
+      accepted: "must be accepted"
+      empty: " を記入する必要があります"
+      blank: " を記入する必要があります"
+      too_long:
+        one: " は長すぎます(最大の文字数は 1 です)"
+        other: " は長すぎます(最大の文字数は %{count} です)"
+      too_short:
+        one: "は短すぎます(最小の文字数は 1 です)"
+        other: "は短すぎます(最小の文字数は %{count} です)"
+      wrong_length:
+        one: "is the wrong length (should be 1 character)"
+        other: "is the wrong length (should be %{count} characters)"
+      not_a_number: "is not a number"
+      not_an_integer: "must be an integer"
+      greater_than: "must be greater than %{count}"
+      greater_than_or_equal_to: "must be greater than or equal to %{count}"
+      equal_to: "must be equal to %{count}"
+      less_than: "must be less than %{count}"
+      less_than_or_equal_to: "must be less than or equal to %{count}"
+      odd: "must be odd"
+      even: "must be even"
+
+  activerecord:
+    errors:
+      template:
+        header:
+          one:    "1 error prohibited this %{model} from being saved"
+          other:  "%{count} errors prohibited this %{model} from being saved"
+        body: "There were problems with the following fields:"
+
+      messages:
+        taken: "has already been taken"
+        record_invalid: "Validation failed: %{errors}"
+        <<: *errors_messages
+
+      full_messages:
+        format: "%{attribute} %{message}"

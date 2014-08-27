@@ -7,9 +7,9 @@ class SessionsController < ApplicationController
   def create
     if @user = @current_user = User.authenticate(params[:user][:name], params[:user][:password])
       session[:user] = @user.name
-      flash[:message] = "You've successfully logged in. Welcome back #{@user.name}!"
+      flash[:message] = I18n.t('ui.login_success', :username => @user.name)
     else
-      flash.now[:error] = "Username or password incorrect. Please try again."
+      flash.now[:error] = I18n.t('ui.login_failed')
       @user = User.new(params[:user])
       render 'new' and return
     end
@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
 
   def destroy
     reset_session
-    flash[:message] = "You've successfully logged out."
+    flash[:message] = I18n.t('ui.logout_success')
     redirect_to homepage_path
   end
 

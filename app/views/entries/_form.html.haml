@@ -3,10 +3,9 @@
     = entry.text_field :"term_in_#{lang}", "#{I18n.t(lang).capitalize}", :class => "input-xlarge" do
       - if (lang == Entry.glossary_language)
         %p.help-block
-          #{I18n.t(lang).capitalize} is the source language for this glossary so terms in this language can't be blank and must be unique.
-  = entry.text_area :info, "Usage information", :class => "input-xxlarge", :rows => 3 do
-    %p.help-block
-      Usage information is viewable by all users.
-  = entry.text_area :note, "Translator notes", :class => "input-xxlarge", :rows => 3 do
-    %p.help-block
-      Translator notes are only viewable to logged-in users.
+          #{I18n.t(lang).capitalize}
+          =I18n.t('ui.add_entry_source_hint')
+  = entry.text_area :info, I18n.t('ui.add_entry_usage'), :class => "input-xxlarge", :rows => 3 do
+    %p.help-block= I18n.t('ui.add_entry_usage_hint')
+  = entry.text_area :note, I18n.t('ui.add_entry_translator'), :class => "input-xxlarge", :rows => 3 do
+    %p.help-block= I18n.t('ui.add_entry_translator_hint')

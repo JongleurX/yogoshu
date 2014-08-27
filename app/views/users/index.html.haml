@@ -1,21 +1,21 @@
-- title (page_title = manager? ? "Manage Users" : "Users")
+- title (page_title = manager? ? I18n.t('ui.users_header_admin') : I18n.t('ui.users_header_contributor'))
 .page-header
   %h1
     = page_title
   - if manager?
     .clearfix{ :style => "padding:10px 2px" }
-      Manager functions:
-      = link_to 'Create user', new_user_path
+      =I18n.t('ui.user_admin_functions')
+      = link_to I18n.t('ui.users_create'), new_user_path
 
 %table.table.table-bordered.table-striped
   %thead
     %tr
-      %th Username
-      %th Role
-      %th Glossary entries added
-      %th Registered on
+      %th=I18n.t('ui.username')
+      %th=I18n.t('ui.user_role')
+      %th=I18n.t('ui.user_entry_count')
+      %th=I18n.t('ui.user_registered_on')
       - if manager?
-        %th Actions
+        %th=I18n.t('ui.actions')
   %tbody
     - @users.each do |user|
       %tr
@@ -26,5 +26,5 @@
         %td= user.created_at.strftime('%B %d, %Y @ %l:%M %p')
         - if manager?
           %td
-            = link_to "delete", user, :confirm => "Are you sure you want to delete user \"#{user.name}\"?", :method => :delete, :class => "btn"
-            = link_to "edit", edit_user_path(user), :class => "btn"
+            = link_to I18n.t('ui.actions_delete'), user, :confirm => I18n.t('ui.user_actions_delete_conf', :user => user.name), :method => :delete, :class => "btn"
+            = link_to I18n.t('ui.actions_edit'), edit_user_path(user), :class => "btn"

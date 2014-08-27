@@ -6,7 +6,8 @@ class Entry < ActiveRecord::Base
   Yogoshu::Locales.base_languages.each { |lang| attr_accessible :"term_in_#{lang}" }
   attr_accessible :approved, :as => :manager
 
-  translates :term
+  has_paper_trail
+  translates :term, :versioning => :paper_trail
 
   # associations
   belongs_to :user
@@ -14,7 +15,7 @@ class Entry < ActiveRecord::Base
   # validations
   validates :user_id, :presence => true
   base_languages.each do |lang|
-    validates :"term_in_#{lang}", :presence => true, :translation_uniqueness => { :message => "is already in the glossary"}, :if => Proc.new { |entry| entry.glossary_language == :"#{lang}"}
+    validates :"term_in_#{lang}", :presence => true, :translation_uniqueness => { :message => I18n.t('ui.entry_already_present')}, :if => Proc.new { |entry| entry.glossary_language == :"#{lang}"}
   end
 
   def to_param

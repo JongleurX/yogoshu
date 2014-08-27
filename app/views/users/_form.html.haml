@@ -1,13 +1,12 @@
 = user.fieldset do
-  = user.text_field :name, 'User name' do
+  = user.text_field :name, I18n.t('ui.username') do
     %span.help-block
-      Usernames must be between 3 and 20 characters and only contain alphanumeric and underscore symbols.
-  = user.password_field :password, 'Password' do
+      =I18n.t('ui.username_hint')
+  = user.password_field :password, I18n.t('ui.password') do
     %span.help-block
-      Passwords must be between 4 and 40 characters.
-  = user.password_field :password_confirmation, 'Confirm password'
-  = user.collection_select :role, 'Role', User::ROLES, :to_s, :titleize do
+      =I18n.t('ui.password_hint')
+  = user.password_field :password_confirmation, I18n.t('ui.password_confirmation')
+  = user.collection_select :role, I18n.t('ui.user_role'), User::ROLES, :to_s, :titleize do
     %span.help-block
-      Contributors can add glossary entries.
-      %br Managers can add and approve glossary entries, and create new users.
-
+      =I18n.t('ui.role_hint_contributor')
+      %br=I18n.t('ui.role_hint_terminologist')
