@@ -3,6 +3,19 @@ Development Notes
 
 I'm an experienced terminologist and translator, but new to Rails. These are my notes to keep straight what does what.
 
+Testing
+-------
+
+h2. Before setting Capybara 1.1 behavior
+
+	58 scenarios (48 failed, 6 skipped, 4 passed)
+	382 steps (48 failed, 213 skipped, 1 undefined, 120 passed)
+
+h2. After setting Capybara 1.1 behvavior
+
+	58 scenarios (50 failed, 8 passed)
+	382 steps (50 failed, 86 skipped, 1 undefined, 245 passed)
+
 Active Record associations
 --------------------------
 
