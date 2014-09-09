@@ -41,9 +41,12 @@ In the `irb` prompt:
 
 Back in the terminal:
 
+	RAILS_ENV=development
 	rails s
 
-Finally, open a browser to http://0.0.0.0:3000/ and start hacking! In case it wasn't obvious from the command above, the default username and password is `admin`.
+Finally, open a browser to http://0.0.0.0:3000/ and start hacking! If you get an error in your browser, and a message in terminal is complaining about not being able to find `/favicon.ico`, chances are you are running with the `RAILS_ENV` environment variable set to `production`, and is assuming that you have precompiled assets.
+
+In case it wasn't obvious from the command above, the default username and password is `admin`.
 
 Requirements
 ------------
