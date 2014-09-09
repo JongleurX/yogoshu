@@ -29,14 +29,17 @@ end
 group :test, :development do
   gem 'sqlite3'
   gem 'factory_girl_rails'
-  gem 'capybara'
-  # gem 'capybara-webkit', :git => 'https://github.com/thoughtbot/capybara-webkit.git', :tag => 'v1.3.0'
+  gem 'capybara', '~> 2.4.1'
+  #gem 'capybara', '~> 1.1.2'
+  gem 'capybara-webkit', :git => 'https://github.com/thoughtbot/capybara-webkit.git', :tag => 'v1.3.0' # Works but many tests failing
+  #gem 'capybara-webkit', '~> 0.8.0' # Qt error
+  #gem 'capybara-webkit', :git => 'https://github.com/thoughtbot/capybara-webkit.git', :tag => 'v0.8.0' # Doesn't compile
   gem 'jasmine'
   gem 'jasminerice'
   gem 'spork', '~> 0.9.0.rc'
   gem 'launchy'
   gem 'simplecov', :require => false
-  # gem 'ruby-debug-base19x'
+  #gem 'ruby-debug-base19x'
   gem 'debugger' unless ENV['CI']
   gem 'debugger-xml' unless ENV['CI'] # Lets you debug with Ruby IDEs like vim-ruby-debugger
   gem 'database_cleaner'

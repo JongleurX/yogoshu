@@ -28,25 +28,29 @@ In a terminal:
 	bundle install
 	cp config/database_example.yml config/database.yml
 	bundle exec rake db:migrate
-	rails c
-
-In the `irb` prompt:
-
-	user = User.new(name: 'admin', password: 'admin', password_confirmation: 'admin')
-	user.salt = Digest::SHA1.hexdigest("--#{Time.now}--#{user.name}--")
-	user.encrypted_password = User.encrypt(user.password,user.salt)
-	user.role = 'admin'	
-	user.save
-	exit
-
-Back in the terminal:
-
+	bundle exec rake db:seed
 	RAILS_ENV=development
 	rails s
 
-Finally, open a browser to http://0.0.0.0:3000/ and start hacking! If you get an error in your browser, and a message in terminal is complaining about not being able to find `/favicon.ico`, chances are you are running with the `RAILS_ENV` environment variable set to `production`, and is assuming that you have precompiled assets.
+Finally, open a browser to http://0.0.0.0:3000/ and start hacking! Two users are created by default, `admin` and `contributor`, with the default passwords matching the username.
 
-In case it wasn't obvious from the command above, the default username and password is `admin`.
+If you get an error in your browser, and a message in terminal is complaining about not being able to find `/favicon.ico`, chances are you are running with the `RAILS_ENV` environment variable set to `production`, and is assuming that you have precompiled assets.
+
+If you get warnings like the ones below when you search for terms...and know how to fix it, please let me know!
+
+	NoMethodError in Entries#index
+	Showing /home/yogoshu/app/views/entries/index.html.haml where line #14 raised:
+	undefined method `gsub' for :term:Symbol
+
+Running Tests
+-------------
+
+	RAILS_ENV=test
+	rake db:reset
+	rake db:setup
+	rake db:test:prepare
+	rake cucumber
+
 
 Requirements
 ------------

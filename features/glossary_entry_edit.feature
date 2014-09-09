@@ -43,8 +43,6 @@ Feature: Edit glossary entry
     And I should see an error message: "You are not authorized to edit this entry."
 
   Scenario: Glossary manager edits other user's entry
-
-  Scenario Outline: Invalid edit
     Given I am logged in as "jens"
     And I am on the edit page for entry "りんご"
     When I fill in "Japanese" with ""

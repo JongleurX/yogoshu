@@ -16,6 +16,15 @@ GIT
       activemodel (>= 3.1.0, < 4.0.0)
       activerecord (>= 3.1.0, < 4.0.0)
 
+GIT
+  remote: https://github.com/thoughtbot/capybara-webkit.git
+  revision: 3099d859a3b16e98715360ea1317204b96ee7454
+  tag: v1.3.0
+  specs:
+    capybara-webkit (1.3.0)
+      capybara (>= 2.0.2, < 2.5.0)
+      json
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -51,15 +60,12 @@ GEM
     bcrypt (3.1.7)
     bootstrap-sass (2.0.4.2)
     builder (3.0.4)
-    capybara (1.1.4)
+    capybara (2.4.1)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
-      selenium-webdriver (~> 2.0)
-      xpath (~> 0.1.4)
-    childprocess (0.5.3)
-      ffi (~> 1.0, >= 1.0.11)
+      xpath (~> 2.0)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -101,7 +107,6 @@ GEM
     factory_girl_rails (4.4.1)
       factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
-    ffi (1.9.3)
     gherkin (2.12.2)
       multi_json (~> 1.3)
     globalize-versioning (0.1.0.alpha.1)
@@ -190,17 +195,11 @@ GEM
       rspec-mocks (~> 3.0.0)
       rspec-support (~> 3.0.0)
     rspec-support (3.0.4)
-    rubyzip (1.1.6)
     sass (3.4.1)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    selenium-webdriver (2.42.0)
-      childprocess (>= 0.5.0)
-      multi_json (~> 1.0)
-      rubyzip (~> 1.0)
-      websocket (~> 1.0.4)
     simplecov (0.9.0)
       docile (~> 1.1.0)
       multi_json
@@ -227,8 +226,7 @@ GEM
     uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    websocket (1.0.7)
-    xpath (0.1.4)
+    xpath (2.0.0)
       nokogiri (~> 1.3)
 
 PLATFORMS
@@ -237,7 +235,8 @@ PLATFORMS
 DEPENDENCIES
   bcrypt
   bootstrap-sass (~> 2.0.1)
-  capybara
+  capybara (~> 2.4.1)
+  capybara-webkit!
   coffee-rails (~> 3.2.1)
   cucumber-rails (~> 1.3)
   database_cleaner

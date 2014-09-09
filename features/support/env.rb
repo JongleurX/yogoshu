@@ -27,6 +27,10 @@ begin
 rescue LoadError
 end
 
+# Use the Capybara 1.x behavior because we have two username/password fields when
+# users aren't yet logged in.
+Capybara.match = :prefer_exact
+
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd
 # prefer to use XPath just remove this line and adjust any selectors in your
